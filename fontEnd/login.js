@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: formData.get('email')
         };
 
-        fetch('http://localhost:8080/listas/', {
+        fetch('http://localhost:8080/crear/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,4 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error:', error));
     });
+ 
 });
+
