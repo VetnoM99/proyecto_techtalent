@@ -1,0 +1,16 @@
+body {
+ font-family: Arial;
+ 
+}
+
+header {
+ background-color: rgb(159, 194, 225);
+
+ text-align: center;
+
+}
+
+#logo {
+ width: 30vw;
+ height: 30vh;
+}
