@@ -1,15 +1,17 @@
 body {
- font-family: Arial;
- padding: 0;
+font-family: Arial;
+margin: 0;
 }
 
 header {
  background-color: rgb(159, 194, 225);
- padding: 20px;
  text-align: center;
+ width: 100vw;
+ height: 40vh; 
+ box-sizing: border-box; 
 }
 
 #logo {
- max-width: 100%;
- height: auto;
+ width: 40vw;
+ height: 40vh;
 }
