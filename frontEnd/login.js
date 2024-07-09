@@ -1,63 +1,53 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Listener para cargar usuarios al cargar la página
-    listarUsuarios();
+    // listarUsuarios();
 
     // Formulario de creación de usuario
-    const createUserForm = document.getElementById('create-user-form');
+    const createUserForm = document.getElementById('add-user-form');
     createUserForm.addEventListener('submit', function (event) {
         event.preventDefault(); // Evitar el envío del formulario por defecto
         const username = document.getElementById('username').value.trim();
         const userpassword = document.getElementById('userpassword').value.trim();
         const email = document.getElementById('email').value.trim();
-        const imageUrl = document.getElementById('imageUrl').value.trim();
+        // const imageUrl = document.getElementById('imageUrl').value.trim();
 
-        if (username && userpassword && email && imageUrl) {
-            crearUsuario(username, userpassword, email, imageUrl);
+        if (username && userpassword && email ) {
+            crearUsuario(username, userpassword, email);
         } else {
             alert('Por favor completa todos los campos.');
         }
     });
 
-    // Función para eliminar un usuario
-    function eliminarUsuario(idUsuario) {
-        if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-            fetch(`http://localhost:8080/delete/${idUsuario}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
+    function deleteUser(userId) {
+        fetch(`http://localhost:8080/users/delete/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
             
-                throw new Error('Ocurrió un problema al eliminar el usuario.');
-            })
-            .then(data => {
-                console.log('Usuario eliminado exitosamente:', data);
-                // Actualizar la lista de usuarios después de eliminar
-                listarUsuarios();
-            })
-            .catch(error => {
-                console.error('Error al eliminar usuario:', error);
-                alert('Hubo un problema al eliminar el usuario.');
-            });
-        }
+            console.log('User deleted successfully');
+            // Aquí podrías refrescar la lista de usuarios o hacer cualquier otra acción
+        })
+        .catch(error => {
+            console.error('There was a problem with the delete operation:', error);
+        });
     }
+    
 
     // Función para crear un nuevo usuario
-    function crearUsuario(username, userpassword, email, imageUrl) {
+    function crearUsuario(username, userpassword, email,) {
         const newUser = {
             username: username,
             userpassword: userpassword,
             email: email,
-            registro: {
-                imageUrl: imageUrl
-            }
         };
 
-        fetch('http://localhost:8080/crear', {
+        fetch('http://localhost:8080/users/crear', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -76,9 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('username').value = '';
             document.getElementById('userpassword').value = '';
             document.getElementById('email').value = '';
-            document.getElementById('imageUrl').value = '';
+            // document.getElementById('imageUrl').value = '';
             // Actualizar la lista de usuarios después de crear uno nuevo
-            listarUsuarios();
+            // listarUsuarios();
         })
         .catch(error => {
             console.error('Error al crear usuario:', error);
@@ -86,44 +76,57 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Función para listar los usuarios y sus imágenes
-    function listarUsuarios() {
-        fetch('http://localhost:8080/')
-            .then(response => response.json())
-            .then(data => {
-                const userList = document.getElementById('user-list');
-               // Limpiar la lista antes de actualizarla
+    // // Función para listar los usuarios y sus imágenes
+    // function listarUsuarios() {
+    //     fetch('http://localhost:8080/users')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             const userList = document.getElementById('user-list');
+    //            // Limpiar la lista antes de actualizarla
 
-                data.forEach(user => {
-                    const userContainer = document.createElement('div');
-                    userContainer.classList.add('user-container');
+    //             data.forEach(user => {
+    //                 const userContainer = document.createElement('div');
+    //                 userContainer.classList.add('user-container');
 
-                    const usernameElement = document.createElement('h3');
-                    usernameElement.textContent = user.username;
-                    userContainer.appendChild(usernameElement);
+    //                 const usernameElement = document.createElement('h3');
+    //                 usernameElement.textContent = user.username;
+    //                 userContainer.appendChild(usernameElement);
 
-                    const emailElement = document.createElement('p');
-                    emailElement.textContent = user.email;
-                    userContainer.appendChild(emailElement);
+    //                 const emailElement = document.createElement('p');
+    //                 emailElement.textContent = user.email;
+    //                 userContainer.appendChild(emailElement);
 
-                    if (user.registro && user.registro.imageUrl) {
-                        const imagenElement = document.createElement('img');
-                        imagenElement.src = user.registro.imageUrl;
-                        userContainer.appendChild(imagenElement);
-                    }
+    //                 if (user.registro && user.registro.imageUrl) {
+    //                     const imagenElement = document.createElement('img');
+    //                     imagenElement.src = user.registro.imageUrl;
+    //                     userContainer.appendChild(imagenElement);
+    //                 }
 
-                    // Botón de eliminar
-                    const btnEliminar = document.createElement('button');
-                    btnEliminar.textContent = 'Eliminar';
-                    btnEliminar.addEventListener('click', () => eliminarUsuario(user.id));
-                    userContainer.appendChild(btnEliminar);
+    //                 // Botón de eliminar
+    //                 const btnEliminar = document.createElement('button');
+    //                 btnEliminar.textContent = 'Eliminar';
+    //                 btnEliminar.addEventListener('click', () => deleteUser(user.id));
+    //                 userContainer.appendChild(btnEliminar);
 
-                    userList.appendChild(userContainer);
-                });
-            })
-            .catch(error => {
-                console.error('Error al obtener usuarios:', error);
-                alert('Hubo un problema al cargar los usuarios.');
-            });
-    }
+    //                 userList.appendChild(userContainer);
+    //             });
+    //         })
+    //         .catch(error => {
+    //             console.error('Error al obtener usuarios:', error);
+    //             alert('Hubo un problema al cargar los usuarios.');
+    //         });
+    // }
+  // Obtener referencia al formulario y los campos de entrada
+
+    var containerLogin = document.querySelector('.container-login');
+    var backgroundImg = document.querySelector('.background-image');
+
+    containerLogin.addEventListener('mouseover', function() {
+        backgroundImg.style.filter = 'blur(2px)';
+    });
+
+    containerLogin.addEventListener('mouseout', function() {
+        backgroundImg.style.filter = 'blur(0px)';
+    });
 });
+
