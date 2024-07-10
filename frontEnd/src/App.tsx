@@ -1,15 +1,20 @@
+
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import './App.css';
+import NavBar from './components/NavBar';
+import FooterBar from './components/FooterBar';
+import { BrowserRouter as  Routes, Route, Link } from 'react-router-dom';
 import Login from './Login.tsx';
+
+
+
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <div className="App">
-        <header className="App-header">
-          <h1>Bienvenido a mi Aplicación</h1>
-        </header>
-        <main>
+    <div className="app-container">
+      <NavBar />
+      <div className="content">
+      <main>
           <Routes>
             <Route path="/login" element={<Login />} />
           </Routes>
@@ -18,7 +23,10 @@ const App: React.FC = () => {
           </Link>
         </main>
       </div>
-    </Router>
+      <FooterBar />
+    </div>
+    
+    
   );
 };
 
