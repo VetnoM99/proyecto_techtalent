@@ -1,7 +1,11 @@
+
 import React from 'react';
 import './App.css';
 import NavBar from './components/NavBar';
 import FooterBar from './components/FooterBar';
+
+
+
 
 const App: React.FC = () => {
   return (
