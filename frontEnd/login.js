@@ -18,25 +18,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    function deleteUser(userId) {
-        fetch(`http://localhost:8080/users/delete/${userId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+    // function deleteUser(userId) {
+    //     fetch(`http://localhost:8080/users/delete/${userId}`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
             
-            console.log('User deleted successfully');
-            // Aquí podrías refrescar la lista de usuarios o hacer cualquier otra acción
-        })
-        .catch(error => {
-            console.error('There was a problem with the delete operation:', error);
-        });
-    }
+    //         console.log('User deleted successfully');
+    //         // Aquí podrías refrescar la lista de usuarios o hacer cualquier otra acción
+    //     })
+    //     .catch(error => {
+    //         console.error('There was a problem with the delete operation:', error);
+    //     });
+    // }
     
 
     // Función para crear un nuevo usuario
