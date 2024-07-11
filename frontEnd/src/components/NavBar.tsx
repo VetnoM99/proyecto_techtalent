@@ -19,10 +19,12 @@ const pages = ['Inicio', 'Quiénes somos', 'Proyecto', 'Contacto', 'Participa'];
 const settings = ['Iniciar sesión', 'Registrarse'];
 
 const NavBar: React.FC = () => {
+  // @ts-ignore
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
 
+  // @ts-ignore
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
