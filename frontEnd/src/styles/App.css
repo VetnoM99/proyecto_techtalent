@@ -1,6 +1,8 @@
 html, body {
   height: 100%;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(184, 211, 235);
 }
 
 .app-container {
@@ -19,4 +21,7 @@ html, body {
 button {
   padding: 10px 20px;
   font-size: 16px;
+}
+input {
+  margin: 10px;
 }

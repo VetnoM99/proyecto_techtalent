@@ -13,8 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import backgroundImage from '../assets/Atardecer.jpg';
-import avatarImage from '../assets/logoweb.png';  // Importa la imagen del avatar
-
+import avatarImage from '../assets/logoweb.png';  
 const pages = ['Inicio', 'Quiénes somos', 'Proyecto', 'Contacto', 'Participa'];
 const settings = ['Iniciar sesión', 'Registrarse'];
 
