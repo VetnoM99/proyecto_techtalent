@@ -13,18 +13,20 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import backgroundImage from '../assets/Atardecer.jpg';
+import avatarImage from '../assets/logoweb.png';  // Importa la imagen del avatar
 
 const pages = ['Inicio', 'Quiénes somos', 'Proyecto', 'Contacto', 'Participa'];
-const settings = [ 'Iniciar sesión', 'Registrarse'];
+const settings = ['Iniciar sesión', 'Registrarse'];
 
-function NavBar() {
+const NavBar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -45,62 +47,47 @@ function NavBar() {
   return (
     <AppBar position="static" sx={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Toolbar disableGutters sx={{ justifyContent: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+            <Box sx={{ flexGrow: 1 }} />
             <Box
               component="img"
               src={logo}
+              alt="Logo"
               sx={{
-                height: 60,
+                height: 110,
                 mr: 2,
               }}
             />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                display: { xs: 'none', md: 'block' },
-              }}
-            >
-              LOGO
-            </Typography>
-          </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={setting === 'Iniciar sesión' ? handleLoginClick : handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            
+            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Avatar" src={avatarImage} />  
+                </IconButton>
+              </Tooltip>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={setting === 'Iniciar sesión' ? handleLoginClick : handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
           </Box>
         </Toolbar>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
