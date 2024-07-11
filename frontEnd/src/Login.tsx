@@ -19,7 +19,6 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         setMessage('Login exitoso');
-        // Aquí podrías redirigir a otra página o realizar otras acciones después del login exitoso
       } else if (response.status === 401) {
         setMessage('Contraseña incorrecta');
       } else if (response.status === 404) {
