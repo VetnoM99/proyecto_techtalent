@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,7 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import backgroundImage from '../assets/Atardecer.jpg';
 import avatarImage from '../assets/logoweb.png';  
-const pages = ['Inicio', 'Quiénes somos', 'Proyecto', 'Contacto', 'Participa'];
+
+const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
 const settings = ['Iniciar sesión', 'Registrarse'];
 
 const NavBar: React.FC = () => {
@@ -43,6 +44,12 @@ const NavBar: React.FC = () => {
   const handleLoginClick = () => {
     handleCloseUserMenu();
     navigate('/login');
+  };
+
+  const handleNavClick = (page: string) => {
+    handleCloseNavMenu();
+    const pageRoute = page.toLowerCase().replace(/ /g, '-');
+    navigate(`/${pageRoute}`);
   };
 
   return (
@@ -95,7 +102,7 @@ const NavBar: React.FC = () => {
           {pages.map((page) => (
             <Button
               key={page}
-              onClick={handleCloseNavMenu}
+              onClick={() => handleNavClick(page)}
               sx={{ mx: 2, color: 'white', fontSize: '1.2rem' }}
             >
               {page}
