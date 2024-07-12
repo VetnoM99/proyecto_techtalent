@@ -5,23 +5,62 @@ html, body {
   background-color: rgb(184, 211, 235);
 }
 
+
 .app-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 75vh;
+  justify-content: center; 
+  align-items: center; 
 }
 
+
 .content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 300px; 
+  padding: 20px;
+  background-color: #fff; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.input-container {
+  margin-bottom: 25px; 
+}
+
+
+label {
+  margin-bottom: 10px; 
+}
+
 
 button {
   padding: 10px 20px;
   font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.4s ease;
+  -webkit-transition: background-color 0.4s ease;
+  -moz-transition: background-color 0.4s ease;
+  -ms-transition: background-color 0.4s ease;
+  -o-transition: background-color 0.4s ease;
 }
-input {
-  margin: 10px;
+
+button:hover {
+  background-color: #5091d7; 
+}
+
+
+p {
+  margin-top: 10px; 
+  font-size: 14px; 
+  color: gray; 
 }
