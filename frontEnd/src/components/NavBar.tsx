@@ -2,116 +2,70 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import backgroundImage from '../assets/Atardecer.jpg';
-import avatarImage from '../assets/logoweb.png';  
 
 const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
-const settings = ['Iniciar sesión', 'Registrarse'];
 
 const NavBar: React.FC = () => {
-  // @ts-ignore
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
 
-  // @ts-ignore
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleNavClick = (page: string) => {
+    const pageRoute = page.toLowerCase().replace(/ /g, '-');
+    navigate(`/${pageRoute}`);
   };
 
   const handleLoginClick = () => {
-    handleCloseUserMenu();
     navigate('/login');
   };
 
-  const handleNavClick = (page: string) => {
-    handleCloseNavMenu();
-    const pageRoute = page.toLowerCase().replace(/ /g, '-');
-    navigate(`/${pageRoute}`);
+  const handleRegisterClick = () => {
+    navigate('/register');
   };
 
   return (
     <AppBar position="static" sx={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ justifyContent: 'center' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-            <Box sx={{ flexGrow: 1 }} />
+        <Toolbar disableGutters>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box
               component="img"
               src={logo}
               alt="Logo"
               sx={{
-                height: 110,
+                height: 50,
                 mr: 2,
               }}
             />
-            
-            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Avatar" src={avatarImage} />  
-                </IconButton>
-              </Tooltip>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: 'flex', justifyContent: 'center', flexGrow: 2 }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={() => handleNavClick(page)}
+                sx={{ mx: 2, color: 'white', fontSize: '1.2rem' }}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={setting === 'Iniciar sesión' ? handleLoginClick : handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+                {page}
+              </Button>
+            ))}
+          </Box>
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={handleLoginClick} sx={{ mx: 1, color: 'white', fontSize: '1rem' }}>
+              Iniciar sesión
+            </Button>
+            <Button onClick={handleRegisterClick} sx={{ mx: 1, color: 'white', fontSize: '1rem' }}>
+              Registrarse
+            </Button>
           </Box>
         </Toolbar>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          {pages.map((page) => (
-            <Button
-              key={page}
-              onClick={() => handleNavClick(page)}
-              sx={{ mx: 2, color: 'white', fontSize: '1.2rem' }}
-            >
-              {page}
-            </Button>
-          ))}
-        </Box>
       </Container>
     </AppBar>
   );
 }
 
 export default NavBar;
+
