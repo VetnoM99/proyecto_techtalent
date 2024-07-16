@@ -6,7 +6,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
-import backgroundImage from '../assets/Atardecer.jpg';
 
 const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
 
@@ -27,9 +26,10 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
+    <AppBar position="static" sx={{ background:'#f3f4ef', backgroundSize: 'cover', height: '14vh' }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '20px', paddingBottom: '20px' }}>
+          {/* Logo */}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box
               component="img"
@@ -37,27 +37,37 @@ const NavBar: React.FC = () => {
               alt="Logo"
               sx={{
                 height: 50,
-                mr: 2,
               }}
             />
           </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: 'flex', justifyContent: 'center', flexGrow: 2 }}>
+
+          {/* Páginas */}
+          <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', marginLeft: '20px' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => handleNavClick(page)}
-                sx={{ mx: 2, color: 'white', fontSize: '1.2rem' }}
+                sx={{ mx: 2, color: 'black', fontSize: '1.2rem' }}
               >
                 {page}
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-            <Button onClick={handleLoginClick} sx={{ mx: 1, color: 'white', fontSize: '1rem' }}>
+
+          {/* Botones de Login y Registro */}
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+              onClick={handleLoginClick}
+              variant="outlined"
+              sx={{ mx: 1, color: 'white', fontSize: '1rem', borderColor: 'white', background: '#212832', '&:hover': { background: 'white', color: 'black' } }}
+            >
               Iniciar sesión
             </Button>
-            <Button onClick={handleRegisterClick} sx={{ mx: 1, color: 'white', fontSize: '1rem' }}>
+            <Button
+              onClick={handleRegisterClick}
+              variant="outlined"
+              sx={{ mx: 1, color: 'white', fontSize: '1rem', borderColor: 'white', background: '#212832', '&:hover': { background: 'white', color: 'black' } }}
+            >
               Registrarse
             </Button>
           </Box>
@@ -68,4 +78,3 @@ const NavBar: React.FC = () => {
 }
 
 export default NavBar;
-
