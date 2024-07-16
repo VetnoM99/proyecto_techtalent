@@ -10,10 +10,7 @@ const FooterBar: React.FC = () => {
         py: 3,
         px: 2,
         mt: 'auto',
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
-        position: 'fixed',
-        bottom: 0,
+        backgroundColor: '#3c3c3c',
         width: '100%',
       }}
       component="footer"

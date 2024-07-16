@@ -64,3 +64,39 @@ p {
   font-size: 14px; 
   color: gray; 
 }
+.custom-image-gallery-item {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  transition: transform 0.5s ease;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-image-gallery-item.active {
+  transform: translateX(-50%) translateY(0%);
+}
+
+.custom-image-gallery-item img {
+  width: 30px; /* Ajusta el tamaño deseado */
+  height: 30px; /* Ajusta el tamaño deseado */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.custom-image-gallery-item:nth-child(2) {
+  z-index: 1;
+}
+
+.custom-image-gallery-item:nth-child(3) {
+  z-index: 2;
+}
+
+.custom-image-gallery-item:nth-child(4) {
+  z-index: 3;
+}
+
+.custom-image-gallery-item:nth-child(5) {
+  z-index: 4;
+}
