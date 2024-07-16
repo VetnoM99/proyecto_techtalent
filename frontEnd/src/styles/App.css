@@ -79,8 +79,8 @@ p {
 }
 
 .custom-image-gallery-item img {
-  width: 30px; /* Ajusta el tamaño deseado */
-  height: 30px; /* Ajusta el tamaño deseado */
+  width: 50px; 
+  height: 50px; 
   object-fit: cover;
   border-radius: 8px;
 }

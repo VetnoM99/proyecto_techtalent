@@ -64,10 +64,10 @@ const QuienesSomos: React.FC = () => {
                         showThumbnails={false} 
                         showPlayButton={false} 
                         autoPlay={true} 
-                        slideInterval={5000} // Intervalo en milisegundos (5 segundos)
-                        slideDuration={500} // Duración de la transición en milisegundos
-                        showNav={false} // Ocultar las flechas de navegación
-                        showFullscreenButton={false} // Ocultar botón de pantalla completa
+                        slideInterval={5000}
+                        slideDuration={500}
+                        showNav={false} 
+                        showFullscreenButton={false} 
                         renderItem={(item) => (
                             <div className="image-gallery-image">
                                 <img src={item.original} alt={item.description} style={{ maxHeight: '270px', objectFit: 'contain' }} />
