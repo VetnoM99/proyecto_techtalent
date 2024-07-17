@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Typography, Box } from '@mui/material';
-import ImageGallery from 'react-image-gallery';
+import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 import PuertoImage from '../assets/Puerto 0.jpg';
@@ -9,8 +9,27 @@ import PaellaImage from '../assets/Paella OK .jpg';
 import TicketImage from '../assets/Ticket1.jpg';
 import AppImage from '../assets/App.jpg';
 
+import Montserrat from '../assets/RESTAURANT MONTSERRAT PEIX I MARISC.png';
+import Indret from '../assets/RESTAURANT & LOUNGE LINDRET.png';
+import Kema from '../assets/RESTAURANT BRASAS & COCKTAIL KEMA.png';
+import Posit from '../assets/RESTAURANT EL PÒSIT.png';
+import Roce from '../assets/ARROCERÍA ROCE.png';
+import Montserrat2 from '../assets/hover-RESTAURANT MONTSERRAT PEIX I MARISC.png';
+import Indret2 from '../assets/hover-RESTAURANT & LOUNGE LINDRET.png';
+import Kema2 from '../assets/hover-RESTAURANT BRASAS & COCKTAIL KEMA.png';
+import Posit2 from '../assets/hover-RESTAURANT EL PÒSIT.png';
+import Roce2 from '../assets/hover-ARROCERÍA ROCE.png';
+
+interface GalleryItem extends ReactImageGalleryItem {
+    hoverImage: string;
+    link: string;
+}
+
 const QuienesSomos: React.FC = () => {
-    const images = [
+    const [hoveredRestaurant, setHoveredRestaurant] = useState<string | null>(null);
+    const [carouselPaused, setCarouselPaused] = useState<boolean>(false);
+
+    const images: ReactImageGalleryItem[] = [
         {
             original: PuertoImage,
             thumbnail: PuertoImage,
@@ -38,6 +57,58 @@ const QuienesSomos: React.FC = () => {
         },
     ];
 
+    const images2: GalleryItem[] = [
+        {
+            original: Montserrat,
+            thumbnail: Montserrat,
+            description: 'Montserrat',
+            hoverImage: Montserrat2,
+            link: 'https://www.restaurantmontserrat.com/'
+        },
+        {
+            original: Kema,
+            thumbnail: Kema,
+            description: 'Kema',
+            hoverImage: Kema2,
+            link: 'https://kemacambrils.com/'
+        },
+        {
+            original: Roce,
+            thumbnail: Roce,
+            description: 'Roce',
+            hoverImage: Roce2,
+            link: 'https://micuerpopideroce.com/'
+        },
+        {
+            original: Posit,
+            thumbnail: Posit,
+            description: 'Posit',
+            hoverImage: Posit2,
+            link: 'https://www.elposit.com/es/restaurantes/el-posit-de-cambrils'
+        },
+        {
+            original: Indret,
+            thumbnail: Indret,
+            description: 'Indret',
+            hoverImage: Indret2,
+            link: 'https://www.lindretdecambrils.com/'
+        },
+    ];
+
+    const handleMouseOver = (index: number) => {
+        setHoveredRestaurant(images2[index].hoverImage);
+        setCarouselPaused(true);
+    };
+
+    const handleMouseOut = () => {
+        setHoveredRestaurant(null);
+        setCarouselPaused(false);
+    };
+
+    const handleImageClick = (url: string) => {
+        window.open(url, '_blank'); // Abrir enlace en una nueva pestaña
+    };
+
     return (
         <Container>
             <Box my={4} textAlign="center">
@@ -62,15 +133,17 @@ const QuienesSomos: React.FC = () => {
                     <ImageGallery 
                         items={images} 
                         showThumbnails={false} 
-                        showPlayButton={false} 
                         autoPlay={true} 
                         slideInterval={5000}
                         slideDuration={500}
                         showNav={false} 
-                        showFullscreenButton={false} 
                         renderItem={(item) => (
                             <div className="image-gallery-image">
-                                <img src={item.original} alt={item.description} style={{ maxHeight: '270px', objectFit: 'contain' }} />
+                                <img 
+                                    src={item.original} 
+                                    alt={item.description} 
+                                    style={{ maxHeight: '270px', objectFit: 'contain',  }} 
+                                />
                             </div>
                         )}
                     />
@@ -87,6 +160,30 @@ const QuienesSomos: React.FC = () => {
                 <Typography variant="h5" component="h1" gutterBottom>
                     Restaurantes colaboradores del proyecto:
                 </Typography>
+                <Box my={4} maxWidth="80%" margin="0 auto">
+                    <ImageGallery 
+                        items={images2} 
+                        showThumbnails={false} 
+                        showPlayButton={false} 
+                        autoPlay={!carouselPaused} 
+                        slideInterval={5000}
+                        slideDuration={500}
+                        showNav={false} 
+                        showFullscreenButton={false} 
+                        onMouseOver={(event, index) => handleMouseOver(index as number)} 
+                        onMouseLeave={handleMouseOut}
+                        renderItem={(item: GalleryItem) => (
+                            <div className="image-gallery-image" style={{ cursor: 'pointer' }}>
+                                <img 
+                                    src={hoveredRestaurant === item.hoverImage ? item.hoverImage : item.original} 
+                                    alt={item.description} 
+                                    style={{ maxHeight: '270px', objectFit: 'contain', borderRadius: '8px' }} 
+                                    onClick={() => handleImageClick(item.link)} // Abre el enlace al hacer clic en la imagen
+                                />
+                            </div>
+                        )}
+                    />
+                </Box>
             </Box>
         </Container>
     );

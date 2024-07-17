@@ -26,47 +26,46 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ background:'#f3f4ef', backgroundSize: 'cover', height: '14vh' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '20px', paddingBottom: '20px' }}>
-          {/* Logo */}
+    <AppBar position="static" sx={{ background:'#f3f4ef' }}>
+      <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '12vh' }}>
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+          
+          
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box
               component="img"
               src={logo}
               alt="Logo"
-              sx={{
-                height: 50,
-              }}
+              sx={{ height: 40, marginLeft: 2 }}
             />
           </Box>
 
-          {/* Páginas */}
-          <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', marginLeft: '20px' }}>
+          
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexGrow: 1 }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => handleNavClick(page)}
-                sx={{ mx: 2, color: 'black', fontSize: '1.2rem' }}
+                sx={{ color: 'black', fontSize: '0.9rem', padding: '0 8px' }}
               >
                 {page}
               </Button>
             ))}
           </Box>
 
-          {/* Botones de Login y Registro */}
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2 }}>
             <Button
               onClick={handleLoginClick}
               variant="outlined"
-              sx={{ mx: 1, color: 'white', fontSize: '1rem', borderColor: 'white', background: '#212832', '&:hover': { background: 'white', color: 'black' } }}
+              sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '5px 15px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
             >
               Iniciar sesión
             </Button>
             <Button
               onClick={handleRegisterClick}
               variant="outlined"
-              sx={{ mx: 1, color: 'white', fontSize: '1rem', borderColor: 'white', background: '#212832', '&:hover': { background: 'white', color: 'black' } }}
+              sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '5px 15px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
             >
               Registrarse
             </Button>
@@ -78,3 +77,4 @@ const NavBar: React.FC = () => {
 }
 
 export default NavBar;
+

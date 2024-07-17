@@ -9,6 +9,7 @@ import Proyecto from './pages/Proyecto';
 import Contacto from './pages/Contacto';
 import Participa from './pages/Participa';
 import Login from './settings/Login';
+import Register from './settings/Register'
 
 const App: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const App: React.FC = () => {
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/participa" element={<Participa />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </Box>
         <FooterBar />
