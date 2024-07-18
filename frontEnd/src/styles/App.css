@@ -60,9 +60,9 @@ button:hover {
 }
 
 
-p {
+p, ul {
   margin-top: 10px; 
-  font-size: 30px; 
-  color: gray; 
+  font-size: 20px; 
+  color: slategray; 
 }
 
