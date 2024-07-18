@@ -22,10 +22,10 @@ const Proyecto: React.FC = () => {
                 <Box my={2}>
                     <ul>
                     <li>Restauración de arrecifes 🌾 🌰</li>
-                    <li>Ayuda al seguimiento y cuidado de especies protegidas🐋🐟</li>
-                    <li>Control riguroso contra las pescas de arrastre ⛴⚡</li>
-                    <li>Limpieza en Playas y recogida de plásticos en el mar 🍼📦</li>
-                    <li>Investigación sobre el Cambio Climático ♻🆙</li>
+                    <li>Ayuda al seguimiento y cuidado de especies protegidas 🐋 🐟</li>
+                    <li>Control riguroso contra las pescas de arrastre ⛴ ⚡</li>
+                    <li>Limpieza en Playas y recogida de plásticos en el mar 🍼 📦 </li>
+                    <li>Investigación sobre el cambio climático ♻ 🆙 </li>
                     </ul>
                 </Box>
                 <Box display="flex" justifyContent="space-between" flexWrap="wrap">
