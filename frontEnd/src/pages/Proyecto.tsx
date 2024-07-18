@@ -4,31 +4,35 @@ import Poject1 from '../assets/CORAL RESTORATION FOUNDATION.png';
 import Poject2 from '../assets/MARINE CONSERVATION INSTITUTE .png';
 import Poject3 from '../assets/PROJECT AWARE.png';
 import Poject4 from '../assets/SEA SHEPSHERD CONSERVATION SOCIETY.png';
+import Corals from '../assets/corales.jpg';
+import Aware from '../assets/aware 1.jpg';
+import Shepherd from '../assets/shepherd.jpg';
+import Marine from '../assets/marine conservation.png';
 
-// Estilos para el efecto de difuminado
-import '../styles/Proyecto.css'; // Asegúrate de tener un archivo Proyecto.css o usar estilos en línea
+
+import '../styles/Proyecto.css'; 
 
 const Proyecto: React.FC = () => {
     return (
         <Container>
             <Box my={4}>
                 <Typography variant="h2" component="h1" gutterBottom>
-                    Proyecto
+                    Proyecto R.A.C.L.I.
                 </Typography>
                 <Box my={2}>
-                    <Typography variant="h6" component="h2" gutterBottom>
-                        Lista de Actividades
-                    </Typography>
                     <ul>
-                        <li>Proyecto de restauración de arrecifes 🌾 🌰</li>
-                        <li>Limpieza en playas y recogida de plásticos 🍼 📦</li>
-                        <li>Investigación sobre el cambio climático ♻ 🆙</li>
+                    <li>Restauración de arrecifes 🌾 🌰</li>
+                    <li>Ayuda al seguimiento y cuidado de especies protegidas🐋🐟</li>
+                    <li>Control riguroso contra las pescas de arrastre ⛴⚡</li>
+                    <li>Limpieza en Playas y recogida de plásticos en el mar 🍼📦</li>
+                    <li>Investigación sobre el Cambio Climático ♻🆙</li>
                     </ul>
                 </Box>
                 <Box display="flex" justifyContent="space-between" flexWrap="wrap">
                     {/* Imagen 1 */}
                     <Box className="image-container">
-                        <img src={Poject1} alt="Proyecto 1" />
+                        <img src={Poject1} alt="Proyecto 1" className="main-image"/>
+                        <img src={Corals} alt="Corals" className="hover-image"/>
                         <Box className="overlay">
                             <Link href="https://www.coralfoundation.org" target="_blank" rel="noopener">
                                 Visitar web
@@ -37,7 +41,8 @@ const Proyecto: React.FC = () => {
                     </Box>
                     {/* Imagen 2 */}
                     <Box className="image-container">
-                        <img src={Poject2} alt="Proyecto 2" />
+                        <img src={Poject2} alt="Proyecto 2" className="main-image"/>
+                        <img src={Marine} alt="Marine" className="hover-image"/>
                         <Box className="overlay">
                             <Link href="https://www.marine-conservation.org" target="_blank" rel="noopener">
                                 Visitar web
@@ -46,7 +51,8 @@ const Proyecto: React.FC = () => {
                     </Box>
                     {/* Imagen 3 */}
                     <Box className="image-container">
-                        <img src={Poject3} alt="Proyecto 3" />
+                        <img src={Poject3} alt="Proyecto 3" className="main-image"/>
+                        <img src={Aware} alt="Aware" className="hover-image"/>
                         <Box className="overlay">
                             <Link href="https://www.projectaware.org" target="_blank" rel="noopener">
                                 Visitar web
@@ -55,7 +61,8 @@ const Proyecto: React.FC = () => {
                     </Box>
                     {/* Imagen 4 */}
                     <Box className="image-container">
-                        <img src={Poject4} alt="Proyecto 4" />
+                        <img src={Poject4} alt="Proyecto 4" className="main-image"/>
+                        <img src={Shepherd} alt="Shepherd" className="hover-image"/>
                         <Box className="overlay">
                             <Link href="https://www.seashepherd.org" target="_blank" rel="noopener">
                                 Visitar web
@@ -69,3 +76,4 @@ const Proyecto: React.FC = () => {
 };
 
 export default Proyecto;
+
