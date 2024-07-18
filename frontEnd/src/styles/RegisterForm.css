@@ -7,7 +7,12 @@
     border-radius: 5px;
     background-color: white;
     background-size: contain;
-  }
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    z-index: 1;
+}
   
   .register-form-container h2 {
     text-align: center;

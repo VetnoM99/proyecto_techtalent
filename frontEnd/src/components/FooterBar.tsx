@@ -12,12 +12,13 @@ const FooterBar: React.FC = () => {
         mt: 'auto',
         backgroundColor: '#3c3c3c',
         width: '100%',
+        color: 'white',
       }}
       component="footer"
     >
       <Container maxWidth="lg">
         <Typography variant="body1">
-          © 2024 PortNet
+          © 2024 PortNet. Todos los derechos reservados.
         </Typography>
       </Container>
     </Box>

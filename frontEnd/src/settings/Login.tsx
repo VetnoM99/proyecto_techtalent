@@ -35,7 +35,7 @@ const Login: React.FC = () => {
   return (
     <div className="app-container">
       <div className="content">
-        <h2>Iniciar sesión</h2>
+        <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="input-container">
             <label htmlFor="username">Usuario: </label>
