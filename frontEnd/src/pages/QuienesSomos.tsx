@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Typography, Box, Card, CardContent, } from '@mui/material';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import '../styles/QuienesSomos.css'; // Importa tus estilos
 
 import PuertoImage from '../assets/Puerto 0.jpg';
 import PulpoImage from '../assets/Pulpo 2.jpg';
@@ -20,7 +21,7 @@ import Kema2 from '../assets/hover-RESTAURANT BRASAS & COCKTAIL KEMA.png';
 import Posit2 from '../assets/hover-RESTAURANT EL PÒSIT.png';
 import Roce2 from '../assets/hover-ARROCERÍA ROCE.png';
 
-interface GalleryItem extends ReactImageGalleryItem {
+interface CustomGalleryItem extends ReactImageGalleryItem {
     hoverImage: string;
     link: string;
 }
@@ -57,7 +58,7 @@ const QuienesSomos: React.FC = () => {
         },
     ];
 
-    const images2: GalleryItem[] = [
+    const images2: CustomGalleryItem[] = [
         {
             original: Montserrat,
             thumbnail: Montserrat,
@@ -110,14 +111,19 @@ const QuienesSomos: React.FC = () => {
     };
 
     return (
-        <Container>
-            <Box my={4} textAlign="center">
+        <Container className="container">
+            <Box className="header">
                 <Typography variant="h2" component="h1" gutterBottom>
                     Quiénes somos
                 </Typography>
-                <Typography variant="body1" paragraph>
+                <Typography variant="h6" component="p">
                     "Del mar a tu mesa". Nos comprometemos a ofrecer productos de la más alta calidad mientras protegemos nuestras costas.
                     Con el proyecto 'Port⭕Net', lideramos la lucha contra el plástico y las prácticas insostenibles.
+                </Typography>
+            </Box>
+            <Box className="intro">
+                <Typography variant="h4" component="h2" gutterBottom>
+                    Nuestro Compromiso
                 </Typography>
                 <Typography variant="body1" paragraph>
                     Con cada ticket de compra que el cliente haga en uno de nuestros restaurantes/socios, aportará una pequeña cantidad a 
@@ -129,61 +135,79 @@ const QuienesSomos: React.FC = () => {
                     dispongas del tiempo para poderlo hacer, no te preocupes. Cada seis meses hacemos recuento de los votos perdidos y se
                     repartirán de manera equitativa entre todas las ONG.
                 </Typography>
-                <Box my={4} maxWidth="80%" margin="0 auto">
-                    <ImageGallery 
-                        items={images} 
-                        showThumbnails={false} 
-                        autoPlay={true} 
-                        slideInterval={5000}
-                        slideDuration={500}
-                        showNav={false} 
-                        renderItem={(item) => (
-                            <div className="image-gallery-image">
-                                <img 
-                                    src={item.original} 
-                                    alt={item.description} 
-                                    style={{ maxHeight: '270px', objectFit: 'contain',  }} 
-                                />
-                            </div>
-                        )}
-                    />
-                </Box>
-                <Typography variant="h5" component="h1" gutterBottom>
+            </Box>
+            <Box className="gallery">
+                <ImageGallery 
+                    items={images} 
+                    showThumbnails={false} 
+                    autoPlay={true} 
+                    slideInterval={5000}
+                    slideDuration={500}
+                    showNav={false} 
+                    renderItem={(item: ReactImageGalleryItem) => (
+                        <div className="image-gallery-image">
+                            <img 
+                                src={item.original} 
+                                alt={item.description} 
+                                style={{ maxHeight: '270px', objectFit: 'contain', borderRadius: '8px' }} 
+                            />
+                        </div>
+                    )}
+                />
+            </Box>
+            <Box className="intro">
+                <Typography variant="h4" component="h2" gutterBottom>
                     Nuestro objetivo:
                 </Typography>
-                <Typography variant="body1" paragraph>
-                    Ante las alarmantes noticias sobre la contaminación plástica en el mar y sus devastadores efectos, en 2024 decidimos actuar. 
-                    Así nació el proyecto Port⭕Net, diseñado en consonancia con los Objetivos de Desarrollo Sostenible (ODS). Nuestro objetivo principal es limpiar más de 1000 km² del fondo marino de la Costa Dorada, promoviendo al mismo tiempo prácticas de pesca responsable y sostenible, y dejando atrás métodos destructivos que dañan los ecosistemas a corto y largo plazo.
-                    Los restaurantes de la zona se han comprometido a donar una parte de cada venta para apoyar a las ONG que se dedican a la recolección de basura marina y la protección de especies. 
-                    Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, Zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
-                </Typography>
-                <Typography variant="h5" component="h1" gutterBottom>
+                <Card className="card">
+                    <CardContent>
+                        <Typography variant="h5" component="h3">
+                            Objetivo 2024
+                        </Typography>
+                        <Typography variant="body1" paragraph>
+                            Ante las alarmantes noticias sobre la contaminación plástica en el mar y sus devastadores efectos, en 2024 decidimos actuar. 
+                            Así nació el proyecto Port⭕Net, diseñado en consonancia con los Objetivos de Desarrollo Sostenible (ODS). Nuestro objetivo principal es limpiar más de 1000 km² del fondo marino de la Costa Dorada, promoviendo al mismo tiempo prácticas de pesca responsable y sostenible, y dejando atrás métodos destructivos que dañan los ecosistemas a corto y largo plazo.
+                        </Typography>
+                    </CardContent>
+                </Card>
+                <Card className="card">
+                    <CardContent>
+                        <Typography variant="h5" component="h3">
+                            Colaboraciones
+                        </Typography>
+                        <Typography variant="body1" paragraph>
+                            Los restaurantes de la zona se han comprometido a donar una parte de cada venta para apoyar a las ONG que se dedican a la recolección de basura marina y la protección de especies. 
+                            Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, Zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Box>
+            <Box className="gallery">
+                <Typography variant="h4" component="h2" gutterBottom>
                     Restaurantes colaboradores del proyecto:
                 </Typography>
-                <Box my={4} maxWidth="80%" margin="0 auto">
-                    <ImageGallery 
-                        items={images2} 
-                        showThumbnails={false} 
-                        showPlayButton={false} 
-                        autoPlay={!carouselPaused} 
-                        slideInterval={5000}
-                        slideDuration={500}
-                        showNav={false} 
-                        showFullscreenButton={false} 
-                        onMouseOver={(event, index) => handleMouseOver(index as number)} 
-                        onMouseLeave={handleMouseOut}
-                        renderItem={(item: GalleryItem) => (
-                            <div className="image-gallery-image" style={{ cursor: 'pointer' }}>
-                                <img 
-                                    src={hoveredRestaurant === item.hoverImage ? item.hoverImage : item.original} 
-                                    alt={item.description} 
-                                    style={{ maxHeight: '270px', objectFit: 'contain', borderRadius: '8px' }} 
-                                    onClick={() => handleImageClick(item.link)} // Abre el enlace al hacer clic en la imagen
-                                />
-                            </div>
-                        )}
-                    />
-                </Box>
+                <ImageGallery 
+                    items={images2} 
+                    showThumbnails={false} 
+                    showPlayButton={false} 
+                    autoPlay={!carouselPaused} 
+                    slideInterval={5000}
+                    slideDuration={500}
+                    showNav={false} 
+                    showFullscreenButton={false} 
+                    renderItem={(item: ReactImageGalleryItem) => (
+                        <div className="image-gallery-image" style={{ cursor: 'pointer' }}>
+                            <img 
+                                src={hoveredRestaurant === (item as CustomGalleryItem).hoverImage ? (item as CustomGalleryItem).hoverImage : item.original} 
+                                alt={item.description} 
+                                style={{ maxHeight: '270px', objectFit: 'contain', borderRadius: '8px' }} 
+                                onClick={() => handleImageClick((item as CustomGalleryItem).link)} // Abre el enlace al hacer clic en la imagen
+                                onMouseOver={() => handleMouseOver(images2.findIndex(i => i.original === item.original))}
+                                onMouseOut={handleMouseOut}
+                            />
+                        </div>
+                    )}
+                />
             </Box>
         </Container>
     );
