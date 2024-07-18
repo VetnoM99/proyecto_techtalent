@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box, Card, CardContent, } from '@mui/material';
+import { Container, Typography, Box, Card, CardContent} from '@mui/material';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '../styles/QuienesSomos.css'; // Importa tus estilos
 
-import PuertoImage from '../assets/Puerto 0.jpg';
-import PulpoImage from '../assets/Pulpo 2.jpg';
-import PaellaImage from '../assets/Paella OK .jpg';
-import TicketImage from '../assets/Ticket1.jpg';
-import AppImage from '../assets/App.jpg';
+import Basura2 from '../assets/basura-2.jpeg';
+import Basura1 from '../assets/basura-1.jpg';
+import Basura3 from '../assets/basura-3.jpg';
+import Basura4 from '../assets/bassura-4.jpg';
+import Colaborar from '../assets/colaborar.jpg';
+import Aporte from '../assets/aporte.jpg';
+import Playa from '../assets/playa.jpg';
 
 import Montserrat from '../assets/RESTAURANT MONTSERRAT PEIX I MARISC.png';
 import Indret from '../assets/RESTAURANT & LOUNGE LINDRET.png';
@@ -32,29 +34,39 @@ const QuienesSomos: React.FC = () => {
 
     const images: ReactImageGalleryItem[] = [
         {
-            original: PuertoImage,
-            thumbnail: PuertoImage,
-            description: 'Ocean',
+            original: Basura1,
+            thumbnail: Basura1,
+            description: 'Ayuda',
         },
         {
-            original: PulpoImage,
-            thumbnail: PulpoImage,
-            description: 'Pulpo',
+            original: Basura2,
+            thumbnail: Basura2,
+            description: 'Te necesitamos',
         },
         {
-            original: PaellaImage,
-            thumbnail: PaellaImage,
-            description: 'Paella',
+            original: Basura3,
+            thumbnail: Basura3,
+            description: 'Las playas te necesitan',
         },
         {
-            original: TicketImage,
-            thumbnail: TicketImage,
-            description: 'Ticket',
+            original: Basura4,
+            thumbnail: Basura4,
+            description: 'El mundo necesita limpiarse',
         },
         {
-            original: AppImage,
-            thumbnail: AppImage,
-            description: 'App',
+            original: Colaborar,
+            thumbnail: Colaborar,
+            description: 'Colabora con nosotros',
+        },
+        {
+            original: Aporte,
+            thumbnail: Aporte,
+            description: 'Simplemente con tu recibo de compra',
+        },
+        {
+            original: Playa,
+            thumbnail: Playa,
+            description: 'Para tener Playas mas limpias',
         },
     ];
 
@@ -116,44 +128,45 @@ const QuienesSomos: React.FC = () => {
                 <Typography variant="h2" component="h1" gutterBottom>
                     Quiénes somos
                 </Typography>
-                <Typography variant="h6" component="p">
-                    "Del mar a tu mesa". Nos comprometemos a ofrecer productos de la más alta calidad mientras protegemos nuestras costas.
-                    Con el proyecto 'Port⭕Net', lideramos la lucha contra el plástico y las prácticas insostenibles.
-                </Typography>
             </Box>
-            <Box className="intro">
-                <Typography variant="h4" component="h2" gutterBottom>
-                    Nuestro Compromiso
-                </Typography>
-                <Typography variant="body1" paragraph>
-                    Con cada ticket de compra que el cliente haga en uno de nuestros restaurantes/socios, aportará una pequeña cantidad a 
-                    la causa. Sin tener que pagar extras y con un mínimo porcentaje que la empresa no resentirá en sus ingresos. Así podremos
-                    aportar todos directamente. 
-                </Typography>
-                <Typography variant="body1" paragraph>
-                    Tú mismo desde la App podrás donar los puntos a la ONG que prefieras. En el caso de que no
-                    dispongas del tiempo para poderlo hacer, no te preocupes. Cada seis meses hacemos recuento de los votos perdidos y se
-                    repartirán de manera equitativa entre todas las ONG.
-                </Typography>
-            </Box>
-            <Box className="gallery">
-                <ImageGallery 
-                    items={images} 
-                    showThumbnails={false} 
-                    autoPlay={true} 
-                    slideInterval={5000}
-                    slideDuration={500}
-                    showNav={false} 
-                    renderItem={(item: ReactImageGalleryItem) => (
-                        <div className="image-gallery-image">
-                            <img 
-                                src={item.original} 
-                                alt={item.description} 
-                                style={{ maxHeight: '270px', objectFit: 'contain', borderRadius: '8px' }} 
-                            />
-                        </div>
-                    )}
-                />
+            <Box className="intro-gallery-container">
+                <Box className="intro">
+                    <Typography variant="h6" component="p" className="intro-text">
+                        "Del mar a tu mesa". Nos comprometemos a ofrecer productos de la más alta calidad mientras protegemos nuestras costas.
+                        Con el proyecto 'Port⭕Net', lideramos la lucha contra el plástico y las prácticas insostenibles.
+                    </Typography>
+                    <Typography variant="body1" paragraph>
+                        Con cada ticket de compra que el cliente haga en uno de nuestros restaurantes/socios, aportará una pequeña cantidad a 
+                        la causa. Sin tener que pagar extras y con un mínimo porcentaje que la empresa no resentirá en sus ingresos. Así podremos
+                        aportar todos directamente. 
+                    </Typography>
+                    <Typography variant="body1" paragraph>
+                        Tú mismo desde la App podrás donar los puntos a la ONG que prefieras. En el caso de que no
+                        dispongas del tiempo para poderlo hacer, no te preocupes. Cada seis meses hacemos recuento de los votos perdidos y se
+                        repartirán de manera equitativa entre todas las ONG.
+                    </Typography>
+                </Box>
+                <Box className="gallery">
+                    <ImageGallery 
+                        items={images} 
+                        showThumbnails={false} 
+                        autoPlay={true} 
+                        slideInterval={5000}
+                        slideDuration={400}
+                        showNav={false} 
+                        showFullscreenButton={false}
+                        showPlayButton ={false}
+                        renderItem={(item: ReactImageGalleryItem) => (
+                            <div className="image-gallery-image">
+                                <img 
+                                    src={item.original} 
+                                    alt={item.description} 
+                                    style={{ maxHeight: '270px', objectFit: 'contain', borderRadius: '8px' }} 
+                                />
+                            </div>
+                        )}
+                    />
+                </Box>
             </Box>
             <Box className="intro">
                 <Typography variant="h4" component="h2" gutterBottom>
