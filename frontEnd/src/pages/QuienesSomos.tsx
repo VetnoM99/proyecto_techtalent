@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Typography, Box, Card, CardContent} from '@mui/material';
+import React from 'react';
+import { Container, Typography, Box, Card, CardContent, Link} from '@mui/material';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '../styles/QuienesSomos.css'; // Importa tus estilos
@@ -23,14 +23,10 @@ import Kema2 from '../assets/hover-RESTAURANT BRASAS & COCKTAIL KEMA.png';
 import Posit2 from '../assets/hover-RESTAURANT EL PÒSIT.png';
 import Roce2 from '../assets/hover-ARROCERÍA ROCE.png';
 
-interface CustomGalleryItem extends ReactImageGalleryItem {
-    hoverImage: string;
-    link: string;
-}
 
 const QuienesSomos: React.FC = () => {
-    const [hoveredRestaurant, setHoveredRestaurant] = useState<string | null>(null);
-    const [carouselPaused, setCarouselPaused] = useState<boolean>(false);
+    // const [hoveredRestaurant, setHoveredRestaurant] = useState<string | null>(null);
+    // const [carouselPaused, setCarouselPaused] = useState<boolean>(false);
 
     const images: ReactImageGalleryItem[] = [
         {
@@ -70,57 +66,7 @@ const QuienesSomos: React.FC = () => {
         },
     ];
 
-    const images2: CustomGalleryItem[] = [
-        {
-            original: Montserrat,
-            thumbnail: Montserrat,
-            description: 'Montserrat',
-            hoverImage: Montserrat2,
-            link: 'https://www.restaurantmontserrat.com/'
-        },
-        {
-            original: Kema,
-            thumbnail: Kema,
-            description: 'Kema',
-            hoverImage: Kema2,
-            link: 'https://kemacambrils.com/'
-        },
-        {
-            original: Roce,
-            thumbnail: Roce,
-            description: 'Roce',
-            hoverImage: Roce2,
-            link: 'https://micuerpopideroce.com/'
-        },
-        {
-            original: Posit,
-            thumbnail: Posit,
-            description: 'Posit',
-            hoverImage: Posit2,
-            link: 'https://www.elposit.com/es/restaurantes/el-posit-de-cambrils'
-        },
-        {
-            original: Indret,
-            thumbnail: Indret,
-            description: 'Indret',
-            hoverImage: Indret2,
-            link: 'https://www.lindretdecambrils.com/'
-        },
-    ];
 
-    const handleMouseOver = (index: number) => {
-        setHoveredRestaurant(images2[index].hoverImage);
-        setCarouselPaused(true);
-    };
-
-    const handleMouseOut = () => {
-        setHoveredRestaurant(null);
-        setCarouselPaused(false);
-    };
-
-    const handleImageClick = (url: string) => {
-        window.open(url, '_blank'); // Abrir enlace en una nueva pestaña
-    };
 
     return (
         <Container className="container">
@@ -151,8 +97,8 @@ const QuienesSomos: React.FC = () => {
                         items={images} 
                         showThumbnails={false} 
                         autoPlay={true} 
-                        slideInterval={5000}
-                        slideDuration={400}
+                        slideInterval={4000}
+                        slideDuration={300}
                         showNav={false} 
                         showFullscreenButton={false}
                         showPlayButton ={false}
@@ -195,33 +141,58 @@ const QuienesSomos: React.FC = () => {
                     </CardContent>
                 </Card>
             </Box>
-            <Box className="gallery">
-                <Typography variant="h4" component="h2" gutterBottom>
-                    Restaurantes colaboradores del proyecto:
-                </Typography>
-                <ImageGallery 
-                    items={images2} 
-                    showThumbnails={false} 
-                    showPlayButton={false} 
-                    autoPlay={!carouselPaused} 
-                    slideInterval={5000}
-                    slideDuration={500}
-                    showNav={false} 
-                    showFullscreenButton={false} 
-                    renderItem={(item: ReactImageGalleryItem) => (
-                        <div className="image-gallery-image" style={{ cursor: 'pointer' }}>
-                            <img 
-                                src={hoveredRestaurant === (item as CustomGalleryItem).hoverImage ? (item as CustomGalleryItem).hoverImage : item.original} 
-                                alt={item.description} 
-                                style={{ maxHeight: '270px', objectFit: 'contain', borderRadius: '8px' }} 
-                                onClick={() => handleImageClick((item as CustomGalleryItem).link)} // Abre el enlace al hacer clic en la imagen
-                                onMouseOver={() => handleMouseOver(images2.findIndex(i => i.original === item.original))}
-                                onMouseOut={handleMouseOut}
-                            />
-                        </div>
-                    )}
-                />
-            </Box>
+            <Box display="flex" justifyContent="space-between" flexWrap="nowrap">
+                    {/* Imagen 1 */}
+                    <Box className="image-container">
+                        <img src={Montserrat} alt="Monserrat" className="main-image"/>
+                        <img src={Montserrat2} alt="HoverMonserrat" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
+                                Restauran Monserrat
+                            </Link>
+                        </Box>
+                    </Box>
+                    {/* Imagen 2 */}
+                    <Box className="image-container">
+                        <img src={Indret} alt="Indret" className="main-image"/>
+                        <img src={Indret2} alt="Indret-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
+                                Restaurante Indred
+                            </Link>
+                        </Box>
+                    </Box>
+                    {/* Imagen 3 */}
+                    <Box className="image-container">
+                        <img src={Kema} alt="Kema" className="main-image"/>
+                        <img src={Kema2} alt="Kema-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://kemacambrils.com/' target="_blank" rel="noopener">
+                                Brasas & Cocktail Kema
+                            </Link>
+                        </Box>
+                    </Box>
+                    {/* Imagen 4 */}
+                    <Box className="image-container">
+                        <img src={Roce} alt="Roce" className="main-image"/>
+                        <img src={Roce2} alt="Roce-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://micuerpopideroce.com/' target="_blank" rel="noopener">
+                                Arroceria Roce
+                            </Link>
+                        </Box>
+                    </Box>
+                      {/* Imagen 5 */}
+                      <Box className="image-container">
+                        <img src={Posit} alt="Posit" className="main-image"/>
+                        <img src={Posit2} alt="Roce-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
+                                Restauran El Pósit
+                            </Link>
+                        </Box>
+                    </Box>
+                </Box>
         </Container>
     );
 };

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Importa Link desde react-router-dom
 import logo from '../assets/logo.png';
 
 const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
@@ -26,21 +26,23 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ background:'#f3f4ef' }}>
+    <AppBar position="static" sx={{ background: '#f3f4ef' }}>
       <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '12vh' }}>
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           
-          
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box
-              component="img"
-              src={logo}
-              alt="Logo"
-              sx={{ height: 40, marginLeft: 2 }}
-            />
-          </Box>
+          {/* Enlace del logo */}
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box
+                component="img"
+                src={logo}
+                alt="Logo"
+                sx={{ height: 40, marginLeft: 2, cursor: 'pointer' }} // Agrega cursor: 'pointer' para indicar que es clickable
+              />
+            </Box>
+          </Link>
 
-          
+          {/* Botones de navegación */}
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexGrow: 1 }}>
             {pages.map((page) => (
               <Button
@@ -53,7 +55,7 @@ const NavBar: React.FC = () => {
             ))}
           </Box>
 
-          
+          {/* Botones de inicio de sesión y registro */}
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2 }}>
             <Button
               onClick={handleLoginClick}
@@ -77,4 +79,3 @@ const NavBar: React.FC = () => {
 }
 
 export default NavBar;
-

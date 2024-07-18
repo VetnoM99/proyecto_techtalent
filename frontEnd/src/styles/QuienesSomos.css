@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 12np00px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -79,4 +79,83 @@ body {
 .gallery img:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.container {
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.intro-gallery-container {
+    display: flex;
+    gap: 20px;
+}
+
+.intro {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.gallery-container {
+    flex: 1;
+    max-width: 500px; /* Ajusta el ancho máximo según tus necesidades */
+}
+
+.intro-text {
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+.image-container {
+    position: relative;
+    width: calc(20% - 20px); /* Ajusta el ancho de cada imagen */
+    text-align: center;
+    border-radius: 50px
+}
+.image-wrapper {
+    width: calc(50% - 1px); /* Calcula el ancho deseado para 5 imágenes en una fila */
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px; /* Espacio entre las imágenes */
+}
+
+.image-wrapper img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-wrapper img:hover {
+    transform: scale(1.1);
+}
+
+.image-wrapper .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.image-wrapper:hover .overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+.image-wrapper a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
 }
