@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import '../styles/ContactForm.css';
 
-Modal.setAppElement('#root'); // Asegúrate de que este selector apunta al elemento raíz de tu aplicación
+Modal.setAppElement('#root');
 
 const Contacto: React.FC = () => {
     const [name, setName] = useState('');
@@ -41,10 +41,9 @@ const Contacto: React.FC = () => {
             className="contact-modal"
             overlayClassName="contact-modal-overlay"
         >
-            
-                <h2>Contacto</h2>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="name">Nombre:</label>
+            <h2>Contacto</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="input-container">
                     <input
                         type="text"
                         id="name"
@@ -52,9 +51,12 @@ const Contacto: React.FC = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
+                        placeholder=" "
                     />
+                    <label htmlFor="name" className={name ? 'active' : ''}>Nombre</label>
+                </div>
 
-                    <label htmlFor="email">Email:</label>
+                <div className="input-container">
                     <input
                         type="email"
                         id="email"
@@ -62,26 +64,30 @@ const Contacto: React.FC = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        placeholder=" "
                     />
+                    <label htmlFor="email" className={email ? 'active' : ''}>Email</label>
+                </div>
 
-                    <label htmlFor="message">Mensaje:</label>
+                <div className="input-container">
                     <textarea
                         id="message"
                         name="message"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         required
+                        placeholder=" "
                     ></textarea>
+                    <label htmlFor="message" className={message ? 'active' : ''}>Mensaje</label>
+                </div>
 
-                    <button type="submit">Enviar</button>
-                </form>
+                <button type="submit">Enviar</button>
+            </form>
 
-                {statusMessage && <p>{statusMessage}</p>}
-                <button onClick={closeModal}>Cancelar</button>
-            
+            {statusMessage && <p>{statusMessage}</p>}
+            <button onClick={closeModal}>Cancelar</button>
         </Modal>
     );
 };
 
 export default Contacto;
-

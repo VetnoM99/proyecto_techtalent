@@ -1,87 +1,7 @@
- /* Estilos generales para el contenedor del formulario */
- .contact-form-container {
-    max-width: 600px;
-    margin: 110px auto; /* Alineación centrada con más margen arriba */
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-}
-/* Título del formulario */
-.contact-form-container h2 {
-    text-align: center;
-    color: #333333;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-/* Etiquetas del formulario */
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555555;
-}
-
-/* Campos de entrada y área de texto */
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    color: #333333;
-    background-color: #f9f9f9;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-}
-
-/* Botón de envío */
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    -webkit-transition: background-color 0.3s ease;
-    -moz-transition: background-color 0.3s ease;
-    -ms-transition: background-color 0.3s ease;
-    -o-transition: background-color 0.3s ease;
-}
-
-
-/* Mensaje de estado */
-p {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-/* Mensaje de error */
-p.error {
-    color: red;
-}
 .contact-modal {
     position: absolute;
     top: 50%;
     left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
     padding: 30px;
@@ -99,4 +19,43 @@ p.error {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.75);
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    outline: none;
+}
+
+input:focus ~ label,
+textarea:focus ~ label,
+input:not(:placeholder-shown) ~ label,
+textarea:not(:placeholder-shown) ~ label {
+    top: -10px;
+    font-size: 12px;
+    color: #000; /* Color negro para la etiqueta */
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: transparent;
+}
+
+label {
+    position: absolute;
+    left: 12px;
+    top: 15px;
+    color: #555;
+    transition: top 0.3s ease-out, font-size 0.3s ease-out; /* Eliminamos la transición de color */
+    pointer-events: none;
 }
