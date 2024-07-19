@@ -8,8 +8,8 @@ import QuienesSomos from './pages/QuienesSomos';
 import Proyecto from './pages/Proyecto';
 import Contacto from './pages/Contacto';
 import Participa from './pages/Participa';
-import LoginDialog from './settings/Login'; // Asegúrate de que la ruta sea correcta
-import Register from './settings/Register';
+import Login from './settings/Login';
+import Register from './settings/RegisterForm'
 
 const App: React.FC = () => {
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);

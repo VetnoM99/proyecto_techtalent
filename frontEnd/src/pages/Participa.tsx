@@ -40,7 +40,7 @@ const ParticipateSection: React.FC = () => {
         <div className="participate-section">
             <h2 className="section-title">Participa y Ayuda</h2>
             <div className="section-content">
-                <p className="section-intro">En [Nombre de la Página], estamos comprometidos con la protección de nuestros océanos y la vida marina. A través de nuestro programa, puedes convertir tus puntos en donaciones directas a ONG dedicadas a combatir la contaminación marina y la pesca no sostenible. ¡Juntos podemos hacer una gran diferencia!</p>
+                <p className="section-intro">En PortNet, estamos comprometidos con la protección de nuestros océanos y la vida marina. A través de nuestro programa, puedes convertir tus puntos en donaciones directas a ONG dedicadas a combatir la contaminación marina y la pesca no sostenible. ¡Juntos podemos hacer una gran diferencia!</p>
 
                 <div className="how-to-participate">
                     <SectionWithBackground title="Gana Puntos" image={images.gainPoints}>
