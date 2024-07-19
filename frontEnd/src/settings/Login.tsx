@@ -42,7 +42,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess
       }
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Error al iniciar sesion');
+      setMessage('Error al iniciar sesión');
     }
   };
 

@@ -6,7 +6,8 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import ProfileMenu from '../pages/ProfileMenu';
-import LoginDialog from '../settings/Login'; // Importa el componente LoginDialog
+import LoginDialog from '../settings/Login';
+import RegisterForm from '../settings/RegisterForm'; // Importa el componente RegisterForm
 import logo from '../assets/logo.png';
 
 const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
@@ -14,9 +15,15 @@ const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
 const NavBar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false); // Estado para controlar la apertura del dialogo de login
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
 
   const handleLoginSuccess = (username: string) => {
+    setIsLoggedIn(true);
+    setUserName(username);
+  };
+
+  const handleRegisterSuccess = (username: string) => {
     setIsLoggedIn(true);
     setUserName(username);
   };
@@ -73,15 +80,14 @@ const NavBar: React.FC = () => {
                 <Button
                   variant="outlined"
                   sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '5px 15px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
-                  onClick={() => setLoginDialogOpen(true)} // Abrir el diálogo de login
+                  onClick={() => setLoginDialogOpen(true)}
                 >
                   Iniciar sesión
                 </Button>
                 <Button
-                  component={Link}
-                  to="/register"
                   variant="outlined"
                   sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '5px 15px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
+                  onClick={() => setRegisterDialogOpen(true)}
                 >
                   Registrarse
                 </Button>
@@ -92,8 +98,13 @@ const NavBar: React.FC = () => {
       </AppBar>
       <LoginDialog
         open={loginDialogOpen}
-        onClose={() => setLoginDialogOpen(false)} // Cerrar el diálogo de login
-        onLoginSuccess={handleLoginSuccess} // Manejar el éxito del login
+        onClose={() => setLoginDialogOpen(false)}
+        onLoginSuccess={handleLoginSuccess}
+      />
+      <RegisterForm
+        open={registerDialogOpen}
+        onClose={() => setRegisterDialogOpen(false)}
+        onRegisterSuccess={handleRegisterSuccess}
       />
     </>
   );

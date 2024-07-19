@@ -2,7 +2,8 @@
     margin: 50px auto;
     max-width: 800px;
     padding: 20px;
-    background-color: #dfdfdf;
+    background-color: white;
+    color:black
 }
 
 .section-title {
@@ -55,6 +56,14 @@
     -moz-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     -ms-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     -o-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
 }
 
 .section-with-background.visible {
@@ -76,7 +85,7 @@
     position: relative;
     z-index: 2;
     padding: 20px;
-    color: white;
+    color: black;
 }
 
 .section-inner-content {

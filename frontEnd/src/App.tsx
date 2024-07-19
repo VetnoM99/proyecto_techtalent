@@ -9,7 +9,7 @@ import Proyecto from './pages/Proyecto';
 import Contacto from './pages/Contacto';
 import Participa from './pages/Participa';
 import Login from './settings/Login';
-import Register from './settings/Register'
+import Register from './settings/RegisterForm'
 
 const App: React.FC = () => {
   return (

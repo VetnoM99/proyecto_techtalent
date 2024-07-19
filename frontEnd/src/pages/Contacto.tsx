@@ -41,7 +41,7 @@ const Contacto: React.FC = () => {
             className="contact-modal"
             overlayClassName="contact-modal-overlay"
         >
-            <h2>Contacto</h2>
+            <h2>Contáctanos</h2>
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <input
@@ -81,13 +81,21 @@ const Contacto: React.FC = () => {
                     <label htmlFor="message" className={message ? 'active' : ''}>Mensaje</label>
                 </div>
 
-                <button type="submit">Enviar</button>
+                <div className="button-container">
+                    <button type="submit">Enviar</button>
+                    <button type="button" onClick={closeModal}>Cancelar</button>
+                </div>
             </form>
 
             {statusMessage && <p>{statusMessage}</p>}
-            <button onClick={closeModal}>Cancelar</button>
+
+            <div className="footer">
+                <p>© 2024 PortNet. Todos los derechos reservados.</p>
+                <p>proyecto.techtalent@gmail.com</p>
+            </div>
         </Modal>
     );
 };
 
 export default Contacto;
+
