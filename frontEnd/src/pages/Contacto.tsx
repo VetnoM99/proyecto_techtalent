@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import axios from 'axios';
-import '../styles/ContactForm.css'
+import '../styles/ContactForm.css';
 
-const Home: React.FC = () => {
+Modal.setAppElement('#root');
+
+const Contacto: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(true);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -21,45 +25,69 @@ const Home: React.FC = () => {
         }
     };
 
+    const closeModal = () => {
+        setModalIsOpen(false);
+        setStatusMessage('');
+        setName('');
+        setEmail('');
+        setMessage('');
+    };
+
     return (
-        <div className="contact-form-container">
+        <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Formulario de Contacto"
+            className="contact-modal"
+            overlayClassName="contact-modal-overlay"
+        >
             <h2>Contacto</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Nombre:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
+                <div className="input-container">
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        placeholder=" "
+                    />
+                    <label htmlFor="name" className={name ? 'active' : ''}>Nombre</label>
+                </div>
 
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
+                <div className="input-container">
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        placeholder=" "
+                    />
+                    <label htmlFor="email" className={email ? 'active' : ''}>Email</label>
+                </div>
 
-                <label htmlFor="message">Mensaje:</label>
-                <textarea
-                    id="message"
-                    name="message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                ></textarea>
+                <div className="input-container">
+                    <textarea
+                        id="message"
+                        name="message"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        required
+                        placeholder=" "
+                    ></textarea>
+                    <label htmlFor="message" className={message ? 'active' : ''}>Mensaje</label>
+                </div>
 
                 <button type="submit">Enviar</button>
             </form>
+
             {statusMessage && <p>{statusMessage}</p>}
-        </div>
+            <button onClick={closeModal}>Cancelar</button>
+        </Modal>
     );
 };
 
-
-export default Home;
+export default Contacto;
