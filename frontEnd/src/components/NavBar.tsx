@@ -5,55 +5,34 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import ProfileMenu from '../pages/ProfileMenu'; // Asegúrate de que ProfileMenu esté bien implementado
 import LoginDialog from '../settings/Login'; // Asegúrate de que LoginDialog esté bien implementado
 import logo from '../assets/logo.png'; // Logo principal
 
-interface NavBarProps {
-  setLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isLoggedIn: boolean;
-  userName: string;
-  onLogout: () => void;
-}
-
-const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, isLoggedIn, userName, onLogout }) => {
-  const [loginDialogOpen, setLoginDialogOpenState] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+const NavBar: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
 
   const handleLoginSuccess = (username: string) => {
-    setLoginDialogOpenState(false);
+    setIsLoggedIn(true);
+    setUserName(username);
+    setLoginDialogOpen(false);
   };
 
   const handleLogout = () => {
-    onLogout(); // Llama a la función de logout que se pasa como prop
-    setAnchorEl(null); // Cierra el menú desplegable
-  };
-
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+    setIsLoggedIn(false);
+    setUserName('');
   };
 
   const location = useLocation();
+
   const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
 
   const getCurrentPage = () => {
     const path = location.pathname;
     const currentPage = pages.find(page => `/${page.toLowerCase().replace(/ /g, '-')}` === path);
     return currentPage || 'Inicio';
-  };
-
-  const generateRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
   };
 
   return (
@@ -93,30 +72,20 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, isLoggedIn, userNam
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Box
                     sx={{
-                      width: 40,
-                      height: 40,
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      borderRadius: '50%',
-                      backgroundColor: generateRandomColor(),
-                      color: 'white',
-                      fontWeight: 'bold',
-                      cursor: 'pointer',
                       marginLeft: 2,
+                      cursor: 'pointer',
+                      fontSize: '1rem',
+                      fontWeight: 'bold'
                     }}
-                    onClick={handleMenuClick}
                   >
-                    {userName.charAt(0).toUpperCase()}
+                    <ProfileMenu
+                      userName={userName}
+                      onLogout={handleLogout}
+                      onProfileClick={() => console.log('Profile Clicked')}
+                    />
                   </Box>
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                  >
-                    <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-                    <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
-                  </Menu>
                 </Box>
               ) : (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -143,7 +112,7 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, isLoggedIn, userNam
       </AppBar>
       <LoginDialog
         open={loginDialogOpen}
-        onClose={() => setLoginDialogOpenState(false)}
+        onClose={() => setLoginDialogOpen(false)}
         onLoginSuccess={handleLoginSuccess}
       />
     </>

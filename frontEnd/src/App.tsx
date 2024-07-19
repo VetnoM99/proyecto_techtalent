@@ -8,19 +8,25 @@ import QuienesSomos from './pages/QuienesSomos';
 import Proyecto from './pages/Proyecto';
 import Contacto from './pages/Contacto';
 import Participa from './pages/Participa';
-import Login from './settings/Login';
-import Register from './settings/RegisterForm'
+import LoginDialog from './settings/Login';
+import RegisterForm from './settings/RegisterForm';
 
 const App: React.FC = () => {
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
 
-  // Manejar el éxito del inicio de sesión
   const handleLoginSuccess = (username: string) => {
     setIsLoggedIn(true);
     setUserName(username);
-    setLoginDialogOpen(false); // Cerrar el diálogo de login después del éxito
+    setLoginDialogOpen(false);
+  };
+
+  const handleRegisterSuccess = (username: string) => {
+    setIsLoggedIn(true);
+    setUserName(username);
+    setRegisterDialogOpen(false);
   };
 
   const handleLogout = () => {
@@ -37,8 +43,9 @@ const App: React.FC = () => {
       }}
     >
       <Router>
-        <NavBar 
-          setLoginDialogOpen={setLoginDialogOpen} 
+        <NavBar
+          setLoginDialogOpen={setLoginDialogOpen}
+          setRegisterDialogOpen={setRegisterDialogOpen}
           isLoggedIn={isLoggedIn}
           userName={userName}
           onLogout={handleLogout}
@@ -55,7 +62,7 @@ const App: React.FC = () => {
             <Route path="/proyecto" element={<Proyecto />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/participa" element={<Participa />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<RegisterForm onRegisterSuccess={handleRegisterSuccess} />} />
           </Routes>
         </Box>
         <FooterBar />
@@ -63,6 +70,11 @@ const App: React.FC = () => {
           open={loginDialogOpen}
           onClose={() => setLoginDialogOpen(false)}
           onLoginSuccess={handleLoginSuccess}
+        />
+        <RegisterForm
+          open={registerDialogOpen}
+          onClose={() => setRegisterDialogOpen(false)}
+          onRegisterSuccess={handleRegisterSuccess}
         />
       </Router>
     </Box>
