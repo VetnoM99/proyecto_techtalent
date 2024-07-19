@@ -1,4 +1,3 @@
-// LoginDialog.tsx
 import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -31,7 +30,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess
 
       if (response.ok) {
         setMessage('Login exitoso');
-        onLoginSuccess(username);
+        onLoginSuccess(username); // Llama con un solo argumento
         onClose();
       } else if (response.status === 401) {
         setMessage('Contraseña incorrecta');
@@ -42,7 +41,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess
       }
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Error al iniciar sesion');
+      setMessage('Error al iniciar sesión');
     }
   };
 
