@@ -5,33 +5,55 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
-import ProfileMenu from '../pages/ProfileMenu';
-import LoginDialog from '../settings/Login'; // Importa el componente LoginDialog
-import logo from '../assets/logo.png';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import LoginDialog from '../settings/Login'; // Asegúrate de que LoginDialog esté bien implementado
+import logo from '../assets/logo.png'; // Logo principal
 
-const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
+interface NavBarProps {
+  setLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoggedIn: boolean;
+  userName: string;
+  onLogout: () => void;
+}
 
-const NavBar: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false); // Estado para controlar la apertura del dialogo de login
+const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, isLoggedIn, userName, onLogout }) => {
+  const [loginDialogOpen, setLoginDialogOpenState] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleLoginSuccess = (username: string) => {
-    setIsLoggedIn(true);
-    setUserName(username);
+    setLoginDialogOpenState(false);
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserName('');
+    onLogout(); // Llama a la función de logout que se pasa como prop
+    setAnchorEl(null); // Cierra el menú desplegable
+  };
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   const location = useLocation();
+  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
 
   const getCurrentPage = () => {
     const path = location.pathname;
     const currentPage = pages.find(page => `/${page.toLowerCase().replace(/ /g, '-')}` === path);
     return currentPage || 'Inicio';
+  };
+
+  const generateRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   };
 
   return (
@@ -66,34 +88,63 @@ const NavBar: React.FC = () => {
                 </Button>
               ))}
             </Box>
-            {isLoggedIn ? (
-              <ProfileMenu userName={userName} onLogout={handleLogout} />
-            ) : (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button
-                  variant="outlined"
-                  sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '5px 15px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
-                  onClick={() => setLoginDialogOpen(true)} // Abrir el diálogo de login
-                >
-                  Iniciar sesión
-                </Button>
-                <Button
-                  component={Link}
-                  to="/register"
-                  variant="outlined"
-                  sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '5px 15px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
-                >
-                  Registrarse
-                </Button>
-              </Box>
-            )}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {isLoggedIn ? (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: '50%',
+                      backgroundColor: generateRandomColor(),
+                      color: 'white',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      marginLeft: 2,
+                    }}
+                    onClick={handleMenuClick}
+                  >
+                    {userName.charAt(0).toUpperCase()}
+                  </Box>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                  >
+                    <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+                    <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
+                  </Menu>
+                </Box>
+              ) : (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Button
+                    variant="outlined"
+                    sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', marginRight: "5px", whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
+                    onClick={() => setLoginDialogOpen(true)}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    component={Link}
+                    to="/register"
+                    variant="outlined"
+                    sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
+                  >
+                    Registrar
+                  </Button>
+                </Box>
+              )}
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
       <LoginDialog
         open={loginDialogOpen}
-        onClose={() => setLoginDialogOpen(false)} // Cerrar el diálogo de login
-        onLoginSuccess={handleLoginSuccess} // Manejar el éxito del login
+        onClose={() => setLoginDialogOpenState(false)}
+        onLoginSuccess={handleLoginSuccess}
       />
     </>
   );

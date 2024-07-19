@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import NavBar from './components/NavBar';
@@ -8,10 +8,26 @@ import QuienesSomos from './pages/QuienesSomos';
 import Proyecto from './pages/Proyecto';
 import Contacto from './pages/Contacto';
 import Participa from './pages/Participa';
-import Login from './settings/Login';
-import Register from './settings/Register'
+import LoginDialog from './settings/Login'; // Asegúrate de que la ruta sea correcta
+import Register from './settings/Register';
 
 const App: React.FC = () => {
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+
+  // Manejar el éxito del inicio de sesión
+  const handleLoginSuccess = (username: string) => {
+    setIsLoggedIn(true);
+    setUserName(username);
+    setLoginDialogOpen(false); // Cerrar el diálogo de login después del éxito
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserName('');
+  };
+
   return (
     <Box
       sx={{
@@ -21,7 +37,12 @@ const App: React.FC = () => {
       }}
     >
       <Router>
-        <NavBar />
+        <NavBar 
+          setLoginDialogOpen={setLoginDialogOpen} 
+          isLoggedIn={isLoggedIn}
+          userName={userName}
+          onLogout={handleLogout}
+        />
         <Box
           sx={{
             flex: '1 0 auto',
@@ -34,11 +55,15 @@ const App: React.FC = () => {
             <Route path="/proyecto" element={<Proyecto />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/participa" element={<Participa />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </Box>
         <FooterBar />
+        <LoginDialog
+          open={loginDialogOpen}
+          onClose={() => setLoginDialogOpen(false)}
+          onLoginSuccess={handleLoginSuccess}
+        />
       </Router>
     </Box>
   );

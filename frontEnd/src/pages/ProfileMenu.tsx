@@ -1,70 +1,42 @@
+// ProfileMenu.tsx
 import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import IconButton from '@mui/material/IconButton';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
+import MenuItem from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
+import AccountCircle from '@mui/icons-material/AccountCircle'; // Asegúrate de que esto es correcto
 
 interface ProfileMenuProps {
   userName: string;
   onLogout: () => void;
+  onProfileClick: () => void; // Asegúrate de que esta propiedad está en la interfaz
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, onLogout }) => {
+const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, onLogout, onProfileClick }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    handleMenuClose();
-    onLogout();
-  };
-
   return (
-    <div>
-      <IconButton
-        size="large"
-        edge="end"
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={handleMenuOpen}
-        color="inherit"
-      >
+    <>
+      <Avatar onClick={handleClick} sx={{ cursor: 'pointer' }}>
         <AccountCircle />
-        {/* Avatar */}
-        <Avatar alt={userName} src="/broken-image.jpg" /> {/* Aquí puedes pasar la imagen de perfil */}
-      </IconButton>
+      </Avatar>
       <Menu
-        id="menu-appbar"
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
+        open={open}
+        onClose={handleClose}
       >
-        <MenuItem onClick={handleMenuClose}>
-          <Link to="/perfil" style={{ textDecoration: 'none', color: 'inherit' }}>
-            Ver perfil
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
+        <MenuItem onClick={() => { handleClose(); onProfileClick(); }}>Ver perfil</MenuItem>
+        <MenuItem onClick={() => { handleClose(); onLogout(); }}>Cerrar sesión</MenuItem>
       </Menu>
-    </div>
+    </>
   );
 };
 
