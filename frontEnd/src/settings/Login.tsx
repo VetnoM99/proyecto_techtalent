@@ -1,13 +1,25 @@
+// LoginDialog.tsx
 import React, { useState } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import '../styles/Login.css'; // Asegúrate de importar el CSS
 
-const Login: React.FC = () => {
+interface LoginDialogProps {
+  open: boolean;
+  onClose: () => void;
+  onLoginSuccess: (username: string) => void;
+}
+
+const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleLogin = async () => {
     try {
       const response = await fetch('http://localhost:8080/users/login', {
         method: 'POST',
@@ -19,6 +31,8 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         setMessage('Login exitoso');
+        onLoginSuccess(username);
+        onClose();
       } else if (response.status === 401) {
         setMessage('Contraseña incorrecta');
       } else if (response.status === 404) {
@@ -28,41 +42,46 @@ const Login: React.FC = () => {
       }
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Error en la conexión');
+      setMessage('Error al iniciar sesion');
     }
   };
 
   return (
-    <div className="app-container">
-      <div className="content">
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="input-container">
-            <label htmlFor="username">Usuario: </label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="password">Contraseña: </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Iniciar sesión</button>
-        </form>
-        {message && <p>{message}</p>}
-      </div>
-    </div>
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      <DialogTitle className="dialog-title">Login</DialogTitle>
+      <DialogContent className="dialog-content">
+        <TextField
+          className="input-field"
+          margin="dense"
+          id="username"
+          label="Usuario"
+          type="text"
+          fullWidth
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+          className="input-field"
+          margin="dense"
+          id="password"
+          label="Contraseña"
+          type="password"
+          fullWidth
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {message && <p className="error-message">{message}</p>}
+      </DialogContent>
+      <DialogActions className="dialog-actions">
+        <Button className="button" onClick={onClose}>
+          Cancelar
+        </Button>
+        <Button className="button" onClick={handleLogin}>
+          Iniciar sesión
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
-export default Login;
+export default LoginDialog;
