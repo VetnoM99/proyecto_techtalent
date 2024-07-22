@@ -62,7 +62,16 @@ const App: React.FC = () => {
             <Route path="/proyecto" element={<Proyecto />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/participa" element={<Participa />} />
-            <Route path="/register" element={<RegisterForm onRegisterSuccess={handleRegisterSuccess} />} />
+            <Route
+              path="/register"
+              element={
+                <RegisterForm
+                  open={registerDialogOpen}
+                  onClose={() => setRegisterDialogOpen(false)}
+                  onRegisterSuccess={handleRegisterSuccess}
+                />
+              }
+            />
           </Routes>
         </Box>
         <FooterBar />
@@ -82,3 +91,4 @@ const App: React.FC = () => {
 }
 
 export default App;
+
