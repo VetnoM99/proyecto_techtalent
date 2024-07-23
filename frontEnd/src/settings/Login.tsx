@@ -5,12 +5,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { loginUser } from '../api/userApi'; // Asegúrate de que esta importación sea correcta
+import { loginUser } from '../api/userApi';
 
 interface LoginDialogProps {
   open: boolean;
   onClose: () => void;
-  onLoginSuccess: (username: string, id: number) => void;
+  onLoginSuccess: (username: string, id: number, token: string) => void;
 }
 
 const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess }) => {
@@ -20,19 +20,13 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess
   const handleLogin = async () => {
     try {
       const response = await loginUser(username, password);
-      // Supongamos que la respuesta es un objeto JSON
       const { token, userId } = response;
-
-      // Guarda el token, el ID de usuario y el nombre de usuario en localStorage
       localStorage.setItem('authToken', token);
       localStorage.setItem('userId', userId.toString());
       localStorage.setItem('username', username);
-
-      // Maneja el éxito del inicio de sesión
-      onLoginSuccess(username, userId);
+      onLoginSuccess(username, userId, token);
     } catch (error) {
       console.error("Login error:", error);
-      // Manejar el error de manera apropiada aquí (por ejemplo, mostrar un mensaje de error al usuario)
     }
   };
 

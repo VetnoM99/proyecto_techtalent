@@ -5,19 +5,40 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import '../styles/UserProfile.css';
+import {  styled } from '@mui/material/styles';
 
+// Interfaz para el perfil de usuario
 interface UserProfile {
   id: number;
   username: string;
   email: string;
-  userpassword?: string; // Opcional, puede ser undefined
+  userpassword?: string;
 }
 
+// Props para el componente UserProfile
 interface UserProfileProps {
   userId: number;
   onClose: () => void;
 }
+
+// Estilos personalizados
+const Container = styled('div')(({ theme }) => ({
+  padding: '20px',
+  maxWidth: '600px',
+  margin: 'auto',
+  borderRadius: '8px',
+  boxShadow: theme.shadows[3],
+}));
+
+const FieldContainer = styled('div')({
+  marginBottom: '16px',
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const HiddenText = styled('span')({
+  color: '#888',
+});
 
 const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -37,7 +58,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
           setProfile(data);
           setEmail(data.email);
           setName(data.username);
-          setPassword(''); // Inicialmente no mostramos la contraseña
+          setPassword(data.userpassword || '');
         })
         .catch(error => {
           console.error('Error fetching profile:', error);
@@ -54,8 +75,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
     try {
       const updatedProfile: UserProfileUpdate = {
         email,
-        name,
-        password: password || undefined // Usa 'password' en lugar de 'userpassword'
+        name: name,
+        password: password || undefined,
       };
 
       await updateUserProfile(userId, updatedProfile);
@@ -63,7 +84,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
         ...prevProfile!,
         username: name,
         email,
-        userpassword: password || prevProfile?.userpassword // Solo actualiza la contraseña si está definida
+        userpassword: password || prevProfile?.userpassword,
       }));
       setEditMode(false);
       setError(null);
@@ -74,12 +95,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
   };
 
   return (
-    <div className="user-profile-container fade-in">
+    <Container>
       <h1>Perfil de Usuario</h1>
       {profile ? (
         <div>
-          <div className="field-container">
-            <strong className="field-label">Nombre de Usuario:</strong>
+          <FieldContainer>
+            <div style={{ width: '200px' }}>Nombre de Usuario:</div>
             {editMode ? (
               <TextField
                 label="Nombre de Usuario"
@@ -88,14 +109,13 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
                 fullWidth
                 margin="normal"
                 InputProps={{ readOnly: !editMode }}
-                className="fade-in"
               />
             ) : (
-              <div className="field-value">{profile.username}</div>
+              <span>{profile.username}</span>
             )}
-          </div>
-          <div className="field-container">
-            <strong className="field-label">Email:</strong>
+          </FieldContainer>
+          <FieldContainer>
+            <div style={{ width: '200px' }}>Email:</div>
             {editMode ? (
               <TextField
                 label="Email"
@@ -104,16 +124,15 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 fullWidth
                 margin="normal"
-                className="fade-in"
               />
             ) : (
-              <div className="field-value">{profile.email}</div>
+              <span>{profile.email}</span>
             )}
-          </div>
-          <div className="field-container">
-            <strong className="field-label">Contraseña:</strong>
+          </FieldContainer>
+          <FieldContainer>
+            <div style={{ width: '200px' }}>Contraseña:</div>
             {editMode ? (
-              <div className="edit-container">
+              <>
                 <TextField
                   label="Contraseña"
                   type={showPassword ? 'text' : 'password'}
@@ -121,60 +140,52 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
                   margin="normal"
-                  className="fade-in"
                 />
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" className="icon-button">
+                <IconButton onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
-              </div>
+              </>
             ) : (
-              <div className="field-value">
-                {profile.userpassword ? '******' : 'No definida'}
-              </div>
+              <span>{profile.userpassword ? '******' : 'No definida'}</span>
             )}
-          </div>
+          </FieldContainer>
           {editMode && (
-            <div className="field-container">
-              <strong className="field-label">Confirmar Contraseña:</strong>
-              <div className="edit-container">
-                <TextField
-                  label="Confirmar Contraseña"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  fullWidth
-                  margin="normal"
-                  className="fade-in"
-                />
-                <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)} edge="end" className="icon-button">
-                  {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </div>
-            </div>
+            <FieldContainer>
+              <div style={{ width: '200px' }}>Confirmar Contraseña:</div>
+              <TextField
+                label="Confirmar Contraseña"
+                type={showConfirmPassword ? 'text' : 'password'}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                fullWidth
+                margin="normal"
+              />
+              <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </FieldContainer>
           )}
-          {error && <p className="error-message">{error}</p>}
-          <div className="edit-buttons">
-            {editMode ? (
-              <div>
-                <Button variant="contained" color="primary" onClick={handleSave} style={{ marginRight: '10px' }}>
-                  Guardar
-                </Button>
-                <Button variant="outlined" color="secondary" onClick={() => setEditMode(false)}>
-                  Cancelar
-                </Button>
-              </div>
-            ) : (
-              <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>
-                Editar
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {editMode ? (
+            <div>
+              <Button variant="contained" color="primary" onClick={handleSave} style={{ marginRight: '10px' }}>
+                Guardar
               </Button>
-            )}
-          </div>
+              <Button variant="outlined" color="secondary" onClick={() => setEditMode(false)}>
+                Cancelar
+              </Button>
+            </div>
+          ) : (
+            <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>
+              Editar
+            </Button>
+          )}
+          <Button onClick={onClose} style={{ marginTop: '10px' }}>Cerrar</Button>
         </div>
       ) : (
         <p>Cargando...</p>
       )}
-      <Button onClick={onClose} style={{ marginTop: '10px' }}>Cerrar</Button>
-    </div>
+    </Container>
   );
 };
 

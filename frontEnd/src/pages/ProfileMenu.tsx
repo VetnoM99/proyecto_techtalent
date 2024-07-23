@@ -9,8 +9,8 @@ interface ProfileMenuProps {
   userName: string;
   userId: number;
   onLogout: () => void;
-  anchorEl: HTMLElement | null;
-  onClose: () => void;
+  anchorEl: HTMLElement | null;  // Estado del anclaje del menú
+  onClose: () => void;           // Función para cerrar el menú
 }
 
 const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, userId, onLogout, anchorEl, onClose }) => {

@@ -1,3 +1,5 @@
+// src/components/NavBar.tsx
+
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,6 +15,7 @@ interface NavBarProps {
   setRegisterDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isLoggedIn: boolean;
   userName: string;
+  userId: number;               // Añadir userId como propiedad requerida
   onLogout: () => void;
 }
 
@@ -21,6 +24,7 @@ const NavBar: React.FC<NavBarProps> = ({
   setRegisterDialogOpen,
   isLoggedIn,
   userName,
+  userId,
   onLogout
 }) => {
   const location = useLocation();
@@ -79,22 +83,19 @@ const NavBar: React.FC<NavBarProps> = ({
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {isLoggedIn ? (
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginLeft: 2,
-                    cursor: 'pointer',
-                    fontSize: '1rem',
-                    fontWeight: 'bold'
-                  }}
+                <Button
+                  onClick={handleAvatarClick}
+                  sx={{ display: 'flex', alignItems: 'center', fontSize: '1rem', fontWeight: 'bold' }}
                 >
-                  <ProfileMenu
-                    userName={userName}
-                    onLogout={onLogout}
-                    onProfileClick={() => console.log('Profile Clicked')}
-                  />
-                </Box>
+                  {initial}
+                </Button>
+                <ProfileMenu
+                  userName={userName}
+                  userId={userId}
+                  onLogout={onLogout}
+                  anchorEl={anchorEl}
+                  onClose={handleMenuClose}
+                />
               </Box>
             ) : (
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -124,4 +125,3 @@ const NavBar: React.FC<NavBarProps> = ({
 };
 
 export default NavBar;
-

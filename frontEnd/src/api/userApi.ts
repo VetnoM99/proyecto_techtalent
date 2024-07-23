@@ -1,8 +1,5 @@
-// src/api/userApi.ts
-
 const API_BASE_URL = 'http://localhost:8080'; // Cambia esto según la configuración de tu API
 
-// Obtener el perfil del usuario
 export const fetchUserProfile = async (userId: number) => {
   const response = await fetch(`${API_BASE_URL}/users/${userId}`);
   if (!response.ok) {
@@ -11,14 +8,12 @@ export const fetchUserProfile = async (userId: number) => {
   return response.json();
 };
 
-// Actualizar el perfil del usuario
 export interface UserProfileUpdate {
   email: string;
   name?: string;
-  password?: string; // Utiliza 'password' en lugar de 'userpassword'
+  password?: string;
 }
 
-// Actualizar el perfil del usuario
 export const updateUserProfile = async (userId: number, profile: UserProfileUpdate) => {
   const response = await fetch(`${API_BASE_URL}/users/update/${userId}`, {
     method: 'PUT',
@@ -33,7 +28,6 @@ export const updateUserProfile = async (userId: number, profile: UserProfileUpda
   return response.json();
 };
 
-// Login
 export const loginUser = async (username: string, password: string) => {
   const response = await fetch(`${API_BASE_URL}/users/login`, {
     method: 'POST',
@@ -42,11 +36,25 @@ export const loginUser = async (username: string, password: string) => {
     },
     body: JSON.stringify({ username, password }),
   });
-  
+
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(`Error logging in: ${errorText}`);
   }
 
-  return response.json(); // Devuelve el JSON de la respuesta
+  return response.json();
+};
+
+export const validateToken = async (token: string) => {
+  const response = await fetch(`${API_BASE_URL}/validate-token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token }),
+  });
+  if (!response.ok) {
+    throw new Error('Token validation failed');
+  }
+  return response.json();
 };
