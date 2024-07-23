@@ -30,9 +30,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess
 
       // Maneja el éxito del inicio de sesión
       onLoginSuccess(username, userId);
-
-      // Cierra el cuadro de diálogo después de un inicio de sesión exitoso
-      onClose();
     } catch (error) {
       console.error("Login error:", error);
       // Manejar el error de manera apropiada aquí (por ejemplo, mostrar un mensaje de error al usuario)

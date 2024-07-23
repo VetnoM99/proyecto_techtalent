@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// src/App.tsx
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import NavBar from './components/NavBar';
@@ -19,19 +20,6 @@ const App: React.FC = () => {
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState<number | null>(null);
 
-  // Restaurar el estado del usuario al cargar la aplicación
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const savedUserId = localStorage.getItem('userId');
-    const savedUserName = localStorage.getItem('username');
-    
-    if (token && savedUserId && savedUserName) {
-      setIsLoggedIn(true);
-      setUserName(savedUserName);
-      setUserId(parseInt(savedUserId, 10));
-    }
-  }, []);
-
   const handleLoginSuccess = (username: string, id: number) => {
     setIsLoggedIn(true);
     setUserName(username);
@@ -44,11 +32,6 @@ const App: React.FC = () => {
   };
 
   const handleLogout = () => {
-    // Eliminar el token y los datos del usuario al cerrar sesión
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('username');
-
     setIsLoggedIn(false);
     setUserName('');
     setUserId(null);
@@ -83,21 +66,8 @@ const App: React.FC = () => {
             <Route path="/proyecto" element={<Proyecto />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/participa" element={<Participa />} />
-<<<<<<< HEAD
             <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
             <Route path="/profile/:userId" element={<UserProfile userId={userId ?? 0} onClose={() => { /* Define una función para manejar el cierre del perfil */ }} />} />
-=======
-            <Route
-              path="/register"
-              element={
-                <RegisterForm
-                  open={registerDialogOpen}
-                  onClose={() => setRegisterDialogOpen(false)}
-                  onRegisterSuccess={handleRegisterSuccess}
-                />
-              }
-            />
->>>>>>> 389cff1552606e3bb523a6af96f4b5ecf0941d35
           </Routes>
         </Box>
         <FooterBar />
@@ -117,4 +87,3 @@ const App: React.FC = () => {
 }
 
 export default App;
-
