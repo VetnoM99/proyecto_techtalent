@@ -83,8 +83,21 @@ const App: React.FC = () => {
             <Route path="/proyecto" element={<Proyecto />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/participa" element={<Participa />} />
+<<<<<<< HEAD
             <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
             <Route path="/profile/:userId" element={<UserProfile userId={userId ?? 0} onClose={() => { /* Define una función para manejar el cierre del perfil */ }} />} />
+=======
+            <Route
+              path="/register"
+              element={
+                <RegisterForm
+                  open={registerDialogOpen}
+                  onClose={() => setRegisterDialogOpen(false)}
+                  onRegisterSuccess={handleRegisterSuccess}
+                />
+              }
+            />
+>>>>>>> 389cff1552606e3bb523a6af96f4b5ecf0941d35
           </Routes>
         </Box>
         <FooterBar />
@@ -104,3 +117,4 @@ const App: React.FC = () => {
 }
 
 export default App;
+

@@ -1,5 +1,3 @@
-// src/components/NavBar.tsx
-
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,15 +9,20 @@ import ProfileMenu from '../pages/ProfileMenu';
 import logo from '../assets/logo.png';
 
 interface NavBarProps {
-  setLoginDialogOpen: (open: boolean) => void;
-  setRegisterDialogOpen: (open: boolean) => void;
+  setLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setRegisterDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isLoggedIn: boolean;
   userName: string;
-  userId: number; // Asegúrate de pasar el userId
   onLogout: () => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOpen, isLoggedIn, userName, userId, onLogout }) => {
+const NavBar: React.FC<NavBarProps> = ({
+  setLoginDialogOpen,
+  setRegisterDialogOpen,
+  isLoggedIn,
+  userName,
+  onLogout
+}) => {
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -43,92 +46,82 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const initial = userName.charAt(0).toUpperCase();
 
   return (
-    <>
-      <AppBar position="static" sx={{ background: '#f3f4ef' }}>
-        <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '12vh' }}>
-          <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+    <AppBar position="static" sx={{ background: '#f3f4ef' }}>
+      <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '12vh' }}>
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box
+                component="img"
+                src={logo}
+                alt="Logo"
+                sx={{ height: 40, marginLeft: 2, cursor: 'pointer' }}
+              />
+            </Box>
+          </Link>
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexGrow: 1 }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                component={Link}
+                to={`/${page.toLowerCase().replace(/ /g, '-')}`}
+                sx={{
+                  color: page === getCurrentPage() ? '#007bff' : 'black',
+                  fontSize: '0.9rem',
+                  padding: '0 8px',
+                  textTransform: 'none',
+                }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {isLoggedIn ? (
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Box
-                  component="img"
-                  src={logo}
-                  alt="Logo"
-                  sx={{ height: 40, marginLeft: 2, cursor: 'pointer' }}
-                />
-              </Box>
-            </Link>
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexGrow: 1 }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  component={Link}
-                  to={`/${page.toLowerCase().replace(/ /g, '-')}`}
                   sx={{
-                    color: page === getCurrentPage() ? '#007bff' : 'black',
-                    fontSize: '0.9rem',
-                    padding: '0 8px',
-                    textTransform: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginLeft: 2,
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                    fontWeight: 'bold'
                   }}
                 >
-                  {page}
-                </Button>
-              ))}
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              {isLoggedIn ? (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {/* Avatar con inicial del nombre que despliega el menú */}
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: 40,
-                      height: 40,
-                      borderRadius: '50%',
-                      backgroundColor: '#007bff',
-                      color: 'white',
-                      fontSize: '1.2rem',
-                      fontWeight: 'bold',
-                      marginRight: 2,
-                      cursor: 'pointer',
-                    }}
-                    onClick={handleAvatarClick}
-                  >
-                    {initial}
-                  </Box>
                   <ProfileMenu
                     userName={userName}
-                    userId={userId}
                     onLogout={onLogout}
-                    anchorEl={anchorEl}
-                    onClose={handleMenuClose}
+                    onProfileClick={() => console.log('Profile Clicked')}
                   />
                 </Box>
-              ) : (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Button
-                    variant="outlined"
-                    sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', marginRight: "5px", whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
-                    onClick={() => setLoginDialogOpen(true)}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    onClick={() => setRegisterDialogOpen(true)}
-                    variant="outlined"
-                    sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
-                  >
-                    Registrar
-                  </Button>
-                </Box>
-              )}
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </>
+              </Box>
+            ) : (
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Button
+                  variant="outlined"
+                  sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', marginRight: "5px", whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
+                  onClick={() => setLoginDialogOpen(true)}
+                >
+                  Login
+                </Button>
+                <Button
+                  component={Link}
+                  to="/register"
+                  variant="outlined"
+                  sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
+                  onClick={() => setRegisterDialogOpen(true)}
+                >
+                  Registrar
+                </Button>
+              </Box>
+            )}
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 
 export default NavBar;
+
