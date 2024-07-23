@@ -8,7 +8,8 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 700px; /* Aumenta el tamaño del modal si es necesario */
+    max-width: 700px; 
+    height: 75%;
     width: 100%;
     box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
 }
@@ -27,7 +28,7 @@
     margin-bottom: 15px;
 }
 
-input, textarea {
+input {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
@@ -37,6 +38,19 @@ input, textarea {
     background-color: #f9f9f9;
     outline: none;
 }
+
+textarea {
+    width: 100%;
+    padding: 15px; /* Aumenta el padding para hacer el textarea más espacioso */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
+    color: #333;
+    background-color: #f9f9f9;
+    outline: none;
+    min-height: 150px; /* Establece una altura mínima para el textarea */
+}
+
 
 input:focus ~ label,
 textarea:focus ~ label,
@@ -57,8 +71,12 @@ label {
     left: 12px;
     top: 15px;
     color: #555;
-    transition: top 0.3s ease-out, font-size 0.3s ease-out; /* Eliminamos la transición de color */
-    pointer-events: none;
+    transition: top 0.3s ease-out, font-size 0.3s ease-out;
+    /*Eliminamoslatransicióndecolor*/pointer-events: none;
+    -webkit-transition: top 0.3s ease-out, font-size 0.3s ease-out;
+    -moz-transition: top 0.3s ease-out, font-size 0.3s ease-out;
+    -ms-transition: top 0.3s ease-out, font-size 0.3s ease-out;
+    -o-transition: top 0.3s ease-out, font-size 0.3s ease-out;
 }
 
 .button-container {

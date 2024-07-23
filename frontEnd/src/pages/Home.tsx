@@ -7,7 +7,7 @@ import bioagrad4 from '../assets/bioagradables-colabora-institucion-academica.jp
 
 const images = [bioagrad1, bioagrad2, bioagrad3, bioagrad4];
 const texts = [
-    " Fundados en el año 2024, nuestro objetivo es lograr un futuro limpio y sostenible en la Costa Dorada para 2030,donde nuestras especies se conserven en paz y de manera sana en un mar completamente limpio.Únete a nuestro programa de voluntariado y ayuda a limpiar nuestras playas y océanos. Cada pequeño esfuerzo cuenta para mantener nuestras costas libres de residuos y asegurar un hábitat seguro para la vida marina.",
+    "Fundados en el año 2024, nuestro objetivo es lograr un futuro limpio y sostenible en la Costa Dorada para 2030, donde nuestras especies se conserven en paz y de manera sana en un mar completamente limpio. Únete a nuestro programa de voluntariado y ayuda a limpiar nuestras playas y océanos. Cada pequeño esfuerzo cuenta para mantener nuestras costas libres de residuos y asegurar un hábitat seguro para la vida marina.",
     "Participa en nuestros talleres educativos y aprende sobre la importancia de conservar nuestros océanos. Fomentamos la conciencia ambiental entre las nuevas generaciones para un futuro más sostenible.",
     "Colabora con nosotros como empresa y demuéstrale al mundo tu compromiso con la sostenibilidad. Juntos podemos implementar prácticas responsables y reducir el impacto ambiental de nuestras actividades.",
     "Apoya nuestras iniciativas de investigación científica para monitorear y analizar la salud de nuestros océanos. Con datos precisos y actualizados, podemos desarrollar estrategias efectivas para su protección y conservación."
@@ -23,11 +23,13 @@ const Home: React.FC = () => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         const index = refs.current.indexOf(entry.target as HTMLDivElement);
-                        setVisibleStates((prev) => {
-                            const newStates = [...prev];
-                            newStates[index] = true;
-                            return newStates;
-                        });
+                        if (index !== -1) {
+                            setVisibleStates((prev) => {
+                                const newStates = [...prev];
+                                newStates[index] = true;
+                                return newStates;
+                            });
+                        }
                         observer.unobserve(entry.target);
                     }
                 });
@@ -97,27 +99,51 @@ const Home: React.FC = () => {
                         alignItems="center"
                         sx={{
                             opacity: visibleStates[index] ? 1 : 0,
-                            transform: visibleStates[index] ? 'translateX(0)' : index % 2 === 0 ? 'translateX(-100%)' : 'translateX(100%)',
-                            transition: 'all 2s ease', 
+                            transform: visibleStates[index]
+                                ? 'translateX(0)'
+                                : index % 2 === 0
+                                    ? 'translateX(-100%)'  // Mueve la imagen desde la izquierda fuera del contenedor
+                                    : 'translateX(100%)',   // Mueve la imagen desde la derecha fuera del contenedor
+                            transition: 'all 1s ease',
                             my: 4,
                         }}
                     >
                         {index % 2 === 0 ? (
                             <>
-                                <Grid item xs={12} md={6}>
-                                    <img src={src} alt={`bioagradable-${index}`} style={{ width: '100%' }} />
+                                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <Box
+                                        component="img"
+                                        src={src}
+                                        alt={`bioagradable-${index}`}
+                                        sx={{
+                                            width: '100%',
+                                            maxWidth: '500px',
+                                            height: 'auto',
+                                            objectFit: 'cover',  // Ajusta el tamaño de la imagen si es necesario
+                                        }}
+                                    />
                                 </Grid>
-                                <Grid item xs={12} md={6}>
+                                <Grid item xs={12} md={6} sx={{ textAlign: 'left' }}>
                                     <Typography variant="body1">{texts[index]}</Typography>
                                 </Grid>
                             </>
                         ) : (
                             <>
-                                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+                                <Grid item xs={12} md={6} sx={{ textAlign: 'right' }}>
                                     <Typography variant="body1">{texts[index]}</Typography>
                                 </Grid>
-                                <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-                                    <img src={src} alt={`bioagradable-${index}`} style={{ width: '100%' }} />
+                                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+                                    <Box
+                                        component="img"
+                                        src={src}
+                                        alt={`bioagradable-${index}`}
+                                        sx={{
+                                            width: '100%',
+                                            maxWidth: '500px',
+                                            height: 'auto',
+                                            objectFit: 'cover',  // Ajusta el tamaño de la imagen si es necesario
+                                        }}
+                                    />
                                 </Grid>
                             </>
                         )}
