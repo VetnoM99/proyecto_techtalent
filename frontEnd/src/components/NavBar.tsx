@@ -1,31 +1,27 @@
-import React, { useState } from 'react';
+// src/components/NavBar.tsx
+
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
-import ProfileMenu from '../pages/ProfileMenu'; // Asegúrate de que ProfileMenu esté bien implementado
-import LoginDialog from '../settings/Login'; // Asegúrate de que LoginDialog esté bien implementado
-import logo from '../assets/logo.png'; // Logo principal
+import ProfileMenu from '../pages/ProfileMenu';
+import logo from '../assets/logo.png';
 
-const NavBar: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+interface NavBarProps {
+  setLoginDialogOpen: (open: boolean) => void;
+  setRegisterDialogOpen: (open: boolean) => void;
+  isLoggedIn: boolean;
+  userName: string;
+  userId: number; // Asegúrate de pasar el userId
+  onLogout: () => void;
+}
 
-  const handleLoginSuccess = (username: string) => {
-    setIsLoggedIn(true);
-    setUserName(username);
-    setLoginDialogOpen(false);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserName('');
-  };
-
+const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOpen, isLoggedIn, userName, userId, onLogout }) => {
   const location = useLocation();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
 
@@ -34,6 +30,17 @@ const NavBar: React.FC = () => {
     const currentPage = pages.find(page => `/${page.toLowerCase().replace(/ /g, '-')}` === path);
     return currentPage || 'Inicio';
   };
+
+  const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  // Extraer la inicial del nombre del usuario
+  const initial = userName.charAt(0).toUpperCase();
 
   return (
     <>
@@ -70,22 +77,33 @@ const NavBar: React.FC = () => {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {isLoggedIn ? (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  {/* Avatar con inicial del nombre que despliega el menú */}
                   <Box
                     sx={{
                       display: 'flex',
+                      justifyContent: 'center',
                       alignItems: 'center',
-                      marginLeft: 2,
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      backgroundColor: '#007bff',
+                      color: 'white',
+                      fontSize: '1.2rem',
+                      fontWeight: 'bold',
+                      marginRight: 2,
                       cursor: 'pointer',
-                      fontSize: '1rem',
-                      fontWeight: 'bold'
                     }}
+                    onClick={handleAvatarClick}
                   >
-                    <ProfileMenu
-                      userName={userName}
-                      onLogout={handleLogout}
-                      onProfileClick={() => console.log('Profile Clicked')}
-                    />
+                    {initial}
                   </Box>
+                  <ProfileMenu
+                    userName={userName}
+                    userId={userId}
+                    onLogout={onLogout}
+                    anchorEl={anchorEl}
+                    onClose={handleMenuClose}
+                  />
                 </Box>
               ) : (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -97,8 +115,7 @@ const NavBar: React.FC = () => {
                     Login
                   </Button>
                   <Button
-                    component={Link}
-                    to="/register"
+                    onClick={() => setRegisterDialogOpen(true)}
                     variant="outlined"
                     sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
                   >
@@ -110,11 +127,6 @@ const NavBar: React.FC = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <LoginDialog
-        open={loginDialogOpen}
-        onClose={() => setLoginDialogOpen(false)}
-        onLoginSuccess={handleLoginSuccess}
-      />
     </>
   );
 };

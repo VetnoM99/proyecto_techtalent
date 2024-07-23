@@ -1,3 +1,5 @@
+// src/api/userApi.ts
+
 const API_BASE_URL = 'http://localhost:8080'; // Cambia esto según la configuración de tu API
 
 // Obtener el perfil del usuario
@@ -10,7 +12,14 @@ export const fetchUserProfile = async (userId: number) => {
 };
 
 // Actualizar el perfil del usuario
-export const updateUserProfile = async (userId: number, profile: { email: string }) => {
+export interface UserProfileUpdate {
+  email: string;
+  name?: string;
+  password?: string; // Utiliza 'password' en lugar de 'userpassword'
+}
+
+// Actualizar el perfil del usuario
+export const updateUserProfile = async (userId: number, profile: UserProfileUpdate) => {
   const response = await fetch(`${API_BASE_URL}/users/update/${userId}`, {
     method: 'PUT',
     headers: {
@@ -21,16 +30,23 @@ export const updateUserProfile = async (userId: number, profile: { email: string
   if (!response.ok) {
     throw new Error('Error updating user profile');
   }
-  return response.json(); // Optional: Return updated user data
+  return response.json();
 };
 
 // Login
 export const loginUser = async (username: string, password: string) => {
-  const response = await fetch(`${API_BASE_URL}/login?username=${username}&password=${password}`, {
+  const response = await fetch(`${API_BASE_URL}/users/login`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
   });
+  
   if (!response.ok) {
-    throw new Error('Error logging in');
+    const errorText = await response.text();
+    throw new Error(`Error logging in: ${errorText}`);
   }
-  return response.text(); // Assuming a text response for simplicity
+
+  return response.json(); // Devuelve el JSON de la respuesta
 };

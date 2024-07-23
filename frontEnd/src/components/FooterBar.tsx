@@ -8,11 +8,13 @@ const FooterBar: React.FC = () => {
     <Box
       sx={{
         py: 3,
-        px: 2,
-        mt: 'auto',
+        px: 0,
+        mt: '0',
         backgroundColor: '#3c3c3c',
-        width: '100%',
+        width: '98.5vw',
         color: 'white',
+        position: 'relative',
+        bottom: 0
       }}
       component="footer"
     >

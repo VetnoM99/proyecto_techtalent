@@ -50,10 +50,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle className="dialog-title">Registrar</DialogTitle>
-      <DialogContent className="dialog-content">
+      <DialogTitle>Registrar</DialogTitle>
+      <DialogContent>
         <TextField
-          className="input-field"
           margin="dense"
           id="username"
           label="Usuario"
@@ -63,7 +62,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
-          className="input-field"
           margin="dense"
           id="password"
           label="Contraseña"
@@ -73,7 +71,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
-          className="input-field"
           margin="dense"
           id="confirmPassword"
           label="Confirmar Contraseña"
@@ -82,15 +79,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        {message && <p className="error-message">{message}</p>}
+        {message && <p>{message}</p>}
       </DialogContent>
-      <DialogActions className="dialog-actions">
-        <Button className="button" onClick={onClose}>
-          Cancelar
-        </Button>
-        <Button className="button" onClick={handleRegister}>
-          Registrar
-        </Button>
+      <DialogActions>
+        <Button onClick={onClose}>Cancelar</Button>
+        <Button onClick={handleRegister}>Registrar</Button>
       </DialogActions>
     </Dialog>
   );

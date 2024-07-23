@@ -3,81 +3,69 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import '../styles/Login.css'; // Asegúrate de importar el CSS
+import Button from '@mui/material/Button';
+import { loginUser } from '../api/userApi'; // Asegúrate de que esta importación sea correcta
 
 interface LoginDialogProps {
   open: boolean;
   onClose: () => void;
-  onLoginSuccess: (username: string) => void;
+  onLoginSuccess: (username: string, id: number) => void;
 }
 
 const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:8080/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
-      });
+      const response = await loginUser(username, password);
+      // Supongamos que la respuesta es un objeto JSON
+      const { token, userId } = response;
 
-      if (response.ok) {
-        setMessage('Login exitoso');
-        onLoginSuccess(username); // Llama con un solo argumento
-        onClose();
-      } else if (response.status === 401) {
-        setMessage('Contraseña incorrecta');
-      } else if (response.status === 404) {
-        setMessage('Usuario no encontrado');
-      } else {
-        setMessage('Error en el servidor');
-      }
+      // Guarda el token, el ID de usuario y el nombre de usuario en localStorage
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('userId', userId.toString());
+      localStorage.setItem('username', username);
+
+      // Maneja el éxito del inicio de sesión
+      onLoginSuccess(username, userId);
+
+      // Cierra el cuadro de diálogo después de un inicio de sesión exitoso
+      onClose();
     } catch (error) {
-      console.error('Error:', error);
-      setMessage('Error al iniciar sesión');
+      console.error("Login error:", error);
+      // Manejar el error de manera apropiada aquí (por ejemplo, mostrar un mensaje de error al usuario)
     }
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle className="dialog-title">Login</DialogTitle>
-      <DialogContent className="dialog-content">
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Iniciar sesión</DialogTitle>
+      <DialogContent>
         <TextField
-          className="input-field"
+          autoFocus
           margin="dense"
-          id="username"
-          label="Usuario"
+          label="Nombre de usuario"
           type="text"
           fullWidth
+          variant="standard"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
-          className="input-field"
           margin="dense"
-          id="password"
           label="Contraseña"
           type="password"
           fullWidth
+          variant="standard"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {message && <p className="error-message">{message}</p>}
       </DialogContent>
-      <DialogActions className="dialog-actions">
-        <Button className="button" onClick={onClose}>
-          Cancelar
-        </Button>
-        <Button className="button" onClick={handleLogin}>
-          Iniciar sesión
-        </Button>
+      <DialogActions>
+        <Button onClick={onClose}>Cancelar</Button>
+        <Button onClick={handleLogin}>Iniciar sesión</Button>
       </DialogActions>
     </Dialog>
   );

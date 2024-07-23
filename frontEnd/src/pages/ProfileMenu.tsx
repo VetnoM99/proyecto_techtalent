@@ -1,35 +1,32 @@
+// src/pages/ProfileMenu.tsx
+
 import React from 'react';
-import { Menu, MenuItem, IconButton, Typography, Avatar } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
 
 interface ProfileMenuProps {
   userName: string;
+  userId: number;
   onLogout: () => void;
-  onProfileClick: () => void;
+  anchorEl: HTMLElement | null;
+  onClose: () => void;
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, onLogout, onProfileClick }) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, userId, onLogout, anchorEl, onClose }) => {
   return (
-    <div>
-      <IconButton onClick={handleClick} size="large">
-        <Avatar sx={{ bgcolor: deepOrange[500] }}>{userName.charAt(0).toUpperCase()}</Avatar>
-      </IconButton>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={() => { handleClose(); onProfileClick(); }}>Ver Perfil</MenuItem>
-        <MenuItem onClick={() => { handleClose(); onLogout(); }}>Cerrar Sesión</MenuItem>
-      </Menu>
-      <Typography>{userName}</Typography>
-    </div>
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={onClose}
+    >
+      <MenuItem onClick={onClose} component={Link} to={`/profile/${userId}`}>
+        Ver perfil
+      </MenuItem>
+      <MenuItem onClick={() => { onClose(); onLogout(); }}>
+        Cerrar sesión
+      </MenuItem>
+    </Menu>
   );
 };
 

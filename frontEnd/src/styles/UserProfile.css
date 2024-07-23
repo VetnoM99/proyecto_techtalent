@@ -1,0 +1,40 @@
+
+.user-profile-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .field-container {
+    margin-bottom: 15px;
+  }
+  
+  .field-label {
+    font-weight: bold;
+  }
+  
+  .field-value {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+  
+  .edit-buttons {
+    margin-top: 20px;
+  }
+  
+  button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
