@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Container, Typography, Box, Grid } from '@mui/material';
+import { Container, Typography, Box, Grid, Button } from '@mui/material';
 import bioagrad1 from '../assets/bioagradebles.jpg';
 import bioagrad2 from '../assets/bioagradables-RafaBeladiez-010.jpg';
 import bioagrad3 from '../assets/bioagradables2.png';
 import bioagrad4 from '../assets/bioagradables-colabora-institucion-academica.jpg';
+import '../styles/Home.css';
 
 const images = [bioagrad1, bioagrad2, bioagrad3, bioagrad4];
 const texts = [
@@ -11,6 +12,13 @@ const texts = [
     "Participa en nuestros talleres educativos y aprende sobre la importancia de conservar nuestros océanos. Fomentamos la conciencia ambiental entre las nuevas generaciones para un futuro más sostenible.",
     "Colabora con nosotros como empresa y demuéstrale al mundo tu compromiso con la sostenibilidad. Juntos podemos implementar prácticas responsables y reducir el impacto ambiental de nuestras actividades.",
     "Apoya nuestras iniciativas de investigación científica para monitorear y analizar la salud de nuestros océanos. Con datos precisos y actualizados, podemos desarrollar estrategias efectivas para su protección y conservación."
+];
+
+const buttonLinks = [
+    "/contacto",
+    "/participa",
+    "/quienes-somos",
+    "/proyecto"
 ];
 
 const Home: React.FC = () => {
@@ -124,13 +132,27 @@ const Home: React.FC = () => {
                                     />
                                 </Grid>
                                 <Grid item xs={12} md={6} sx={{ textAlign: 'left' }}>
-                                    <Typography variant="body1">{texts[index]}</Typography>
+                                    <Typography variant="h6" paragraph>{texts[index]}</Typography>
+                                    <Button 
+                                        variant="contained" 
+                                        color="primary" 
+                                        href={buttonLinks[index]}
+                                    >
+                                        Más información
+                                    </Button>
                                 </Grid>
                             </>
                         ) : (
                             <>
                                 <Grid item xs={12} md={6} sx={{ textAlign: 'right' }}>
-                                    <Typography variant="body1">{texts[index]}</Typography>
+                                    <Typography variant="h6" paragraph>{texts[index]}</Typography>
+                                    <Button 
+                                        variant="contained" 
+                                        color="primary" 
+                                        href={buttonLinks[index]}
+                                    >
+                                        Más información
+                                    </Button>
                                 </Grid>
                                 <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     <Box
@@ -155,3 +177,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
