@@ -9,9 +9,13 @@ const FooterBar: React.FC = () => {
       sx={{
         py: 3,
         px: 0,
+<<<<<<< HEAD
         mt: 'auto',
+=======
+        mt: 'auto', // Use 'auto' to push the footer to the bottom
+>>>>>>> a3942194c8660697bb0f2c6e0df17e4645453177
         backgroundColor: '#3c3c3c',
-        width: '98.5vw',
+        width: '100%', // Ensure full width
         color: 'white',
       }}
       component="footer"
@@ -23,6 +27,6 @@ const FooterBar: React.FC = () => {
       </Container>
     </Box>
   );
-}
+};
 
 export default FooterBar;

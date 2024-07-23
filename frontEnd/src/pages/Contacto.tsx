@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Cambiar useHistory por useNavigate
 import '../styles/ContactForm.css';
 
 Modal.setAppElement('#root');
@@ -11,6 +12,7 @@ const Contacto: React.FC = () => {
     const [message, setMessage] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(true);
+    const navigate = useNavigate(); // Usar useNavigate
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,6 +33,7 @@ const Contacto: React.FC = () => {
         setName('');
         setEmail('');
         setMessage('');
+        navigate('/'); // Redirigir al inicio
     };
 
     return (
@@ -98,4 +101,3 @@ const Contacto: React.FC = () => {
 };
 
 export default Contacto;
-
