@@ -21,7 +21,7 @@ interface ProfileMenuProps {
   // No necesitas onUpdateProfile aquí porque lo manejaremos en el componente principal
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, userEmail, userId, onLogout, onProfileClick }) => {
+const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, userEmail, userId, onLogout }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [name, setName] = useState(userName);
