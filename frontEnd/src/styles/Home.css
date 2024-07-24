@@ -1,6 +1,8 @@
 .home-container {
     text-align: center;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    padding: 0 20px;
 }
 
 .main-section {
@@ -30,8 +32,15 @@
     color: white;
     border: none;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 .join-button:hover {
     background-color: #218838;
+}
+
+.image-grid {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
