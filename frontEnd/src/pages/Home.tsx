@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { Container, Typography, Box } from '@mui/material';
-import { Home as HomeIcon } from '@mui/icons-material'; 
-
-=======
 import React, { useRef, useEffect, useState } from 'react';
 import { Container, Typography, Box, Grid, Button } from '@mui/material';
 import bioagrad1 from '../assets/bioagradebles.jpg';
@@ -19,7 +13,6 @@ const texts = [
     "Colabora con nosotros como empresa y demuéstrale al mundo tu compromiso con la sostenibilidad. Juntos podemos implementar prácticas responsables y reducir el impacto ambiental de nuestras actividades.",
     "Apoya nuestras iniciativas de investigación científica para monitorear y analizar la salud de nuestros océanos. Con datos precisos y actualizados, podemos desarrollar estrategias efectivas para su protección y conservación."
 ];
->>>>>>> a3942194c8660697bb0f2c6e0df17e4645453177
 
 const buttonLinks = [
     "/contacto",
@@ -29,8 +22,6 @@ const buttonLinks = [
 ];
 
 const Home: React.FC = () => {
-<<<<<<< HEAD
-=======
     const refs = useRef<HTMLDivElement[]>([]);
     const [visibleStates, setVisibleStates] = useState<boolean[]>(new Array(images.length).fill(false));
 
@@ -63,21 +54,16 @@ const Home: React.FC = () => {
         };
     }, []);
 
->>>>>>> a3942194c8660697bb0f2c6e0df17e4645453177
     return (
         <Container>
             <Box my={4}>
                 <Typography variant="h2" component="h1" gutterBottom>
                    Bienvenidos a Port⭕Net
                 </Typography>
-                <HomeIcon /> 
-                <Typography>
-                Trabajamos para combatir la contaminación marítima y proteger nuestros océanos.
-            Fundados en el año 2024 nuestro objetivo está que en 2030 poder lograr un futuro limpio y sostenible la Costa Dorada.
-            En la que nuestras especies se conserven en paz y de manera sana en un mar completamente limpio.
+
+                <Typography variant="h3">
+                    Trabajamos para combatir la contaminación marítima y proteger nuestros océanos.
                 </Typography>
-<<<<<<< HEAD
-=======
 
                 <Box
                     mt={4}
@@ -185,7 +171,6 @@ const Home: React.FC = () => {
                         )}
                     </Grid>
                 ))}
->>>>>>> a3942194c8660697bb0f2c6e0df17e4645453177
             </Box>
         </Container>
     );

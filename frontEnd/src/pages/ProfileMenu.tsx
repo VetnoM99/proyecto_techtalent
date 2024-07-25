@@ -3,30 +3,48 @@
 import React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
+import Divider from '@mui/material/Divider';
+import Avatar from '@mui/material/Avatar';
+import { useNavigate } from 'react-router-dom';
 
 interface ProfileMenuProps {
-  userName: string;
-  userId: number;
+  anchorEl: null | HTMLElement;
+  handleAvatarClick: (event: React.MouseEvent<HTMLElement>) => void;
+  handleMenuClose: () => void;
+  username: string;
   onLogout: () => void;
-  anchorEl: HTMLElement | null;  // Estado del anclaje del menú
-  onClose: () => void;           // Función para cerrar el menú
+  initial: string;
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ userName, userId, onLogout, anchorEl, onClose }) => {
+const ProfileMenu: React.FC<ProfileMenuProps> = ({
+  anchorEl,
+  handleAvatarClick,
+  handleMenuClose,
+  username,
+  onLogout,
+  initial
+}) => {
+  const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+
+  const handleSettingsClick = () => {
+    navigate(`/profile/${username}`);
+    handleMenuClose();
+  };
+
   return (
-    <Menu
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      onClose={onClose}
-    >
-      <MenuItem onClick={onClose} component={Link} to={`/profile/${userId}`}>
-        Ver perfil
-      </MenuItem>
-      <MenuItem onClick={() => { onClose(); onLogout(); }}>
-        Cerrar sesión
-      </MenuItem>
-    </Menu>
+    <div>
+      <Avatar onClick={handleAvatarClick}>{initial}</Avatar>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleSettingsClick}>Configuración</MenuItem>
+        <Divider />
+        <MenuItem onClick={onLogout}>Cerrar sesión</MenuItem>
+      </Menu>
+    </div>
   );
 };
 

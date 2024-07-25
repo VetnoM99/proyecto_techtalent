@@ -10,7 +10,7 @@ import { loginUser } from '../api/userApi';
 interface LoginDialogProps {
   open: boolean;
   onClose: () => void;
-  onLoginSuccess: (username: string, id: number, token: string) => void;
+  onLoginSuccess: (username: string, id: number, token: string, refreshToken: string) => void;
 }
 
 const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess }) => {
@@ -20,11 +20,12 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, onLoginSuccess
   const handleLogin = async () => {
     try {
       const response = await loginUser(username, password);
-      const { token, userId } = response;
+      const { token, refreshToken, userId } = response;
       localStorage.setItem('authToken', token);
+      localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('userId', userId.toString());
       localStorage.setItem('username', username);
-      onLoginSuccess(username, userId, token);
+      onLoginSuccess(username, userId, token, refreshToken);
     } catch (error) {
       console.error("Login error:", error);
     }

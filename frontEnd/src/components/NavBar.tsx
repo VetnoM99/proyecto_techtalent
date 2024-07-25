@@ -4,29 +4,20 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import ProfileMenu from '../pages/ProfileMenu';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.png'; // Asegúrate de tener el path correcto
+import { useUser } from '../context/UserProvider';
 
 interface NavBarProps {
   setLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setRegisterDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isLoggedIn: boolean;
-  userName: string;
-  userId: number;               // Añadir userId como propiedad requerida
   onLogout: () => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({
-  setLoginDialogOpen,
-  setRegisterDialogOpen,
-  isLoggedIn,
-  userName,
-  userId,
-  onLogout
-}) => {
+const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOpen, onLogout }) => {
+  const { user } = useUser();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -46,80 +37,46 @@ const NavBar: React.FC<NavBarProps> = ({
     setAnchorEl(null);
   };
 
-  // Extraer la inicial del nombre del usuario
-  const initial = userName.charAt(0).toUpperCase();
+  const initial = user ? user.username.charAt(0).toUpperCase() : '';
 
   return (
     <AppBar position="static" sx={{ background: '#f3f4ef' }}>
-      <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '12vh' }}>
-        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box
-                component="img"
-                src={logo}
-                alt="Logo"
-                sx={{ height: 40, marginLeft: 2, cursor: 'pointer' }}
-              />
-            </Box>
-          </Link>
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexGrow: 1 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '10vh' }}>
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+            <img src={logo} alt="Logo" style={{ maxHeight: '30px', width: '10vw' }} />
+          </Box>
+          <Box sx={{ flex: '2', display: 'flex', justifyContent: 'space-evenly' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 component={Link}
                 to={`/${page.toLowerCase().replace(/ /g, '-')}`}
-                sx={{
-                  color: page === getCurrentPage() ? '#007bff' : 'black',
-                  fontSize: '0.9rem',
-                  padding: '0 8px',
-                  textTransform: 'none',
-                }}
+                sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {page}
               </Button>
             ))}
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {isLoggedIn ? (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button
-                  onClick={handleAvatarClick}
-                  sx={{ display: 'flex', alignItems: 'center', fontSize: '1rem', fontWeight: 'bold' }}
-                >
-                  {initial}
-                </Button>
-                <ProfileMenu
-                  userName={userName}
-                  userId={userId}
-                  onLogout={onLogout}
-                  anchorEl={anchorEl}
-                  onClose={handleMenuClose}
-                />
-              </Box>
+          <Box sx={{ flex: '1', display: 'flex', justifyContent: 'flex-end' }}>
+            {user ? (
+              <ProfileMenu
+                anchorEl={anchorEl}
+                handleAvatarClick={handleAvatarClick}
+                handleMenuClose={handleMenuClose}
+                username={user.username}
+                onLogout={onLogout}
+                initial={initial}
+              />
             ) : (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button
-                  variant="outlined"
-                  sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', marginRight: "5px", whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
-                  onClick={() => setLoginDialogOpen(true)}
-                >
-                  Login
-                </Button>
-                <Button
-                  component={Link}
-                  to="/register"
-                  variant="outlined"
-                  sx={{ color: 'white', fontSize: '0.8rem', borderColor: 'white', background: '#212832', padding: '6px 25px', whiteSpace: 'nowrap', '&:hover': { background: 'white', color: 'black' } }}
-                  onClick={() => setRegisterDialogOpen(true)}
-                >
-                  Registrar
-                </Button>
-              </Box>
+              <>
+                <Button onClick={() => setLoginDialogOpen(true)}>Login</Button>
+                <Button onClick={() => setRegisterDialogOpen(true)}>Register</Button>
+              </>
             )}
           </Box>
         </Toolbar>
-      </Container>
+      </Box>
     </AppBar>
   );
 };

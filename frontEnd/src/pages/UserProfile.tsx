@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUserProfile, updateUserProfile, UserProfileUpdate } from '../api/userApi';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {  styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import { useUser } from '../context/UserProvider';
+import { Box, Button, TextField } from '@mui/material';
 
 // Interfaz para el perfil de usuario
 interface UserProfile {
@@ -15,13 +15,11 @@ interface UserProfile {
   userpassword?: string;
 }
 
-// Props para el componente UserProfile
 interface UserProfileProps {
   userId: number;
   onClose: () => void;
 }
 
-// Estilos personalizados
 const Container = styled('div')(({ theme }) => ({
   padding: '20px',
   maxWidth: '600px',
@@ -41,6 +39,7 @@ const HiddenText = styled('span')({
 });
 
 const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
+  const { user, setUser } = useUser();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [email, setEmail] = useState('');
@@ -52,139 +51,118 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (userId) {
-      fetchUserProfile(userId)
-        .then(data => {
-          setProfile(data);
-          setEmail(data.email);
-          setName(data.username);
-          setPassword(data.userpassword || '');
-        })
-        .catch(error => {
-          console.error('Error fetching profile:', error);
-        });
-    }
-  }, [userId]);
+    const getUserProfile = async () => {
+      try {
+        const profileData = await fetchUserProfile(userId);
+        setProfile(profileData);
+        setEmail(profileData.email);
+        setName(profileData.username);
+        // Solo establecer la contraseña si está en modo edición
+        if (editMode) {
+          setPassword(profileData.userpassword); // Inicialmente vacío en modo solo lectura
+        }
+      } catch (error) {
+        console.error('Failed to fetch user profile:', error);
+      }
+    };
+
+    getUserProfile();
+  }, [userId, editMode]); // Ejecutar cuando cambie el userId o editMode
 
   const handleSave = async () => {
-    if (password && password !== confirmPassword) {
-      setError('Las contraseñas no coinciden');
-      return;
-    }
-
     try {
-      const updatedProfile: UserProfileUpdate = {
-        email,
-        name: name,
-        password: password || undefined,
-      };
+      if (!profile) return;
 
-      await updateUserProfile(userId, updatedProfile);
-      setProfile(prevProfile => ({
-        ...prevProfile!,
+      // Solo actualizar la contraseña si se ha cambiado
+      const updatedProfile: UserProfileUpdate = {
         username: name,
         email,
-        userpassword: password || prevProfile?.userpassword,
-      }));
+        ...(password && { userpassword: password }), // Solo añade la contraseña si se ha cambiado
+      };
+
+      if (password && password !== confirmPassword) {
+        setError('Passwords do not match');
+        return;
+      }
+
+      await updateUserProfile(userId, updatedProfile);
+      setProfile(prev => prev ? { ...prev, ...updatedProfile } : null);
+      setUser(prev => prev ? { ...prev, ...updatedProfile } : null);
       setEditMode(false);
       setError(null);
     } catch (error) {
-      setError('Error updating profile');
-      console.error('Error updating profile:', error);
+      console.error('Failed to update user profile:', error);
+      setError('Failed to update user profile');
     }
   };
 
   return (
     <Container>
-      <h1>Perfil de Usuario</h1>
-      {profile ? (
-        <div>
-          <FieldContainer>
-            <div style={{ width: '200px' }}>Nombre de Usuario:</div>
-            {editMode ? (
-              <TextField
-                label="Nombre de Usuario"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                fullWidth
-                margin="normal"
-                InputProps={{ readOnly: !editMode }}
-              />
-            ) : (
-              <span>{profile.username}</span>
-            )}
-          </FieldContainer>
-          <FieldContainer>
-            <div style={{ width: '200px' }}>Email:</div>
-            {editMode ? (
-              <TextField
-                label="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                fullWidth
-                margin="normal"
-              />
-            ) : (
-              <span>{profile.email}</span>
-            )}
-          </FieldContainer>
-          <FieldContainer>
-            <div style={{ width: '200px' }}>Contraseña:</div>
-            {editMode ? (
-              <>
-                <TextField
-                  label="Contraseña"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  fullWidth
-                  margin="normal"
-                />
-                <IconButton onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </>
-            ) : (
-              <span>{profile.userpassword ? '******' : 'No definida'}</span>
-            )}
-          </FieldContainer>
-          {editMode && (
-            <FieldContainer>
-              <div style={{ width: '200px' }}>Confirmar Contraseña:</div>
-              <TextField
-                label="Confirmar Contraseña"
-                type={showConfirmPassword ? 'text' : 'password'}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                fullWidth
-                margin="normal"
-              />
-              <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+      <h2>User Profile</h2>
+      <FieldContainer>
+        <TextField
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          fullWidth
+          disabled={!editMode}
+        />
+      </FieldContainer>
+      <FieldContainer>
+        <TextField
+          label="Username"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          fullWidth
+          disabled={!editMode}
+        />
+      </FieldContainer>
+      <FieldContainer>
+        <TextField
+          label="Password"
+          type={showPassword ? 'text' : 'password'}
+          value={editMode ? password : '********'} // Mostrar contraseña censurada si no está en edición
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
+          disabled={!editMode}
+          InputProps={{
+            endAdornment: (
+              <IconButton onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
               </IconButton>
-            </FieldContainer>
-          )}
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {editMode ? (
-            <div>
-              <Button variant="contained" color="primary" onClick={handleSave} style={{ marginRight: '10px' }}>
-                Guardar
-              </Button>
-              <Button variant="outlined" color="secondary" onClick={() => setEditMode(false)}>
-                Cancelar
-              </Button>
-            </div>
-          ) : (
-            <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>
-              Editar
-            </Button>
-          )}
-          <Button onClick={onClose} style={{ marginTop: '10px' }}>Cerrar</Button>
-        </div>
-      ) : (
-        <p>Cargando...</p>
+            ),
+          }}
+        />
+      </FieldContainer>
+      {editMode && (
+        <FieldContainer>
+          <TextField
+            label="Confirm Password"
+            type={showConfirmPassword ? 'text' : 'password'}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                  {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              ),
+            }}
+          />
+        </FieldContainer>
       )}
+      <Box mt={2} display="flex" justifyContent="space-between">
+        <Button variant="contained" color="primary" onClick={() => setEditMode(!editMode)}>
+          {editMode ? 'Cancel' : 'Edit'}
+        </Button>
+        {editMode && (
+          <Button variant="contained" color="secondary" onClick={handleSave}>
+            Save
+          </Button>
+        )}
+      </Box>
+      {error && <HiddenText>{error}</HiddenText>}
     </Container>
   );
 };
