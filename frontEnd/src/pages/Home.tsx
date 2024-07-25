@@ -55,7 +55,7 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-        <Container>
+        <Container className="home-container">
             <Box my={4}>
                 <Typography variant="h2" component="h1" gutterBottom>
                    Bienvenidos a Port⭕Net
@@ -65,39 +65,6 @@ const Home: React.FC = () => {
                     Trabajamos para combatir la contaminación marítima y proteger nuestros océanos.
                 </Typography>
 
-                <Box
-                    mt={4}
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <a
-                        href=""
-                        style={{
-                            position: 'relative',
-                            display: 'inline-block',
-                            padding: '10px 20px',
-                            textDecoration: 'none',
-                            color: '#fff',
-                            backgroundColor: '#0073e6',
-                            borderRadius: '4px',
-                            transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                            const el = e.currentTarget;
-                            el.style.transform = 'translateX(10px) translateY(-10px)';
-                        }}
-                        onMouseLeave={(e) => {
-                            const el = e.currentTarget;
-                            el.style.transform = 'none';
-                        }}
-                    >
-                        Apoya
-                    </a>
-                </Box>
-
                 {images.map((src, index) => (
                     <Grid
                         container
@@ -105,14 +72,10 @@ const Home: React.FC = () => {
                         ref={(el) => (refs.current[index] = el!)}
                         spacing={2}
                         alignItems="center"
+                        className="image-grid"
                         sx={{
                             opacity: visibleStates[index] ? 1 : 0,
-                            transform: visibleStates[index]
-                                ? 'translateX(0)'
-                                : index % 2 === 0
-                                    ? 'translateX(-100%)'  // Mueve la imagen desde la izquierda fuera del contenedor
-                                    : 'translateX(100%)',   // Mueve la imagen desde la derecha fuera del contenedor
-                            transition: 'all 1s ease',
+                            transition: 'opacity 1s ease',
                             my: 4,
                         }}
                     >
@@ -127,7 +90,7 @@ const Home: React.FC = () => {
                                             width: '100%',
                                             maxWidth: '500px',
                                             height: 'auto',
-                                            objectFit: 'cover',  // Ajusta el tamaño de la imagen si es necesario
+                                            objectFit: 'cover',
                                         }}
                                     />
                                 </Grid>
@@ -163,7 +126,7 @@ const Home: React.FC = () => {
                                             width: '100%',
                                             maxWidth: '500px',
                                             height: 'auto',
-                                            objectFit: 'cover',  // Ajusta el tamaño de la imagen si es necesario
+                                            objectFit: 'cover',
                                         }}
                                     />
                                 </Grid>
@@ -178,4 +141,3 @@ const Home: React.FC = () => {
 
 
 export default Home;
-
