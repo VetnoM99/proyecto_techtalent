@@ -11,13 +11,15 @@ const FooterBar: React.FC = () => {
         px: 0,
         mt: 'auto',
         backgroundColor: '#3c3c3c',
-        width: '98.5vw',
+        width: '100vw',
         color: 'white',
+        display: 'flex',
+        justifyContent: 'center',
       }}
       component="footer"
     >
       <Container maxWidth="lg">
-        <Typography variant="body1">
+        <Typography variant="body1" align="center">
           © 2024 PortNet. Todos los derechos reservados.
         </Typography>
       </Container>
