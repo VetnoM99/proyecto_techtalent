@@ -1,6 +1,6 @@
 // src/pages/Faq.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -29,32 +29,27 @@ const faqs = [
     question: '¿Qué pasa si no dono mis puntos a través de la app?',
     answer: 'Si no donas tus puntos, no te preocupes. Cada seis meses, hacemos un recuento de los votos perdidos y los repartimos de manera equitativa entre todas las ONG participantes.'
   },
-  {
-    question: '¿Qué proyectos específicos apoyamos?',
-    answer: 'Apoyamos varios proyectos, incluyendo: Restauración de arrecifes, Ayuda al seguimiento y cuidado de especies protegidas, Control contra las pescas de arrastre, Limpieza en playas y recolección de plásticos en el mar, Investigación sobre el cambio climático.'
-  },
-  {
-    question: '¿Qué organizaciones están involucradas en estos proyectos?',
-    answer: 'Trabajamos con varias organizaciones, incluyendo: Coral Restoration Foundation, Marine Conservation Institute, Project AWARE, Sea Shepherd Conservation Society.'
-  },
-  {
-    question: '¿Dónde puedo encontrar más información sobre los restaurantes colaboradores?',
-    answer: 'Puedes encontrar más información y enlaces a los restaurantes colaboradores en nuestra página principal, incluyendo: Restaurant Montserrat, Restaurante Indret, Brasas & Cocktail Kema, Arrocería Roce, Restaurant El Pósit.'
-  },
-  {
-    question: '¿Cómo puedo contactarlos?',
-    answer: 'Puedes contactarnos a través de nuestra página web o enviándonos un correo electrónico a proyecto.techtalent@gmail.com.'
-  }
 ];
 
 const Faq: React.FC = () => {
+  const [expanded, setExpanded] = useState<string | false>(false);
+
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
       <Typography variant="h4" sx={{ mb: 4 }}>
         Preguntas frecuentes
       </Typography>
       {faqs.map((faq, index) => (
-        <Accordion key={index} sx={{ width: '80%', mb: 2 }}>
+        <Accordion
+          key={index}
+          expanded={expanded === `panel${index}`}
+          onChange={handleChange(`panel${index}`)}
+          sx={{ width: '80%', mb: 2 }}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${index}-content`}

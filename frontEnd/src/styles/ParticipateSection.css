@@ -1,14 +1,19 @@
+/* ParticipateSection.css */
+
 .participate-section {
     margin: 50px auto;
     max-width: 1200px; /* Aumenta el ancho máximo para proporcionar más espacio general */
     padding: 20px;
     background-color: whitesmoke;
     color: #2c3e50;
+    text-align: center; /* Centra todo el texto dentro del contenedor */
 }
 
 .section-title {
     font-size: 3rem; /* Aumenta el tamaño del título para destacarlo más */
-    margin-bottom: 30px; /* Más espacio debajo del título */
+    margin: 0 auto 30px auto; /* Ajusta el margen superior a 0 para subir el título */
+    font-weight: bold; /* Aumenta el peso de la fuente para el título */
+    max-width: 80%; /* Limita el ancho del título para que no sea demasiado ancho */
 }
 
 .section-content {
@@ -28,6 +33,12 @@
     transform: translateX(0);
 }
 
+.how-to-participate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .section-with-image {
     display: flex;
     align-items: center;
@@ -39,6 +50,8 @@
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateY(20px);
+    max-width: 1200px; /* Asegura que las tarjetas no sean demasiado grandes */
+    width: 100%; /* Asegura que las tarjetas ocupen el 100% del ancho del contenedor */
 }
 
 .section-with-image.visible {

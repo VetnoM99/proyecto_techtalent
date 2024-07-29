@@ -15,7 +15,7 @@ const images = {
 const ParticipateSection: React.FC = () => {
     useEffect(() => {
         const handleScroll = () => {
-            const sections = document.querySelectorAll('.section-title, .section-intro, .section-with-image, .section-inner-content, .section-image');
+            const sections = document.querySelectorAll('.section-title, .section-intro, .section-with-image, .section-inner-content');
             
             sections.forEach((section) => {
                 const sectionTop = (section as HTMLElement).getBoundingClientRect().top;
@@ -91,3 +91,4 @@ const ParticipateSection: React.FC = () => {
 };
 
 export default ParticipateSection;
+

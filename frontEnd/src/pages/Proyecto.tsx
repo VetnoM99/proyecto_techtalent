@@ -20,12 +20,12 @@ const Proyecto: React.FC = () => {
                 </Typography>
             </Box>
             <Box my={2}>
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    <li>Restauración de arrecifes 🌾 🌰</li>
-                    <li>Ayuda al seguimiento y cuidado de especies protegidas 🐋 🐟</li>
-                    <li>Control riguroso contra las pescas de arrastre ⛴ ⚡</li>
-                    <li>Limpieza en Playas y recogida de plásticos en el mar 🍼 📦 </li>
-                    <li>Investigación sobre el cambio climático ♻ 🆙 </li>
+                <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'center' }}>
+                    <li style={{ margin: '10px 0' }}>Restauración de arrecifes 🌾 🌰</li>
+                    <li style={{ margin: '10px 0' }}>Ayuda al seguimiento y cuidado de especies protegidas 🐋 🐟</li>
+                    <li style={{ margin: '10px 0' }}>Control riguroso contra las pescas de arrastre ⛴ ⚡</li>
+                    <li style={{ margin: '10px 0' }}>Limpieza en Playas y recogida de plásticos en el mar 🍼 📦 </li>
+                    <li style={{ margin: '10px 0' }}>Investigación sobre el cambio climático ♻ 🆙 </li>
                 </ul>
             </Box>
             <Box display="flex" justifyContent="center" flexWrap="wrap">
