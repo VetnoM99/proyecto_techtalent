@@ -20,7 +20,7 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'FAQ']; // Añadir 'FAQ'
-
+// @ts-ignore
   const getCurrentPage = () => {
     const path = location.pathname;
     const currentPage = pages.find(page => `/${page.toLowerCase().replace(/ /g, '-')}` === path);
@@ -38,11 +38,11 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const initial = user ? user.username.charAt(0).toUpperCase() : '';
 
   return (
-    <AppBar position="static" sx={{ background: '#f3f4ef' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '10vh' }}>
-        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Box sx={{ flex: '1', display: 'flex', alignItems: 'center' }}>
-            <img src={logo} alt="Logo" style={{ maxHeight: '30px', width: '10vw' }} />
+    <AppBar position="static" sx={{ background: '#f3f4ef', height: '80px' }}> {/* Ajustar el height aquí */}
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '80px' }}> {/* Asegúrate de que el contenedor coincida con el height */}
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100%' }}>
+          <Box sx={{ flex: '1', display: 'flex', alignItems: 'center', ml: 2 }}> {/* Ajusta el margen izquierdo */}
+            <img src={logo} alt="Logo" style={{ maxHeight: '50px', width: 'auto' }} /> {/* Ajusta la altura del logo */}
           </Box>
           <Box sx={{ flex: '2', display: 'flex', justifyContent: 'space-evenly' }}>
             {pages.map((page) => (

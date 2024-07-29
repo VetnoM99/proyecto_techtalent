@@ -33,7 +33,7 @@ const faqs = [
 
 const Faq: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
-
+// @ts-ignore
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
