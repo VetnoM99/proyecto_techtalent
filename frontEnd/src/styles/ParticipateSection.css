@@ -1,91 +1,71 @@
 .participate-section {
     margin: 50px auto;
-    max-width: 800px;
+    max-width: 1200px; /* Aumenta el ancho máximo para proporcionar más espacio general */
     padding: 20px;
-    background-color: white;
-    color:black
+    background-color: whitesmoke;
+    color: #2c3e50;
 }
 
 .section-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 3rem; /* Aumenta el tamaño del título para destacarlo más */
+    margin-bottom: 30px; /* Más espacio debajo del título */
 }
 
 .section-content {
-    color: #333;
-    line-height: 1.6;
+    color: #2c3e50;
+    line-height: 1.8; /* Aumenta el interlineado para mejor legibilidad */
 }
 
 .section-intro {
-    margin-bottom: 40px;
+    margin-bottom: 50px; /* Aumenta el margen inferior para más espacio */
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateX(20px);
-    -webkit-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -moz-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -ms-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -o-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -webkit-transform: translateX(20px);
-    -moz-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    -o-transform: translateX(20px);
 }
 
 .section-intro.visible {
     opacity: 1;
     transform: translateX(0);
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -ms-transform: translateX(0);
-    -o-transform: translateX(0);
 }
 
-.section-with-background {
-    position: relative;
-    margin-bottom: 40px;
-    padding: 20px;
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    border-radius: 5px;
+.section-with-image {
+    display: flex;
+    align-items: center;
+    margin-bottom: 80px; /* Aumenta el margen inferior para mayor separación entre secciones */
+    padding: 30px; /* Aumenta el padding para más espacio interno */
+    background-color: white;
+    border-radius: 10px; /* Aumenta el radio de borde para bordes más redondeados */
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateY(20px);
-    -webkit-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -moz-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -ms-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -o-transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    -webkit-transform: translateY(20px);
-    -moz-transform: translateY(20px);
-    -ms-transform: translateY(20px);
-    -o-transform: translateY(20px);
 }
 
-.section-with-background.visible {
+.section-with-image.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.section-image-container {
+    flex: 1;
+    margin-right: 40px; /* Aumenta el margen derecho para separar más de los textos */
+    max-width: 600px; /* Aumenta el ancho máximo de la imagen para que sea más grande */
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: center; /* Centra la imagen verticalmente */
+}
+
+.section-image {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.116);
-    z-index: 1;
+    height: auto;
+    max-height: 800px; /* Aumenta la altura máxima de la imagen */
+    border-radius: 10px; /* Aumenta el radio de borde para bordes más redondeados */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
 }
 
 .section-content {
-    position: relative;
-    z-index: 2;
+    flex: 2;
     padding: 20px;
-    color: black;
 }
 
 .section-inner-content {
@@ -97,19 +77,4 @@
 .section-inner-content.visible {
     opacity: 1;
     transform: translateX(0);
-}
-
-.section-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.7; /* Ajusta la opacidad de la imagen de fondo */
-    transition: opacity 0.5s ease-in-out;
-}
-
-.section-image.visible {
-    opacity: 1;
 }

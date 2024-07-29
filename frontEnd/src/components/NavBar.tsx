@@ -1,5 +1,3 @@
-// src/components/NavBar.tsx
-
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -21,7 +19,7 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa'];
+  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'FAQ']; // Añadir 'FAQ'
 
   const getCurrentPage = () => {
     const path = location.pathname;
