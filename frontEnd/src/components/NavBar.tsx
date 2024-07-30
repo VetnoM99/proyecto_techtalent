@@ -15,7 +15,7 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOpen, onLogout }) => {
-  const { user } = useUser();
+  const { user } = useUser(); // Obtener el usuario del contexto
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -35,8 +35,6 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
     setAnchorEl(null);
   };
 
-  const initial = user ? user.username.charAt(0).toUpperCase() : '';
-
   return (
     <AppBar position="static" sx={{ background: '#f3f4ef', height: '80px' }}> {/* Ajustar el height aquí */}
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '80px' }}> {/* Asegúrate de que el contenedor coincida con el height */}
@@ -44,7 +42,7 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
           <Box sx={{ flex: '1', display: 'flex', alignItems: 'center', ml: 2 }}> {/* Ajusta el margen izquierdo */}
             <img src={logo} alt="Logo" style={{ maxHeight: '50px', width: 'auto' }} /> {/* Ajusta la altura del logo */}
           </Box>
-          <Box sx={{ flex: '2', display: 'flex', justifyContent: 'space-evenly' }}>
+          <Box sx={{ flex: '3', display: 'flex', justifyContent: 'space-evenly' }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -64,7 +62,6 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
                 handleMenuClose={handleMenuClose}
                 username={user.username}
                 onLogout={onLogout}
-                initial={initial}
               />
             ) : (
               <>

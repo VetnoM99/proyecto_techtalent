@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Box, Card, CardContent, Link} from '@mui/material';
+import { Container, Typography, Box, Card, CardContent, Link } from '@mui/material';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '../styles/QuienesSomos.css'; // Importa tus estilos
@@ -7,7 +7,7 @@ import '../styles/QuienesSomos.css'; // Importa tus estilos
 import Basura2 from '../assets/basura-2.jpeg';
 import Basura1 from '../assets/basura-1.jpg';
 import Basura3 from '../assets/basura-3.jpg';
-import Basura4 from '../assets/bassura-4.jpg';
+import Basura4 from '../assets/basura-4.jpg';
 import Colaborar from '../assets/colaborar.jpg';
 import Aporte from '../assets/aporte.jpg';
 import Playa from '../assets/playa.jpg';
@@ -23,6 +23,7 @@ import Kema2 from '../assets/hover-RESTAURANT BRASAS & COCKTAIL KEMA.png';
 import Posit2 from '../assets/hover-RESTAURANT EL PÒSIT.png';
 import Roce2 from '../assets/hover-ARROCERÍA ROCE.png';
 
+import Imagen1 from '../assets/imagen1.jpg'; // Asegúrate de tener las imágenes necesarias en tu carpeta de assets
 
 const QuienesSomos: React.FC = () => {
     // const [hoveredRestaurant, setHoveredRestaurant] = useState<string | null>(null);
@@ -66,8 +67,6 @@ const QuienesSomos: React.FC = () => {
         },
     ];
 
-
-
     return (
         <Container className="container">
             <Box className="header">
@@ -101,7 +100,7 @@ const QuienesSomos: React.FC = () => {
                         slideDuration={300}
                         showNav={false} 
                         showFullscreenButton={false}
-                        showPlayButton ={false}
+                        showPlayButton={false}
                         renderItem={(item: ReactImageGalleryItem) => (
                             <div className="image-gallery-image">
                                 <img 
@@ -136,7 +135,7 @@ const QuienesSomos: React.FC = () => {
                         </Typography>
                         <Typography variant="body1" paragraph>
                             Los restaurantes de la zona se han comprometido a donar una parte de cada venta para apoyar a las ONG que se dedican a la recolección de basura marina y la protección de especies. 
-                            Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, Zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
+                            Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
                         </Typography>
                     </CardContent>
                 </Card>
@@ -198,3 +197,4 @@ const QuienesSomos: React.FC = () => {
 };
 
 export default QuienesSomos;
+

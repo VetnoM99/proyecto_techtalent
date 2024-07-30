@@ -1,3 +1,5 @@
+// src/pages/UserProfile.tsx
+
 import React, { useEffect, useState } from 'react';
 import { fetchUserProfile, updateUserProfile, UserProfileUpdate } from '../api/userApi';
 import IconButton from '@mui/material/IconButton';
@@ -7,7 +9,6 @@ import { styled } from '@mui/material/styles';
 import { useUser } from '../context/UserProvider';
 import { Box, Button, TextField } from '@mui/material';
 
-// Interfaz para el perfil de usuario
 interface UserProfile {
   id: number;
   username: string;
@@ -57,9 +58,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
         setProfile(profileData);
         setEmail(profileData.email);
         setName(profileData.username);
-        // Solo establecer la contraseña si está en modo edición
         if (editMode) {
-          setPassword(profileData.userpassword); // Inicialmente vacío en modo solo lectura
+          setPassword(profileData.userpassword || '');
         }
       } catch (error) {
         console.error('Failed to fetch user profile:', error);
@@ -67,17 +67,16 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
     };
 
     getUserProfile();
-  }, [userId, editMode]); // Ejecutar cuando cambie el userId o editMode
+  }, [userId, editMode]);
 
   const handleSave = async () => {
     try {
       if (!profile) return;
 
-      // Solo actualizar la contraseña si se ha cambiado
       const updatedProfile: UserProfileUpdate = {
         username: name,
         email,
-        ...(password && { userpassword: password }), // Solo añade la contraseña si se ha cambiado
+        ...(password && { userpassword: password }),
       };
 
       if (password && password !== confirmPassword) {
@@ -121,7 +120,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId, onClose }) => {
         <TextField
           label="Password"
           type={showPassword ? 'text' : 'password'}
-          value={editMode ? password : '********'} // Mostrar contraseña censurada si no está en edición
+          value={editMode ? password : '********'}
           onChange={(e) => setPassword(e.target.value)}
           fullWidth
           disabled={!editMode}

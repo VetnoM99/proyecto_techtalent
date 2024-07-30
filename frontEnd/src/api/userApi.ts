@@ -2,6 +2,26 @@
 
 const API_BASE_URL = 'http://localhost:8080';
 
+
+export const registerUser = async (username: string, userpassword: string, email: string) => {
+  const response = await fetch(`${API_BASE_URL}/users/crear`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, userpassword, email }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Error registering: ${errorText}`);
+  }
+
+  const data = await response.json();
+  console.log('Register response:', data);
+  return data;
+};
+
 export const loginUser = async (username: string, password: string) => {
   const response = await fetch(`${API_BASE_URL}/users/login`, {
     method: 'POST',
@@ -16,10 +36,14 @@ export const loginUser = async (username: string, password: string) => {
     throw new Error(`Error logging in: ${errorText}`);
   }
 
-  return response.json();
+  const data = await response.json();
+  console.log('Login response:', data);
+  return data;
 };
 
+
 export const validateToken = async (token: string) => {
+  console.log('Validating token:', token);
   const response = await fetch(`${API_BASE_URL}/users/validate-token`, {
     method: 'POST',
     headers: {
@@ -30,25 +54,34 @@ export const validateToken = async (token: string) => {
   if (!response.ok) {
     throw new Error('Token validation failed');
   }
-  return response.json();
+  const data = await response.json();
+  console.log('Token validation response:', data);
+  return data;
 };
 
-export const refreshToken = async (refreshToken: string): Promise<LoginResponse> => {
+export const refreshToken = async (refreshToken: string) => {
+  console.log('Refreshing token with refreshToken:', refreshToken);
   const response = await fetch(`${API_BASE_URL}/users/refresh-token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(refreshToken),  // Enviar solo el token como una cadena
+    body: JSON.stringify({ refreshToken }),
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Error refreshing token: ${errorText}`);
+    throw new Error('Error refreshing token');
   }
 
-  return response.json();
+  const data = await response.json();
+  console.log('Refresh token response:', data);
+  if (!data.token || !data.refreshToken) {
+    throw new Error('Invalid response from refresh token endpoint');
+  }
+
+  return data;
 };
+
 
 // Asegúrate de exportar la interfaz LoginResponse
 export interface LoginResponse {
@@ -103,3 +136,4 @@ export interface UserProfileUpdate {
   username?: string;
   userpassword?: string;
 }
+
