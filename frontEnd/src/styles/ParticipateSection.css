@@ -1,28 +1,27 @@
-/* ParticipateSection.css */
-
 .participate-section {
     margin: 50px auto;
-    max-width: 1200px; /* Aumenta el ancho máximo para proporcionar más espacio general */
+    max-width: 1200px;
     padding: 20px;
     background-color: whitesmoke;
     color: #2c3e50;
-    text-align: center; /* Centra todo el texto dentro del contenedor */
+    text-align: center;
 }
 
 .section-title {
-    font-size: 3rem; /* Aumenta el tamaño del título para destacarlo más */
-    margin: 0 auto 30px auto; /* Ajusta el margen superior a 0 para subir el título */
-    font-weight: bold; /* Aumenta el peso de la fuente para el título */
-    max-width: 80%; /* Limita el ancho del título para que no sea demasiado ancho */
+    font-size: 3rem;
+    margin: 0 auto 30px auto;
+    font-weight: bold;
+    max-width: 80%;
 }
 
 .section-content {
     color: #2c3e50;
-    line-height: 1.8; /* Aumenta el interlineado para mejor legibilidad */
+    line-height: 1.8;
+    font-size: 1.4rem;
 }
 
 .section-intro {
-    margin-bottom: 50px; /* Aumenta el margen inferior para más espacio */
+    margin-bottom: 50px;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateX(20px);
@@ -42,16 +41,21 @@
 .section-with-image {
     display: flex;
     align-items: center;
-    margin-bottom: 80px; /* Aumenta el margen inferior para mayor separación entre secciones */
-    padding: 30px; /* Aumenta el padding para más espacio interno */
-    background-color: white;
-    border-radius: 10px; /* Aumenta el radio de borde para bordes más redondeados */
+    justify-content: center;
+    margin-bottom: 80px;
+    padding: 30px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateY(20px);
-    max-width: 1200px; /* Asegura que las tarjetas no sean demasiado grandes */
-    width: 100%; /* Asegura que las tarjetas ocupen el 100% del ancho del contenedor */
+    max-width: 1200px;
+    width: 100%;
+    height: 300px;
+    position: relative;
 }
 
 .section-with-image.visible {
@@ -59,26 +63,28 @@
     transform: translateY(0);
 }
 
-.section-image-container {
-    flex: 1;
-    margin-right: 40px; /* Aumenta el margen derecho para separar más de los textos */
-    max-width: 600px; /* Aumenta el ancho máximo de la imagen para que sea más grande */
-    display: flex;
-    justify-content: center; /* Centra la imagen horizontalmente */
-    align-items: center; /* Centra la imagen verticalmente */
+.overlay {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente negro */
+    color: white; /* Color del texto blanco */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.section-image {
-    width: 100%;
-    height: auto;
-    max-height: 800px; /* Aumenta la altura máxima de la imagen */
-    border-radius: 10px; /* Aumenta el radio de borde para bordes más redondeados */
-    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+.section-image-container {
+    display: none; /* Ocultamos este contenedor ya que no es necesario con el nuevo diseño */
 }
 
 .section-content {
-    flex: 2;
+    flex: 1;
     padding: 20px;
+    font-size: 1.4rem;
 }
 
 .section-inner-content {
@@ -91,3 +97,10 @@
     opacity: 1;
     transform: translateX(0);
 }
+
+.overlay h3,
+.overlay p {
+    font-size: 1.6rem; /* Tamaño del texto aumentado */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Añadir sombra al texto para mayor legibilidad */
+}
+

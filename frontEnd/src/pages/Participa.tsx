@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../styles/ParticipateSection.css'; 
+import '../styles/ParticipateSection.css';
 
 // Importar las imágenes correctamente
 import gainPointsImage from '../assets/imagen1.jpg';
@@ -43,11 +43,8 @@ const ParticipateSection: React.FC = () => {
                 <p className="section-intro">En PortNet, estamos comprometidos con la protección de nuestros océanos y la vida marina. A través de nuestro programa, puedes convertir tus puntos en donaciones directas a ONG dedicadas a combatir la contaminación marina y la pesca no sostenible. ¡Juntos podemos hacer una gran diferencia!</p>
 
                 <div className="how-to-participate">
-                    <div className="section-with-image">
-                        <div className="section-image-container">
-                            <img src={images.gainPoints} alt="Gana Puntos" className="section-image" />
-                        </div>
-                        <div className="section-content">
+                    <div className="section-with-image" style={{ backgroundImage: `url(${images.gainPoints})` }}>
+                        <div className="overlay">
                             <h3>Gana puntos</h3>
                             <div className="section-inner-content">
                                 <p>Compra productos sostenibles: Cada compra que realizas en nuestra tienda suma puntos a tu cuenta.</p>
@@ -57,11 +54,8 @@ const ParticipateSection: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="section-with-image">
-                        <div className="section-image-container">
-                            <img src={images.becomeDonor} alt="Conviértete en Donador" className="section-image" />
-                        </div>
-                        <div className="section-content">
+                    <div className="section-with-image" style={{ backgroundImage: `url(${images.becomeDonor})` }}>
+                        <div className="overlay">
                             <h3>Conviértete en donador</h3>
                             <div className="section-inner-content">
                                 <p>Transforma tus puntos: Una vez que hayas acumulado puntos, puedes convertirlos en donaciones monetarias para las ONG de tu elección.</p>
@@ -70,11 +64,8 @@ const ParticipateSection: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="section-with-image">
-                        <div className="section-image-container">
-                            <img src={images.getInvolved} alt="Involúcrate Más Allá de los Puntos" className="section-image" />
-                        </div>
-                        <div className="section-content">
+                    <div className="section-with-image" style={{ backgroundImage: `url(${images.getInvolved})` }}>
+                        <div className="overlay">
                             <h3>Involúcrate más allá de los puntos</h3>
                             <div className="section-inner-content">
                                 <p>Voluntariado: Únete a nuestras iniciativas de voluntariado para limpiar playas y proteger la vida marina.</p>
@@ -91,4 +82,5 @@ const ParticipateSection: React.FC = () => {
 };
 
 export default ParticipateSection;
+
 
