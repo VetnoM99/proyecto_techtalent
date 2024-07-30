@@ -148,7 +148,7 @@ const QuienesSomos: React.FC = () => {
                         <img src={Montserrat2} alt="HoverMonserrat" className="hover-image"/>
                         <Box className="overlay">
                             <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
-                                Restauran Monserrat
+                                Restaurant Montserrat
                             </Link>
                         </Box>
                     </Box>
@@ -158,7 +158,7 @@ const QuienesSomos: React.FC = () => {
                         <img src={Indret2} alt="Indret-hover" className="hover-image"/>
                         <Box className="overlay">
                             <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
-                                Restaurante Indred
+                                Restaurante Indret
                             </Link>
                         </Box>
                     </Box>
@@ -188,7 +188,7 @@ const QuienesSomos: React.FC = () => {
                         <img src={Posit2} alt="Roce-hover" className="hover-image"/>
                         <Box className="overlay">
                             <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
-                                Restauran El Pósit
+                                Restaurant El Pósit
                             </Link>
                         </Box>
                     </Box>

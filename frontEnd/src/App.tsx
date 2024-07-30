@@ -12,6 +12,7 @@ import Participa from './pages/Participa';
 import UserProfile from './pages/UserProfile';
 import LoginDialog from './settings/Login';
 import RegisterForm from './settings/RegisterForm';
+import Faq from './pages/FAQ';  // Importa la página de FAQ
 import { validateToken, refreshToken } from './api/userApi';
 import { UserProvider } from './context/UserProvider';
 import { isValidJwt } from './utils/jwtUtils';
@@ -127,10 +128,9 @@ const App: React.FC = () => {
               <Route path="/proyecto" element={<Proyecto />} />
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/participa" element={<Participa />} />
-              <Route 
-                path="/profile/:id" 
-                element={isLoggedIn ? <UserProfile userId={userId!} onClose={() => setUserId(null)} /> : <Navigate to="/" />} 
-              />
+              <Route path="/faq" element={<Faq />} />  // Añade la ruta de FAQ aquí
+              <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
+              <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
             </Routes>
           </Box>
           <FooterBar />

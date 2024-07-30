@@ -1,0 +1,20 @@
+/* src/pages/Faq.css */
+.faq-container {
+ padding: 20px;
+}
+
+.faq-list {
+ margin-top: 20px;
+}
+
+.faq-item {
+ margin-bottom: 20px;
+}
+
+.faq-question {
+ font-weight: bold;
+}
+
+.faq-answer {
+ margin-top: 10px;
+}
