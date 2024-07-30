@@ -1,5 +1,4 @@
 // src/App.tsx
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
@@ -10,15 +9,12 @@ import QuienesSomos from './pages/QuienesSomos';
 import Proyecto from './pages/Proyecto';
 import Contacto from './pages/Contacto';
 import Participa from './pages/Participa';
+import UserProfile from './pages/UserProfile';
 import LoginDialog from './settings/Login';
 import RegisterForm from './settings/RegisterForm';
-import UserProfile from './pages/UserProfile';
 import { validateToken, refreshToken } from './api/userApi';
 import { UserProvider } from './context/UserProvider';
-
-const isValidJwt = (token: string) => {
-  return token.split('.').length === 3;
-};
+import { isValidJwt } from './utils/jwtUtils';
 
 const App: React.FC = () => {
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
@@ -80,11 +76,28 @@ const App: React.FC = () => {
     setIsLoggedIn(true);
     setUserName(username);
     setUserId(id);
+    setLoginDialogOpen(false); 
   };
 
-  const handleRegisterSuccess = (username: string) => {
-    setIsLoggedIn(true);
-    setUserName(username);
+  const handleRegisterSuccess = async (username: string, id: number, token: string, refreshToken: string): Promise<void> => {
+    try {
+      localStorage.setItem('username', username);
+      localStorage.setItem('userId', id.toString());
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('refreshToken', refreshToken);
+
+      setIsLoggedIn(true);
+      setUserName(username);
+      setUserId(id);
+
+      setRegisterDialogOpen(false);
+
+      // Navegar a la página de perfil
+      window.location.href = `/profile/${id}`;
+    } catch (error) {
+      console.error('Error registrando:', error);
+      alert('Error al registrar');
+    }
   };
 
   const handleLogout = () => {
@@ -95,43 +108,37 @@ const App: React.FC = () => {
     setIsLoggedIn(false);
     setUserName('');
     setUserId(null);
+    window.location.reload();
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <UserProvider>
+    <UserProvider>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Router>
           <NavBar
             setLoginDialogOpen={setLoginDialogOpen}
             setRegisterDialogOpen={setRegisterDialogOpen}
             onLogout={handleLogout}
           />
-          <Box sx={{ flex: '1 0 auto' }}>
+          <Box sx={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/inicio" element={<Home />} />
               <Route path="/quienes-somos" element={<QuienesSomos />} />
               <Route path="/proyecto" element={<Proyecto />} />
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/participa" element={<Participa />} />
-              <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
-              <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
+              <Route 
+                path="/profile/:id" 
+                element={isLoggedIn ? <UserProfile userId={userId!} onClose={() => setUserId(null)} /> : <Navigate to="/" />} 
+              />
             </Routes>
           </Box>
           <FooterBar />
-          <LoginDialog
-            open={loginDialogOpen}
-            onClose={() => setLoginDialogOpen(false)}
-            onLoginSuccess={handleLoginSuccess}
-          />
-          <RegisterForm
-            open={registerDialogOpen}
-            onClose={() => setRegisterDialogOpen(false)}
-            onRegisterSuccess={handleRegisterSuccess}
-          />
         </Router>
-      </UserProvider>
-    </Box>
+      </Box>
+      <LoginDialog open={loginDialogOpen} onClose={() => setLoginDialogOpen(false)} onLoginSuccess={handleLoginSuccess} />
+      <RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />
+    </UserProvider>
   );
 };
 

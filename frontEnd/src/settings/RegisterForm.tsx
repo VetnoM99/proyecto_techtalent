@@ -1,22 +1,27 @@
+// src/settings/RegisterForm.tsx
 import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { useUser } from '../context/UserProvider';
 
 interface RegisterFormProps {
   open: boolean;
   onClose: () => void;
-  onRegisterSuccess: (username: string) => void;
+  onRegisterSuccess: (username: string, id: number, token: string, refreshToken: string) => Promise<void>;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSuccess }) => {
+  const { setUser } = useUser();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
@@ -24,27 +29,48 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
       return;
     }
 
+    if (!username || !email || !password) {
+      setMessage('Todos los campos son obligatorios');
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
-      const response = await fetch('http://localhost:8080/users/register', {
+      const response = await fetch('http://localhost:8080/users/crear', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+        body: JSON.stringify({ username, userpassword: password, email }),
       });
 
       if (response.ok) {
-        setMessage('Registro exitoso');
-        onRegisterSuccess(username);
+        const data = await response.json();
+        const { id, token, refreshToken } = data;
+
+        // Actualiza el contexto aquí
+        setUser({ username, id });
+
+        // Guarda los tokens en el almacenamiento local
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('username', username);
+        localStorage.setItem('userId', id.toString());
+
+        // Notifica éxito
+        setMessage('Registro y inicio de sesión exitosos');
+        await onRegisterSuccess(username, id, token, refreshToken);
         onClose();
-      } else if (response.status === 400) {
-        setMessage('El usuario ya existe');
       } else {
-        setMessage('Error en el servidor');
+        const errorData = await response.text();
+        setMessage('Error: ' + errorData);
       }
     } catch (error) {
       console.error('Error:', error);
       setMessage('Error al registrar');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,11 +105,22 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
+        <TextField
+          margin="dense"
+          id="email"
+          label="Correo Electrónico"
+          type="email"
+          fullWidth
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         {message && <p>{message}</p>}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleRegister}>Registrar</Button>
+        <Button onClick={onClose} disabled={isLoading}>Cancelar</Button>
+        <Button onClick={handleRegister} disabled={isLoading}>
+          {isLoading ? 'Registrando...' : 'Registrar'}
+        </Button>
       </DialogActions>
     </Dialog>
   );

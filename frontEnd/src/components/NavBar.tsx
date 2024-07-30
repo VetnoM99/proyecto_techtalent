@@ -17,7 +17,7 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOpen, onLogout }) => {
-  const { user } = useUser();
+  const { user } = useUser(); // Obtener el usuario del contexto
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -37,16 +37,14 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
     setAnchorEl(null);
   };
 
-  const initial = user ? user.username.charAt(0).toUpperCase() : '';
-
   return (
     <AppBar position="static" sx={{ background: '#f3f4ef' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '10vh' }}>
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box sx={{ flex: '1', display: 'flex', alignItems: 'center' }}>
-            <img src={logo} alt="Logo" style={{ maxHeight: '30px', width: '10vw' }} />
+            <img src={logo} alt="Logo" style={{ maxHeight: '30px', width: '10vw', marginLeft:'20px'}} />
           </Box>
-          <Box sx={{ flex: '2', display: 'flex', justifyContent: 'space-evenly' }}>
+          <Box sx={{ flex: '3', display: 'flex', justifyContent: 'space-evenly' }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -66,7 +64,6 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
                 handleMenuClose={handleMenuClose}
                 username={user.username}
                 onLogout={onLogout}
-                initial={initial}
               />
             ) : (
               <>
