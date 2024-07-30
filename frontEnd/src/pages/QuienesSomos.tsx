@@ -22,7 +22,7 @@ import Indret2 from '../assets/hover-RESTAURANT & LOUNGE LINDRET.png';
 import Kema2 from '../assets/hover-RESTAURANT BRASAS & COCKTAIL KEMA.png';
 import Posit2 from '../assets/hover-RESTAURANT EL PÒSIT.png';
 import Roce2 from '../assets/hover-ARROCERÍA ROCE.png';
-
+// @ts-ignore
 import Imagen1 from '../assets/imagen1.jpg'; // Asegúrate de tener las imágenes necesarias en tu carpeta de assets
 
 const QuienesSomos: React.FC = () => {
