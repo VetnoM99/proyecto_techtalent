@@ -17,7 +17,9 @@ export const registerUser = async (username: string, userpassword: string, email
     throw new Error(`Error registering: ${errorText}`);
   }
 
-  return response.json();
+  const data = await response.json();
+  console.log('Register response:', data);
+  return data;
 };
 
 export const loginUser = async (username: string, password: string) => {
@@ -34,10 +36,14 @@ export const loginUser = async (username: string, password: string) => {
     throw new Error(`Error logging in: ${errorText}`);
   }
 
-  return response.json();
+  const data = await response.json();
+  console.log('Login response:', data);
+  return data;
 };
 
+
 export const validateToken = async (token: string) => {
+  console.log('Validating token:', token);
   const response = await fetch(`${API_BASE_URL}/users/validate-token`, {
     method: 'POST',
     headers: {
@@ -48,10 +54,14 @@ export const validateToken = async (token: string) => {
   if (!response.ok) {
     throw new Error('Token validation failed');
   }
-  return response.json();
+  const data = await response.json();
+  console.log('Token validation response:', data);
+  return data;
 };
+
 export const refreshToken = async (refreshToken: string) => {
-  const response = await fetch('http://localhost:8080/users/refresh-token', {
+  console.log('Refreshing token with refreshToken:', refreshToken);
+  const response = await fetch(`${API_BASE_URL}/users/refresh-token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -64,12 +74,14 @@ export const refreshToken = async (refreshToken: string) => {
   }
 
   const data = await response.json();
+  console.log('Refresh token response:', data);
   if (!data.token || !data.refreshToken) {
     throw new Error('Invalid response from refresh token endpoint');
   }
 
   return data;
 };
+
 
 // Asegúrate de exportar la interfaz LoginResponse
 export interface LoginResponse {

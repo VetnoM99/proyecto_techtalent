@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
@@ -12,7 +11,7 @@ import Participa from './pages/Participa';
 import UserProfile from './pages/UserProfile';
 import LoginDialog from './settings/Login';
 import RegisterForm from './settings/RegisterForm';
-import Faq from './pages/FAQ';  // Importa la página de FAQ
+import Faq from './pages/FAQ';
 import { validateToken, refreshToken } from './api/userApi';
 import { UserProvider } from './context/UserProvider';
 import { isValidJwt } from './utils/jwtUtils';
@@ -30,7 +29,12 @@ const App: React.FC = () => {
       const storedRefreshToken = localStorage.getItem('refreshToken');
       const storedUserId = localStorage.getItem('userId');
       const storedUserName = localStorage.getItem('username');
-
+  
+      console.log('Stored Token:', storedToken);
+      console.log('Stored Refresh Token:', storedRefreshToken);
+      console.log('Stored User ID:', storedUserId);
+      console.log('Stored User Name:', storedUserName);
+  
       if (storedToken && storedRefreshToken && storedUserId && storedUserName) {
         try {
           if (isValidJwt(storedToken)) {
@@ -42,6 +46,7 @@ const App: React.FC = () => {
             throw new Error('Invalid token');
           }
         } catch (error) {
+          console.error('Token validation failed:', error);
           try {
             const { token: newToken } = await refreshToken(storedRefreshToken);
             localStorage.setItem('authToken', newToken);
@@ -59,47 +64,53 @@ const App: React.FC = () => {
         setUserId(null);
       }
     };
-
+  
     checkAuthStatus();
-
+  
     const interval = setInterval(() => {
       checkAuthStatus();
     }, 15 * 60 * 1000); // Verificar cada 15 minutos
-
+  
     return () => clearInterval(interval);
   }, []);
-
+  
   const handleLoginSuccess = (username: string, id: number, token: string, refreshToken: string) => {
     localStorage.setItem('username', username);
     localStorage.setItem('userId', id.toString());
     localStorage.setItem('authToken', token);
     localStorage.setItem('refreshToken', refreshToken);
+    console.log('Username:', localStorage.getItem('username'));
+    console.log('User ID:', localStorage.getItem('userId'));
+    console.log('Auth Token:', localStorage.getItem('authToken'));
+    console.log('Refresh Token:', localStorage.getItem('refreshToken'));
     setIsLoggedIn(true);
     setUserName(username);
     setUserId(id);
     setLoginDialogOpen(false); 
   };
-
+  
   const handleRegisterSuccess = async (username: string, id: number, token: string, refreshToken: string): Promise<void> => {
     try {
       localStorage.setItem('username', username);
       localStorage.setItem('userId', id.toString());
       localStorage.setItem('authToken', token);
       localStorage.setItem('refreshToken', refreshToken);
-
+      console.log('Username:', localStorage.getItem('username'));
+      console.log('User ID:', localStorage.getItem('userId'));
+      console.log('Auth Token:', localStorage.getItem('authToken'));
+      console.log('Refresh Token:', localStorage.getItem('refreshToken'));
       setIsLoggedIn(true);
       setUserName(username);
       setUserId(id);
-
       setRegisterDialogOpen(false);
-
-      // Navegar a la página de perfil
-      window.location.href = `/profile/${id}`;
     } catch (error) {
       console.error('Error registrando:', error);
       alert('Error al registrar');
     }
   };
+  
+  
+  
 
   const handleLogout = () => {
     localStorage.removeItem('userId');
@@ -128,7 +139,7 @@ const App: React.FC = () => {
               <Route path="/proyecto" element={<Proyecto />} />
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/participa" element={<Participa />} />
-              <Route path="/faq" element={<Faq />} />  // Añade la ruta de FAQ aquí
+              <Route path="/faq" element={<Faq />} />
               <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
               <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
             </Routes>

@@ -1,4 +1,3 @@
-// src/settings/RegisterForm.tsx
 import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -22,15 +21,37 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleRegister = async () => {
+    const newErrors: { [key: string]: string } = {};
+
     if (password !== confirmPassword) {
-      setMessage('Las contraseñas no coinciden');
-      return;
+      newErrors.confirmPassword = 'Las contraseñas no coinciden';
     }
 
-    if (!username || !email || !password) {
-      setMessage('Todos los campos son obligatorios');
+    if (!username) {
+      newErrors.username = 'El nombre de usuario es obligatorio';
+    }
+
+    if (!email) {
+      newErrors.email = 'El correo electrónico es obligatorio';
+    } else {
+      // Verificar que el correo electrónico tenga un formato válido
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        newErrors.email = 'El correo electrónico no tiene un formato válido';
+      }
+    }
+
+    // Verificar que la contraseña tenga al menos 8 caracteres, un número y un carácter especial
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      newErrors.password = 'La contraseña debe tener al menos 8 caracteres, un número y un carácter especial';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
@@ -49,6 +70,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
         const data = await response.json();
         const { id, token, refreshToken } = data;
 
+        console.log('Register response:', data);
+
         // Actualiza el contexto aquí
         setUser({ username, id });
 
@@ -57,6 +80,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('username', username);
         localStorage.setItem('userId', id.toString());
+
+        console.log('Auth Token:', localStorage.getItem('authToken'));
+        console.log('Refresh Token:', localStorage.getItem('refreshToken'));
+        console.log('Username:', localStorage.getItem('username'));
+        console.log('User ID:', localStorage.getItem('userId'));
 
         // Notifica éxito
         setMessage('Registro y inicio de sesión exitosos');
@@ -86,6 +114,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           fullWidth
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          error={!!errors.username}
+          helperText={errors.username}
         />
         <TextField
           margin="dense"
@@ -95,6 +125,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          error={!!errors.password}
+          helperText={errors.password}
         />
         <TextField
           margin="dense"
@@ -104,6 +136,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           fullWidth
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          error={!!errors.confirmPassword}
+          helperText={errors.confirmPassword}
         />
         <TextField
           margin="dense"
@@ -113,6 +147,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          error={!!errors.email}
+          helperText={errors.email}
         />
         {message && <p>{message}</p>}
       </DialogContent>
