@@ -8,77 +8,65 @@ import Corals from '../assets/corales.jpg';
 import Aware from '../assets/aware 1.jpg';
 import Shepherd from '../assets/shepherd.jpg';
 import Marine from '../assets/marine conservation.png';
-import Image1 from '../assets/ClasificaciónObjetosRecogidos.jpg';
-import Image2 from '../assets/BasuraPlayas.jpg';
-import Image3 from '../assets/VoluntariosPortNet.jpg';
-import Image4 from '../assets/shepherd.jpg';
 
 import '../styles/Proyecto.css';
 
 const Proyecto: React.FC = () => {
     return (
         <Container>
-            <Box my={4}>
+            <Box my={4} textAlign="center">
                 <Typography variant="h2" component="h1" gutterBottom>
                     Proyecto R.A.C.L.I.
                 </Typography>
-                <Box my={2}>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Restauración de arrecifes 🌾 🌺:</strong> Este esfuerzo implica la rehabilitación de los ecosistemas de coral dañados para asegurar que puedan seguir proporcionando hábitats cruciales para muchas especies marinas.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Ayuda al seguimiento y cuidado de especies protegidas 🐬 🐠:</strong> Trabajamos en colaboración con organizaciones dedicadas a monitorear y proteger especies marinas en peligro de extinción, asegurando su supervivencia y bienestar.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Control riguroso contra las pescas de arrastre 🚢 👨‍🦯:</strong> Implementamos medidas estrictas para evitar la pesca de arrastre destructiva que daña los fondos marinos y captura especies no deseadas.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Limpieza en Playas y recogida de plásticos en el mar ♻ 🚮:</strong> Organizamos campañas y colaboramos con voluntarios para limpiar playas y recoger plásticos en el mar, reduciendo la contaminación y protegiendo la vida marina.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Investigación sobre el cambio climático 🌊 🌡:</strong> Apoyamos y realizamos investigaciones para comprender mejor el impacto del cambio climático en los océanos y desarrollar estrategias para mitigarlo.
-                    </Typography>
+            </Box>
+            <Box my={2}>
+                <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'center' }}>
+                    <li style={{ margin: '10px 0' }}>Restauración de arrecifes 🌾 🌰</li>
+                    <li style={{ margin: '10px 0' }}>Ayuda al seguimiento y cuidado de especies protegidas 🐋 🐟</li>
+                    <li style={{ margin: '10px 0' }}>Control riguroso contra las pescas de arrastre ⛴ ⚡</li>
+                    <li style={{ margin: '10px 0' }}>Limpieza en Playas y recogida de plásticos en el mar 🍼 📦 </li>
+                    <li style={{ margin: '10px 0' }}>Investigación sobre el cambio climático ♻ 🆙 </li>
+                </ul>
+            </Box>
+            <Box display="flex" justifyContent="center" flexWrap="wrap">
+                {/* Imagen 1 */}
+                <Box className="image-container">
+                    <img src={Poject1} alt="Proyecto 1" className="main-image"/>
+                    <img src={Corals} alt="Corals" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href="https://www.coralfoundation.org" target="_blank" rel="noopener">
+                            Visitar web
+                        </Link>
+                    </Box>
                 </Box>
-                <Box display="flex" justifyContent="space-between" flexWrap="wrap">
-                    {/* Imagen 1 */}
-                    <Box className="image-container">
-                        <img src={Poject1} alt="Proyecto 1" className="main-image"/>
-                        <img src={Corals} alt="Corals" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href="https://www.coralfoundation.org" target="_blank" rel="noopener">
-                                Visitar web
-                            </Link>
-                        </Box>
+                {/* Imagen 2 */}
+                <Box className="image-container">
+                    <img src={Poject2} alt="Proyecto 2" className="main-image"/>
+                    <img src={Marine} alt="Marine" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href="https://www.marine-conservation.org" target="_blank" rel="noopener">
+                            Visitar web
+                        </Link>
                     </Box>
-                    {/* Imagen 2 */}
-                    <Box className="image-container">
-                        <img src={Poject2} alt="Proyecto 2" className="main-image"/>
-                        <img src={Marine} alt="Marine" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href="https://www.marine-conservation.org" target="_blank" rel="noopener">
-                                Visitar web
-                            </Link>
-                        </Box>
+                </Box>
+                {/* Imagen 3 */}
+                <Box className="image-container">
+                    <img src={Poject3} alt="Proyecto 3" className="main-image"/>
+                    <img src={Aware} alt="Aware" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href="https://www.projectaware.org" target="_blank" rel="noopener">
+                            Visitar web
+                        </Link>
                     </Box>
-                    {/* Imagen 3 */}
-                    <Box className="image-container">
-                        <img src={Poject3} alt="Proyecto 3" className="main-image"/>
-                        <img src={Aware} alt="Aware" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href="https://www.projectaware.org" target="_blank" rel="noopener">
-                                Visitar web
-                            </Link>
-                        </Box>
-                    </Box>
-                    {/* Imagen 4 */}
-                    <Box className="image-container">
-                        <img src={Poject4} alt="Proyecto 4" className="main-image"/>
-                        <img src={Shepherd} alt="Shepherd" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href="https://www.seashepherd.org" target="_blank" rel="noopener">
-                                Visitar web
-                            </Link>
-                        </Box>
+                </Box>
+                {/* Imagen 4 */}
+                <Box className="image-container">
+                    <img src={Poject4} alt="Proyecto 4" className="main-image"/>
+                    <img src={Shepherd} alt="Shepherd" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href="https://www.seashepherd.org" target="_blank" rel="noopener">
+                            Visitar web
+                        </Link>
                     </Box>
                 </Box>
                 {/* Imágenes en fila */}

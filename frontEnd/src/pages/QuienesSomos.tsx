@@ -141,59 +141,57 @@ const QuienesSomos: React.FC = () => {
                 </Card>
             </Box>
             <Box display="flex" justifyContent="space-between" flexWrap="nowrap">
-                {/* Imagen 1 */}
-                <Box className="image-container">
-                    <img src={Montserrat} alt="Monserrat" className="main-image" />
-                    <img src={Montserrat2} alt="HoverMonserrat" className="hover-image" />
-                    <Box className="overlay">
-                        <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
-                            Restauran Monserrat
-                        </Link>
+                    {/* Imagen 1 */}
+                    <Box className="image-container">
+                        <img src={Montserrat} alt="Monserrat" className="main-image"/>
+                        <img src={Montserrat2} alt="HoverMonserrat" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
+                                Restaurant Montserrat
+                            </Link>
+                        </Box>
+                    </Box>
+                    {/* Imagen 2 */}
+                    <Box className="image-container">
+                        <img src={Indret} alt="Indret" className="main-image"/>
+                        <img src={Indret2} alt="Indret-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
+                                Restaurante Indret
+                            </Link>
+                        </Box>
+                    </Box>
+                    {/* Imagen 3 */}
+                    <Box className="image-container">
+                        <img src={Kema} alt="Kema" className="main-image"/>
+                        <img src={Kema2} alt="Kema-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://kemacambrils.com/' target="_blank" rel="noopener">
+                                Brasas & Cocktail Kema
+                            </Link>
+                        </Box>
+                    </Box>
+                    {/* Imagen 4 */}
+                    <Box className="image-container">
+                        <img src={Roce} alt="Roce" className="main-image"/>
+                        <img src={Roce2} alt="Roce-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://micuerpopideroce.com/' target="_blank" rel="noopener">
+                                Arroceria Roce
+                            </Link>
+                        </Box>
+                    </Box>
+                      {/* Imagen 5 */}
+                      <Box className="image-container">
+                        <img src={Posit} alt="Posit" className="main-image"/>
+                        <img src={Posit2} alt="Roce-hover" className="hover-image"/>
+                        <Box className="overlay">
+                            <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
+                                Restaurant El Pósit
+                            </Link>
+                        </Box>
                     </Box>
                 </Box>
-                {/* Imagen 2 */}
-                <Box className="image-container">
-                    <img src={Indret} alt="Indret" className="main-image" />
-                    <img src={Indret2} alt="Indret-hover" className="hover-image" />
-                    <Box className="overlay">
-                        <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
-                            Restaurante Indred
-                        </Link>
-                    </Box>
-                </Box>
-                {/* Imagen 3 */}
-                <Box className="image-container">
-                    <img src={Kema} alt="Kema" className="main-image" />
-                    <img src={Kema2} alt="Kema-hover" className="hover-image" />
-                    <Box className="overlay">
-                        <Link href='https://kemacambrils.com/' target="_blank" rel="noopener">
-                            Brasas & Cocktail Kema
-                        </Link>
-                    </Box>
-                </Box>
-                {/* Imagen 4 */}
-                <Box className="image-container">
-                    <img src={Roce} alt="Roce" className="main-image" />
-                    <img src={Roce2} alt="Roce-hover" className="hover-image" />
-                    <Box className="overlay">
-                        <Link href='https://micuerpopideroce.com/' target="_blank" rel="noopener">
-                            Arroceria Roce
-                        </Link>
-                    </Box>
-                </Box>
-                {/* Imagen 5 */}
-                <Box className="image-container">
-                    <img src={Posit} alt="Posit" className="main-image" />
-                    <img src={Posit2} alt="Roce-hover" className="hover-image" />
-                    <Box className="overlay">
-                        <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
-                            Restauran El Pósit
-                        </Link>
-                    </Box>
-                </Box>
-            </Box>
-            <Box className="new-section" mt={4}>
-            </Box>
         </Container>
     );
 };
