@@ -54,3 +54,8 @@
  color: white;
  text-decoration: none;
 }
+
+.capital-first-letter::first-letter {
+    font-size: 2em; /* Ajusta el tamaño según sea necesario */
+    text-transform: uppercase;
+}

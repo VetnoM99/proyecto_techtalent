@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Box, Card, CardContent, Link} from '@mui/material';
+import { Container, Typography, Box, Card, CardContent, Link } from '@mui/material';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '../styles/QuienesSomos.css'; // Importa tus estilos
@@ -7,7 +7,7 @@ import '../styles/QuienesSomos.css'; // Importa tus estilos
 import Basura2 from '../assets/basura-2.jpeg';
 import Basura1 from '../assets/basura-1.jpg';
 import Basura3 from '../assets/basura-3.jpg';
-import Basura4 from '../assets/bassura-4.jpg';
+import Basura4 from '../assets/basura-4.jpg';
 import Colaborar from '../assets/colaborar.jpg';
 import Aporte from '../assets/aporte.jpg';
 import Playa from '../assets/playa.jpg';
@@ -23,6 +23,7 @@ import Kema2 from '../assets/hover-RESTAURANT BRASAS & COCKTAIL KEMA.png';
 import Posit2 from '../assets/hover-RESTAURANT EL PÒSIT.png';
 import Roce2 from '../assets/hover-ARROCERÍA ROCE.png';
 
+import Imagen1 from '../assets/imagen1.jpg'; // Asegúrate de tener las imágenes necesarias en tu carpeta de assets
 
 const QuienesSomos: React.FC = () => {
     // const [hoveredRestaurant, setHoveredRestaurant] = useState<string | null>(null);
@@ -66,8 +67,6 @@ const QuienesSomos: React.FC = () => {
         },
     ];
 
-
-
     return (
         <Container className="container">
             <Box className="header">
@@ -101,7 +100,7 @@ const QuienesSomos: React.FC = () => {
                         slideDuration={300}
                         showNav={false} 
                         showFullscreenButton={false}
-                        showPlayButton ={false}
+                        showPlayButton={false}
                         renderItem={(item: ReactImageGalleryItem) => (
                             <div className="image-gallery-image">
                                 <img 
@@ -136,65 +135,68 @@ const QuienesSomos: React.FC = () => {
                         </Typography>
                         <Typography variant="body1" paragraph>
                             Los restaurantes de la zona se han comprometido a donar una parte de cada venta para apoyar a las ONG que se dedican a la recolección de basura marina y la protección de especies. 
-                            Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, Zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
+                            Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
                         </Typography>
                     </CardContent>
                 </Card>
             </Box>
             <Box display="flex" justifyContent="space-between" flexWrap="nowrap">
-                    {/* Imagen 1 */}
-                    <Box className="image-container">
-                        <img src={Montserrat} alt="Monserrat" className="main-image"/>
-                        <img src={Montserrat2} alt="HoverMonserrat" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
-                                Restauran Monserrat
-                            </Link>
-                        </Box>
-                    </Box>
-                    {/* Imagen 2 */}
-                    <Box className="image-container">
-                        <img src={Indret} alt="Indret" className="main-image"/>
-                        <img src={Indret2} alt="Indret-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
-                                Restaurante Indred
-                            </Link>
-                        </Box>
-                    </Box>
-                    {/* Imagen 3 */}
-                    <Box className="image-container">
-                        <img src={Kema} alt="Kema" className="main-image"/>
-                        <img src={Kema2} alt="Kema-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://kemacambrils.com/' target="_blank" rel="noopener">
-                                Brasas & Cocktail Kema
-                            </Link>
-                        </Box>
-                    </Box>
-                    {/* Imagen 4 */}
-                    <Box className="image-container">
-                        <img src={Roce} alt="Roce" className="main-image"/>
-                        <img src={Roce2} alt="Roce-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://micuerpopideroce.com/' target="_blank" rel="noopener">
-                                Arroceria Roce
-                            </Link>
-                        </Box>
-                    </Box>
-                      {/* Imagen 5 */}
-                      <Box className="image-container">
-                        <img src={Posit} alt="Posit" className="main-image"/>
-                        <img src={Posit2} alt="Roce-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
-                                Restauran El Pósit
-                            </Link>
-                        </Box>
+                {/* Imagen 1 */}
+                <Box className="image-container">
+                    <img src={Montserrat} alt="Monserrat" className="main-image" />
+                    <img src={Montserrat2} alt="HoverMonserrat" className="hover-image" />
+                    <Box className="overlay">
+                        <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
+                            Restauran Monserrat
+                        </Link>
                     </Box>
                 </Box>
+                {/* Imagen 2 */}
+                <Box className="image-container">
+                    <img src={Indret} alt="Indret" className="main-image" />
+                    <img src={Indret2} alt="Indret-hover" className="hover-image" />
+                    <Box className="overlay">
+                        <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
+                            Restaurante Indred
+                        </Link>
+                    </Box>
+                </Box>
+                {/* Imagen 3 */}
+                <Box className="image-container">
+                    <img src={Kema} alt="Kema" className="main-image" />
+                    <img src={Kema2} alt="Kema-hover" className="hover-image" />
+                    <Box className="overlay">
+                        <Link href='https://kemacambrils.com/' target="_blank" rel="noopener">
+                            Brasas & Cocktail Kema
+                        </Link>
+                    </Box>
+                </Box>
+                {/* Imagen 4 */}
+                <Box className="image-container">
+                    <img src={Roce} alt="Roce" className="main-image" />
+                    <img src={Roce2} alt="Roce-hover" className="hover-image" />
+                    <Box className="overlay">
+                        <Link href='https://micuerpopideroce.com/' target="_blank" rel="noopener">
+                            Arroceria Roce
+                        </Link>
+                    </Box>
+                </Box>
+                {/* Imagen 5 */}
+                <Box className="image-container">
+                    <img src={Posit} alt="Posit" className="main-image" />
+                    <img src={Posit2} alt="Roce-hover" className="hover-image" />
+                    <Box className="overlay">
+                        <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
+                            Restauran El Pósit
+                        </Link>
+                    </Box>
+                </Box>
+            </Box>
+            <Box className="new-section" mt={4}>
+            </Box>
         </Container>
     );
 };
 
 export default QuienesSomos;
+
