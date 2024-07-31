@@ -19,7 +19,7 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'FAQ']; // Añadir 'FAQ'
+  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', ]; // Añadir 'FAQ'
 // @ts-ignore
   const getCurrentPage = () => {
     const path = location.pathname;

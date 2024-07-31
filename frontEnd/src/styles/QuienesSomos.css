@@ -21,7 +21,7 @@ body {
 }
 
 .header h1 {
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Tamaño de fuente original */
     color: #2c3e50;
 }
 
@@ -41,7 +41,7 @@ body {
 
 .intro-text {
     margin-bottom: 20px;
-    font-size: 1rem;
+    font-size: 1rem; /* Tamaño de fuente original */
     color: #34495e;
     line-height: 1.6;
 }
@@ -63,24 +63,39 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Sección de objetivos */
+.goal-section {
+    margin-bottom: 40px;
+}
+
+/* Contenedor de las tarjetas de objetivos */
+.goal-cards-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 /* Tarjetas de contenido */
 .card {
+    flex: 1 1 calc(48% - 20px); /* Ajustar a 48% con espacio entre ellas */
     margin-bottom: 20px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
-    max-width: 100%; /* Ajusta el ancho máximo de las tarjetas */
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .card h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem; /* Tamaño de fuente original */
     color: #2980b9;
     margin-bottom: 10px;
 }
 
 .card p {
-    font-size: 1rem;
+    font-size: 1rem; /* Tamaño de fuente original */
     color: #2c3e50;
 }
 
@@ -90,7 +105,7 @@ body {
     width: calc(20% - 20px);
     text-align: center;
     border-radius: 50px;
-    margin-bottom: 20px; /* Espacio entre imágenes */
+    margin-bottom: 20px;
 }
 
 .image-wrapper {
@@ -146,20 +161,4 @@ body {
     width: 100%;
     max-width: 300px;
     border-radius: 8px;
-}
-
-/* Estilo adicional para tarjetas de objetivo y colaboraciones */
-.card {
-    width: calc(50% - 20px); /* Ajusta el ancho de las tarjetas para que ocupen el 50% del contenedor con espacio entre ellas */
-    min-height: 200px; /* Ajusta la altura mínima para que las tarjetas sean más alargadas */
-    padding: 20px;
-    margin: 10px; /* Añade margen para separación entre las tarjetas */
-    box-sizing: border-box; /* Asegura que el padding se incluya en el ancho total */
-}
-
-.card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%; /* Asegura que el contenido se expanda para llenar la tarjeta */
 }
