@@ -1,5 +1,3 @@
-// src/App.tsx
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
@@ -13,6 +11,7 @@ import Participa from './pages/Participa';
 import LoginDialog from './settings/Login';
 import RegisterForm from './settings/RegisterForm';
 import UserProfile from './pages/UserProfile';
+import Tienda from './pages/Tienda';  // Importa el nuevo componente
 import { validateToken, refreshToken } from './api/userApi';
 import { UserProvider } from './context/UserProvider';
 
@@ -114,6 +113,7 @@ const App: React.FC = () => {
               <Route path="/proyecto" element={<Proyecto />} />
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/participa" element={<Participa />} />
+              <Route path="/tienda" element={<Tienda />} />  {/* Añadir la ruta para Tienda */}
               <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
               <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
             </Routes>

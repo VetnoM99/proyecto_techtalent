@@ -199,4 +199,3 @@ const QuienesSomos: React.FC = () => {
 };
 
 export default QuienesSomos;
-
