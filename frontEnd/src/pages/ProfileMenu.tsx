@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
+import userLogo from '../assets/user-logo.png'; // Asegúrate de tener el path correcto
 
 interface ProfileMenuProps {
   anchorEl: null | HTMLElement;
@@ -13,7 +14,6 @@ interface ProfileMenuProps {
   handleMenuClose: () => void;
   username: string;
   onLogout: () => void;
-  initial: string;
 }
 
 const ProfileMenu: React.FC<ProfileMenuProps> = ({
@@ -21,8 +21,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
   handleAvatarClick,
   handleMenuClose,
   username,
-  onLogout,
-  initial
+  onLogout
 }) => {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -34,7 +33,11 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
 
   return (
     <div>
-      <Avatar onClick={handleAvatarClick}>{initial}</Avatar>
+      <Avatar 
+        onClick={handleAvatarClick} 
+        src={userLogo} 
+        sx={{ marginRight: 2 }} // Ajusta el margen derecho
+      />
       <Menu
         anchorEl={anchorEl}
         open={open}

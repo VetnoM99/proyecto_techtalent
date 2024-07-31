@@ -7,5 +7,14 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "jsx": "react",
+    "esModuleInterop": true,  // Asegúrate de que esto esté habilitado
+    "skipLibCheck": true      // Opcional, pero puede ayudar a evitar problemas con tipos en librerías
+  },
+ 
+   
 }

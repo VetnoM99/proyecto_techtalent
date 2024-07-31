@@ -1,0 +1,36 @@
+/* src/components/FooterBar.css */
+
+.footer-bar {
+ padding: 1rem 0;
+ margin-top: auto;
+ background-color: #3c3c3c;
+ width: 100vw;
+ color: white;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.footer-bar .container {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ max-width: 1200px; /* Ajusta según el ancho deseado */
+ width: 100%;
+}
+
+.footer-bar .button {
+ margin-top: 1rem; /* Espacio entre el texto y el botón */
+ background-color: #ffffff;
+ color: #3c3c3c;
+ text-transform: none;
+}
+
+.footer-bar .button:hover {
+ background-color: #f0f0f0;
+}
+
+.footer-bar .text {
+ margin-top: 1rem;
+ text-align: center;
+}

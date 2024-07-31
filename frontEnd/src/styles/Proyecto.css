@@ -1,60 +1,96 @@
+/* Estilo general para el contenedor de imágenes */
 .image-container {
- position: relative;
- width: calc(25% - 20px); /* Ajusta este valor para cambiar el tamaño de las imágenes */
- margin: 10px; /* Añade margen alrededor de cada imagen */
- overflow: hidden; /* Asegura que la imagen no se desborde */
+    position: relative;
+    width: calc(25% - 20px); /* Ajusta el valor según sea necesario */
+    margin: 10px;
+    border-radius: 10px; /* Añade bordes redondeados */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade sombra */
+    transition: transform 0.3s ease;
 }
 
+.image-container:hover {
+    transform: scale(1.05); /* Agranda la tarjeta al pasar el ratón */
+}
+
+/* Estilo para la imagen principal */
 .image-container .main-image {
- display: block;
- width: 100%;
- height: auto;
- transition: opacity 0.3s ease;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease;
 }
 
+/* Estilo para la imagen que aparece al pasar el ratón */
 .image-container .hover-image {
- position: absolute;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- opacity: 0;
- transition: transform 0.3s ease, opacity 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Efecto de opacidad al pasar el ratón */
 .image-container:hover .main-image {
- opacity: 0;
+    opacity: 0;
 }
 
 .image-container:hover .hover-image {
- opacity: 1;
- transform: scale(1.1); /* Amplía la imagen */
+    opacity: 1;
+    transform: scale(1.1); /* Amplía la imagen */
 }
 
+/* Estilo del overlay */
 .overlay {
- position: absolute;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- background: rgba(0, 0, 0, 0.5);
- display: flex;
- justify-content: center;
- align-items: center;
- color: white;
- opacity: 0;
- transition: opacity 0.3s ease;
+    position: absolute;
+    bottom: 0; /* Mueve el overlay al fondo */
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6); /* Color de fondo más suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-sizing: border-box;
 }
 
 .image-container:hover .overlay {
- opacity: 1;
+    opacity: 1;
 }
 
 .overlay a {
- color: white;
- text-decoration: none;
+    color: white;
+    text-decoration: none;
+    font-weight: bold; /* Hacer el texto más prominente */
 }
 
+.overlay a:hover {
+    text-decoration: underline; /* Subrayar el texto al pasar el ratón */
+}
+
+/* Estilos adicionales */
+.card {
+    width: calc(50% - 20px); /* Ajusta el ancho de las tarjetas para que ocupen el 50% del contenedor con espacio entre ellas */
+    min-height: 200px; /* Ajusta la altura mínima para que las tarjetas sean más alargadas */
+    padding: 20px;
+    margin: 10px; /* Añade margen para separación entre las tarjetas */
+    box-sizing: border-box; /* Asegura que el padding se incluya en el ancho total */
+    background: #ffffff; /* Fondo blanco para las tarjetas */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Asegura que el contenido se expanda para llenar la tarjeta */
+}
 .capital-first-letter::first-letter {
     font-size: 2em; /* Ajusta el tamaño según sea necesario */
     text-transform: uppercase;
