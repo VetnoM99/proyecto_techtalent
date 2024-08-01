@@ -1,106 +1,73 @@
+/* src/styles/ParticipateSection.css */
+
+/* Estilos generales de la sección */
 .participate-section {
-    margin: 50px auto;
     max-width: 1200px;
+    margin: 20px auto 50px auto;
     padding: 20px;
-    background-color: whitesmoke;
-    color: #2c3e50;
+    background-color: transparent;
+    color: black;
     text-align: center;
 }
 
+/* Títulos de sección */
 .section-title {
-    font-size: 3rem;
-    margin: 0 auto 30px auto;
-    font-weight: bold;
-    max-width: 80%;
-}
-
-.section-content {
+    font-size: 2rem;
     color: #2c3e50;
-    line-height: 1.8;
-    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
+/* Contenido de la sección */
 .section-intro {
-    margin-bottom: 50px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateX(20px);
+    color: #34495e;
+    margin-bottom: 40px;
 }
 
-.section-intro.visible {
-    opacity: 1;
-    transform: translateX(0);
+/* Estilo del botón */
+.project-button {
+    background-color: #3498db; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.how-to-participate {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.project-button:hover {
+    background-color: #2980b9; /* Color de fondo al pasar el cursor */
 }
 
-.section-with-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 80px;
-    padding: 30px;
+/* Otros estilos necesarios */
+.section-with-background {
+    position: relative;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 10px;
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateY(20px);
-    max-width: 1200px;
-    width: 100%;
-    height: 300px;
-    position: relative;
+    color: white;
+    padding: 40px 20px;
+    margin-bottom: 20px;
 }
 
-.section-with-image.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.overlay {
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente negro */
-    color: white; /* Color del texto blanco */
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 800px;
-    width: 100%;
-    text-align: left;
+.background-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.section-image-container {
-    display: none; /* Ocultamos este contenedor ya que no es necesario con el nuevo diseño */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .section-content {
-    flex: 1;
-    padding: 20px;
-    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.section-image {
+    display: none;
 }
 
 .section-inner-content {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateX(20px);
+    margin-top: 20px;
 }
-
-.section-inner-content.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.overlay h3,
-.overlay p {
-    font-size: 1.6rem; /* Tamaño del texto aumentado */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Añadir sombra al texto para mayor legibilidad */
-}
-

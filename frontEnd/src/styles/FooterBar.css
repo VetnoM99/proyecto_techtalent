@@ -1,5 +1,3 @@
-/* src/components/FooterBar.css */
-
 .footer-bar {
  padding: 1rem 0;
  margin-top: auto;
@@ -19,8 +17,21 @@
  width: 100%;
 }
 
+.footer-bar .icons-container {
+ display: flex;
+ gap: 1rem; /* Espacio entre los íconos */
+ margin-top: 2rem; /* Aumenta el espacio entre los íconos y el botón */
+ margin-bottom: 1rem; /* Espacio entre los íconos y el texto */
+}
+
+.footer-bar .icon {
+ width: 200px; /* Ajusta el tamaño del ícono */
+ height: 60px; /* Ajusta el tamaño del ícono */
+}
+
 .footer-bar .button {
  margin-top: 1rem; /* Espacio entre el texto y el botón */
+ margin-bottom: 2rem; /* Espacio entre el botón y los íconos (opcional) */
  background-color: #ffffff;
  color: #3c3c3c;
  text-transform: none;
@@ -31,6 +42,6 @@
 }
 
 .footer-bar .text {
- margin-top: 1rem;
+ margin-bottom: 1rem; /* Espacio entre el texto y los íconos */
  text-align: center;
 }
