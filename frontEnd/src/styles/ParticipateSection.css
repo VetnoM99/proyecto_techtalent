@@ -24,10 +24,10 @@
     margin-bottom: 40px;
 }
 
-/* Estilo del botón */
-.project-button {
-    background-color: #3498db; /* Color de fondo */
-    color: white; /* Color del texto */
+/* Estilo de botones comunes */
+.common-button {
+    background-color: #FFF; /* Color de fondo */
+    color: #34495e; /* Color del texto */
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
@@ -36,9 +36,12 @@
     transition: background-color 0.3s ease;
 }
 
-.project-button:hover {
-    background-color: #2980b9; /* Color de fondo al pasar el cursor */
+.common-button:hover {
+    background-color: #34495e; 
+    color: #FFF; /* Color de fondo al pasar el cursor */
 }
+
+
 
 /* Otros estilos necesarios */
 .section-with-background {

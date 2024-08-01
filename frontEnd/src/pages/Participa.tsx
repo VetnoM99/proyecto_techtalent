@@ -39,13 +39,13 @@ const ParticipateSection: React.FC = () => {
         };
     }, []);
 
-    const handleButtonClick = () => {
-        navigate('/proyecto');
+    const handleButtonClick = (path: string) => {
+        navigate(path);
     };
 
     return (
         <div className="participate-section">
-            <h2 className="section-title">Participa y ayuda</h2>
+            <h1 className="section-title">Participa y ayuda</h1>
             <div className="section-content">
                 <p className="section-intro">
                     En PortNet, estamos comprometidos con la protección de nuestros océanos y la vida marina. A través de nuestro programa, puedes convertir tus puntos en donaciones directas a ONG dedicadas a combatir la contaminación marina y la pesca no sostenible. ¡Juntos podemos hacer una gran diferencia!
@@ -57,13 +57,19 @@ const ParticipateSection: React.FC = () => {
                             <p>Compra productos sostenibles: Cada compra que realizas en nuestra tienda suma puntos a tu cuenta.</p>
                             <p>Participa en eventos: Únete a nuestros eventos y campañas, y gana puntos adicionales.</p>
                             <p>Recicla y reporta: Envía tus reciclables a nuestros centros de recolección y gana puntos al reportar tus actividades de limpieza.</p>
+                            <button className="common-button" onClick={() => handleButtonClick('/tienda')}>
+                                Gana puntos
+                            </button>
                         </div>
                     </SectionWithBackground>
 
-                    <SectionWithBackground title="Conviértete en donador" image={images.becomeDonor}>
+                    <SectionWithBackground title="Consigue recompensas" image={images.becomeDonor}>
                         <div>
                             <p>Transforma tus puntos: Una vez que hayas acumulado puntos, puedes convertirlos en donaciones monetarias para las ONG de tu elección.</p>
                             <p>Elige la ONG: Selecciona entre una lista de organizaciones dedicadas a la conservación marina y la lucha contra la pesca ilegal.</p>
+                            <button className="common-button" onClick={() => handleButtonClick('/tienda')}>
+                                Nuestra tienda
+                            </button>
                         </div>
                     </SectionWithBackground>
 
@@ -71,8 +77,8 @@ const ParticipateSection: React.FC = () => {
                         <div>
                             <p>Voluntariado: Únete a nuestras iniciativas de voluntariado para limpiar playas y proteger la vida marina.</p>
                             <p>Difunde el mensaje: Comparte nuestra misión y actividades en tus redes sociales para crear conciencia y atraer más colaboradores.</p>
-                            <button className="project-button" onClick={handleButtonClick}>
-                                Ir al Proyecto
+                            <button className="common-button" onClick={() => handleButtonClick('/proyecto')}>
+                                Nuestro proyecto
                             </button>
                         </div>
                     </SectionWithBackground>

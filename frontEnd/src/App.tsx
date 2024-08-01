@@ -21,6 +21,7 @@ const App: React.FC = () => {
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // @ts-ignore
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState<number | null>(null);
 
@@ -135,7 +136,7 @@ const App: React.FC = () => {
           />
           <Box sx={{ flex: 1 }}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/inicio" element={<Home />} />
               <Route path="/quienes-somos" element={<QuienesSomos />} />
               <Route path="/proyecto" element={<Proyecto />} />
               <Route path="/contacto" element={<Contacto />} />
