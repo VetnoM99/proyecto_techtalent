@@ -1,106 +1,121 @@
+/* src/styles/ParticipateSection.css */
+
+/* Estilos generales de la sección */
 .participate-section {
-    margin: 50px auto;
-    max-width: 1200px;
+    max-width: 1200px; /* Ajustar al mismo ancho que el contenedor de otras páginas */
+    margin: 50px auto; /* Centrar la sección y añadir márgenes */
     padding: 20px;
-    background-color: whitesmoke;
-    color: #2c3e50;
-    text-align: center;
+    background-color: white; /* Fondo blanco como en las otras secciones */
+    color: black;
+    text-align: center; /* Alinear el texto al centro */
 }
 
+/* Títulos de sección */
 .section-title {
-    font-size: 3rem;
-    margin: 0 auto 30px auto;
-    font-weight: bold;
-    max-width: 80%;
+    font-size: 2rem; /* Tamaño de fuente consistente */
+    color: #2c3e50; /* Color del texto para el título, igual que en otras páginas */
+    margin-bottom: 20px;
 }
 
+/* Contenido de la sección */
 .section-content {
-    color: #2c3e50;
-    line-height: 1.8;
-    font-size: 1.4rem;
+  
+    line-height: 1.6;
 }
 
+/* Sección de introducción */
 .section-intro {
-    margin-bottom: 50px;
+    color: #34495e;
+    margin-bottom: 40px;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateX(20px);
 }
 
+/* Hacer visible la sección de introducción */
 .section-intro.visible {
     opacity: 1;
     transform: translateX(0);
 }
 
-.how-to-participate {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.section-with-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 80px;
-    padding: 30px;
+/* Sección con fondo */
+.section-with-background {
+    position: relative;
+    margin-bottom: 40px;
+    padding: 20px;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 10px;
+    color: #fff; /* Color del texto blanco para secciones con imagen de fondo */
+    border-radius: 5px;
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateY(20px);
-    max-width: 1200px;
-    width: 100%;
-    height: 300px;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar el contenido */
 }
 
-.section-with-image.visible {
+/* Hacer visible la sección con fondo */
+.section-with-background.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.overlay {
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente negro */
-    color: white; /* Color del texto blanco */
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 800px;
-    width: 100%;
-    text-align: left;
+/* Overlay para las secciones con fondo */
+.background-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurecer el fondo para mejor contraste */
+    z-index: 1;
 }
 
-.section-image-container {
-    display: none; /* Ocultamos este contenedor ya que no es necesario con el nuevo diseño */
-}
-
+/* Contenido dentro de la sección con fondo */
 .section-content {
-    flex: 1;
+    position: relative;
+    z-index: 2;
     padding: 20px;
-    font-size: 1.4rem;
+    /* Ajustar padding si es necesario para mejorar separación del texto */
 }
 
+/* Contenido interior de la sección */
 .section-inner-content {
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateX(20px);
+    -webkit-transform: translateX(20px);
+    -moz-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    -o-transform: translateX(20px);
 }
 
+/* Hacer visible el contenido interior */
 .section-inner-content.visible {
     opacity: 1;
     transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
 }
 
-.overlay h3,
-.overlay p {
-    font-size: 1.6rem; /* Tamaño del texto aumentado */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Añadir sombra al texto para mayor legibilidad */
+/* Imagen de fondo en las secciones con fondo */
+.section-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7; /* Ajusta la opacidad de la imagen de fondo para asegurar contraste */
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Hacer visible la imagen de fondo */
+.section-image.visible {
+    opacity: 1;
 }
 
