@@ -5,7 +5,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useUser } from '../context/UserProvider';
+import '../styles/RegisterForm.css'; // Asegúrate de tener este archivo CSS
 
 interface RegisterFormProps {
   open: boolean;
@@ -22,6 +26,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%&*!?+\-_])[A-Za-z\d@#$%&*!?+\-_]{8,}$/;
 
   const handleRegister = async () => {
     const newErrors: { [key: string]: string } = {};
@@ -40,14 +48,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
       // Verificar que el correo electrónico tenga un formato válido
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        newErrors.email = 'El correo electrónico no tiene un formato válido';
+        newErrors.email = 'El correo electrónico no tiene un formato válido. Ejemplo: usuario@dominio.com';
       }
     }
 
     // Verificar que la contraseña tenga al menos 8 caracteres, un número y un carácter especial
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
-      newErrors.password = 'La contraseña debe tener al menos 8 caracteres, un número y un carácter especial';
+      newErrors.password = 'La contraseña debe tener al menos 8 caracteres, un número y un carácter especial (@, #, $, %, &, *, !, ?, +, -, _)';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -121,23 +128,47 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
           margin="dense"
           id="password"
           label="Contraseña"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           error={!!errors.password}
           helperText={errors.password}
+          InputProps={{
+            endAdornment: (
+              <IconButton
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+                size="small"
+                className="eye-button"
+              >
+                {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+              </IconButton>
+            ),
+          }}
         />
         <TextField
           margin="dense"
           id="confirmPassword"
           label="Confirmar Contraseña"
-          type="password"
+          type={showConfirmPassword ? 'text' : 'password'}
           fullWidth
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword}
+          InputProps={{
+            endAdornment: (
+              <IconButton
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                edge="end"
+                size="small"
+                className="eye-button"
+              >
+                {showConfirmPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+              </IconButton>
+            ),
+          }}
         />
         <TextField
           margin="dense"
