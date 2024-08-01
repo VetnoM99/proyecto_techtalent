@@ -2,120 +2,72 @@
 
 /* Estilos generales de la sección */
 .participate-section {
-    max-width: 1200px; /* Ajustar al mismo ancho que el contenedor de otras páginas */
-    margin: 50px auto; /* Centrar la sección y añadir márgenes */
+    max-width: 1200px;
+    margin: 20px auto 50px auto;
     padding: 20px;
-    background-color: white; /* Fondo blanco como en las otras secciones */
+    background-color: transparent;
     color: black;
-    text-align: center; /* Alinear el texto al centro */
+    text-align: center;
 }
 
 /* Títulos de sección */
 .section-title {
-    font-size: 2rem; /* Tamaño de fuente consistente */
-    color: #2c3e50; /* Color del texto para el título, igual que en otras páginas */
-    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 /* Contenido de la sección */
-.section-content {
-  
-    line-height: 1.6;
-}
-
-/* Sección de introducción */
 .section-intro {
     color: #34495e;
     margin-bottom: 40px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateX(20px);
 }
 
-/* Hacer visible la sección de introducción */
-.section-intro.visible {
-    opacity: 1;
-    transform: translateX(0);
+/* Estilo del botón */
+.project-button {
+    background-color: #3498db; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-/* Sección con fondo */
+.project-button:hover {
+    background-color: #2980b9; /* Color de fondo al pasar el cursor */
+}
+
+/* Otros estilos necesarios */
 .section-with-background {
     position: relative;
-    margin-bottom: 40px;
-    padding: 20px;
     background-size: cover;
     background-position: center;
-    color: #fff; /* Color del texto blanco para secciones con imagen de fondo */
-    border-radius: 5px;
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateY(20px);
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centrar el contenido */
+    color: white;
+    padding: 40px 20px;
+    margin-bottom: 20px;
 }
 
-/* Hacer visible la sección con fondo */
-.section-with-background.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Overlay para las secciones con fondo */
 .background-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Oscurecer el fondo para mejor contraste */
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.section-content {
+    position: relative;
     z-index: 1;
 }
 
-/* Contenido dentro de la sección con fondo */
-.section-content {
-    position: relative;
-    z-index: 2;
-    padding: 20px;
-    /* Ajustar padding si es necesario para mejorar separación del texto */
-}
-
-/* Contenido interior de la sección */
-.section-inner-content {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateX(20px);
-    -webkit-transform: translateX(20px);
-    -moz-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    -o-transform: translateX(20px);
-}
-
-/* Hacer visible el contenido interior */
-.section-inner-content.visible {
-    opacity: 1;
-    transform: translateX(0);
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -ms-transform: translateX(0);
-    -o-transform: translateX(0);
-}
-
-/* Imagen de fondo en las secciones con fondo */
 .section-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.7; /* Ajusta la opacidad de la imagen de fondo para asegurar contraste */
-    transition: opacity 0.5s ease-in-out;
+    display: none;
 }
 
-/* Hacer visible la imagen de fondo */
-.section-image.visible {
-    opacity: 1;
+.section-inner-content {
+    margin-top: 20px;
 }
-
