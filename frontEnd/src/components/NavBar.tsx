@@ -25,7 +25,7 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [points, setPoints] = useState<number>(0); // Estado para los puntos del usuario
 
-  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'FAQ']; // Añadir 'FAQ'
+  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'Tienda'];
 
   const getCurrentPage = () => {
     const path = location.pathname;

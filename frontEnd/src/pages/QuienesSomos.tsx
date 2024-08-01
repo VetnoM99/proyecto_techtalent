@@ -1,3 +1,4 @@
+// src/components/QuienesSomos.tsx
 import React from 'react';
 import { Container, Typography, Box, Card, CardContent, Link } from '@mui/material';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
@@ -22,13 +23,10 @@ import Indret2 from '../assets/hover-RESTAURANT & LOUNGE LINDRET.png';
 import Kema2 from '../assets/hover-RESTAURANT BRASAS & COCKTAIL KEMA.png';
 import Posit2 from '../assets/hover-RESTAURANT EL PÒSIT.png';
 import Roce2 from '../assets/hover-ARROCERÍA ROCE.png';
-
+// @ts-ignore
 import Imagen1 from '../assets/imagen1.jpg'; // Asegúrate de tener las imágenes necesarias en tu carpeta de assets
 
 const QuienesSomos: React.FC = () => {
-    // const [hoveredRestaurant, setHoveredRestaurant] = useState<string | null>(null);
-    // const [carouselPaused, setCarouselPaused] = useState<boolean>(false);
-
     const images: ReactImageGalleryItem[] = [
         {
             original: Basura1,
@@ -63,7 +61,7 @@ const QuienesSomos: React.FC = () => {
         {
             original: Playa,
             thumbnail: Playa,
-            description: 'Para tener Playas mas limpias',
+            description: 'Para tener Playas más limpias',
         },
     ];
 
@@ -113,88 +111,89 @@ const QuienesSomos: React.FC = () => {
                     />
                 </Box>
             </Box>
-            <Box className="intro">
+            <Box className="goal-section">
                 <Typography variant="h4" component="h2" gutterBottom>
                     Nuestro objetivo:
                 </Typography>
-                <Card className="card">
-                    <CardContent>
-                        <Typography variant="h5" component="h3">
-                            Objetivo 2024
-                        </Typography>
-                        <Typography variant="body1" paragraph>
-                            Ante las alarmantes noticias sobre la contaminación plástica en el mar y sus devastadores efectos, en 2024 decidimos actuar. 
-                            Así nació el proyecto Port⭕Net, diseñado en consonancia con los Objetivos de Desarrollo Sostenible (ODS). Nuestro objetivo principal es limpiar más de 1000 km² del fondo marino de la Costa Dorada, promoviendo al mismo tiempo prácticas de pesca responsable y sostenible, y dejando atrás métodos destructivos que dañan los ecosistemas a corto y largo plazo.
-                        </Typography>
-                    </CardContent>
-                </Card>
-                <Card className="card">
-                    <CardContent>
-                        <Typography variant="h5" component="h3">
-                            Colaboraciones
-                        </Typography>
-                        <Typography variant="body1" paragraph>
-                            Los restaurantes de la zona se han comprometido a donar una parte de cada venta para apoyar a las ONG que se dedican a la recolección de basura marina y la protección de especies. 
-                            Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <Box className="goal-cards-container">
+                    <Card className="card">
+                        <CardContent>
+                            <Typography variant="h5" component="h3">
+                                Objetivo 2024
+                            </Typography>
+                            <Typography variant="body1" paragraph>
+                                Ante las alarmantes noticias sobre la contaminación plástica en el mar y sus devastadores efectos, en 2024 decidimos actuar. 
+                                Así nació el proyecto Port⭕Net, diseñado en consonancia con los Objetivos de Desarrollo Sostenible (ODS). Nuestro objetivo principal es limpiar más de 1000 km² del fondo marino de la Costa Dorada, promoviendo al mismo tiempo prácticas de pesca responsable y sostenible, y dejando atrás métodos destructivos que dañan los ecosistemas a corto y largo plazo.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                    <Card className="card">
+                        <CardContent>
+                            <Typography variant="h5" component="h3">
+                                Colaboraciones
+                            </Typography>
+                            <Typography variant="body1" paragraph>
+                                Los restaurantes de la zona se han comprometido a donar una parte de cada venta para apoyar a las ONG que se dedican a la recolección de basura marina y la protección de especies. 
+                                Estas donaciones ayudarán a cubrir los costos de los equipos de buceo, zodiacs, barcos, lanchas y otros vehículos necesarios para llevar a cabo estas importantes y complejas tareas.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Box>
             </Box>
             <Box display="flex" justifyContent="space-between" flexWrap="nowrap">
-                    {/* Imagen 1 */}
-                    <Box className="image-container">
-                        <img src={Montserrat} alt="Monserrat" className="main-image"/>
-                        <img src={Montserrat2} alt="HoverMonserrat" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
-                                Restaurant Montserrat
-                            </Link>
-                        </Box>
-                    </Box>
-                    {/* Imagen 2 */}
-                    <Box className="image-container">
-                        <img src={Indret} alt="Indret" className="main-image"/>
-                        <img src={Indret2} alt="Indret-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
-                                Restaurante Indret
-                            </Link>
-                        </Box>
-                    </Box>
-                    {/* Imagen 3 */}
-                    <Box className="image-container">
-                        <img src={Kema} alt="Kema" className="main-image"/>
-                        <img src={Kema2} alt="Kema-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://kemacambrils.com/' target="_blank" rel="noopener">
-                                Brasas & Cocktail Kema
-                            </Link>
-                        </Box>
-                    </Box>
-                    {/* Imagen 4 */}
-                    <Box className="image-container">
-                        <img src={Roce} alt="Roce" className="main-image"/>
-                        <img src={Roce2} alt="Roce-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://micuerpopideroce.com/' target="_blank" rel="noopener">
-                                Arroceria Roce
-                            </Link>
-                        </Box>
-                    </Box>
-                      {/* Imagen 5 */}
-                      <Box className="image-container">
-                        <img src={Posit} alt="Posit" className="main-image"/>
-                        <img src={Posit2} alt="Roce-hover" className="hover-image"/>
-                        <Box className="overlay">
-                            <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
-                                Restaurant El Pósit
-                            </Link>
-                        </Box>
+                {/* Imagen 1 */}
+                <Box className="image-container">
+                    <img src={Montserrat} alt="Monserrat" className="main-image"/>
+                    <img src={Montserrat2} alt="HoverMonserrat" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href='https://www.restaurantmontserrat.com/' target="_blank" rel="noopener">
+                            Restaurant Montserrat
+                        </Link>
                     </Box>
                 </Box>
+                {/* Imagen 2 */}
+                <Box className="image-container">
+                    <img src={Indret} alt="Indret" className="main-image"/>
+                    <img src={Indret2} alt="Indret-hover" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href='https://www.lindretdecambrils.com/' target="_blank" rel="noopener">
+                            Restaurante Indret
+                        </Link>
+                    </Box>
+                </Box>
+                {/* Imagen 3 */}
+                <Box className="image-container">
+                    <img src={Kema} alt="Kema" className="main-image"/>
+                    <img src={Kema2} alt="Kema-hover" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href='https://kemacambrils.com/' target="_blank" rel="noopener">
+                            Brasas & Cocktail Kema
+                        </Link>
+                    </Box>
+                </Box>
+                {/* Imagen 4 */}
+                <Box className="image-container">
+                    <img src={Roce} alt="Roce" className="main-image"/>
+                    <img src={Roce2} alt="Roce-hover" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href='https://micuerpopideroce.com/' target="_blank" rel="noopener">
+                            Arroceria Roce
+                        </Link>
+                    </Box>
+                </Box>
+                {/* Imagen 5 */}
+                <Box className="image-container">
+                    <img src={Posit} alt="Posit" className="main-image"/>
+                    <img src={Posit2} alt="Posit-hover" className="hover-image"/>
+                    <Box className="overlay">
+                        <Link href='https://www.elposit.com/es/restaurantes/el-posit-de-cambrils' target="_blank" rel="noopener">
+                            Restaurant El Pósit
+                        </Link>
+                    </Box>
+                </Box>
+            </Box>
         </Container>
     );
 };
 
 export default QuienesSomos;
-
