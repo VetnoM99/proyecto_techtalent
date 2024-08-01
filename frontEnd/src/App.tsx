@@ -12,6 +12,7 @@ import UserProfile from './pages/UserProfile';
 import LoginDialog from './settings/Login';
 import RegisterForm from './settings/RegisterForm';
 import Faq from './pages/FAQ';
+import Tienda from './pages/Tienda';  // Importa el nuevo componente
 import { validateToken, refreshToken } from './api/userApi';
 import { UserProvider } from './context/UserProvider';
 import { isValidJwt } from './utils/jwtUtils';
@@ -140,6 +141,7 @@ const App: React.FC = () => {
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/participa" element={<Participa />} />
               <Route path="/faq" element={<Faq />} />
+              <Route path="/tienda" element={<Tienda />} />  {/* Añadir la ruta para Tienda */}
               <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
               <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
             </Routes>

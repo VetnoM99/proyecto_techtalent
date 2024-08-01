@@ -19,8 +19,8 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', ]; // Añadir 'FAQ'
-// @ts-ignore
+  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'Tienda'];
+
   const getCurrentPage = () => {
     const path = location.pathname;
     const currentPage = pages.find(page => `/${page.toLowerCase().replace(/ /g, '-')}` === path);

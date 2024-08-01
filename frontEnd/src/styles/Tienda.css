@@ -1,0 +1,29 @@
+/* src/pages/Tienda.css */
+
+.tienda {
+    text-align: center;
+}
+
+.frases {
+    margin: 20px 0;
+}
+
+.imagenes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.imagen-container {
+    margin: 10px;
+    text-align: center;
+}
+
+.imagen-container img {
+    width: 100px;
+    height: 100px;
+}
+
+button {
+    margin-top: 20px;
+}
