@@ -13,6 +13,7 @@ import LoginDialog from './settings/Login';
 import RegisterForm from './settings/RegisterForm';
 import Faq from './pages/FAQ';
 import Tienda from './pages/Tienda';  // Importa el nuevo componente
+import Donar from './pages/Donate'
 import { validateToken, refreshToken } from './api/userApi';
 import { UserProvider } from './context/UserProvider';
 import { isValidJwt } from './utils/jwtUtils';
@@ -144,6 +145,7 @@ const App: React.FC = () => {
   <Route path="/participa" element={<Participa />} />
   <Route path="/faq" element={<Faq />} />
   <Route path="/tienda" element={<Tienda />} />
+  <Route path="/donar" element={<Donar />} />
   <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
   <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
 </Routes>

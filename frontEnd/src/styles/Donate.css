@@ -1,0 +1,82 @@
+/* src/styles/Donate.css */
+
+.container {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: flex-start; /* Ajusta la alineación vertical */
+ min-height: 100vh;
+ padding: 20px;
+ box-sizing: border-box;
+ margin-top: 20px; /* Ajusta el margen superior para mover el contenido más arriba */
+}
+
+h1 {
+ font-size: 2rem;
+ margin-bottom: 10px;
+}
+
+h2 {
+ font-size: 1.5rem;
+ margin-bottom: 20px;
+}
+
+.points-section,
+.donate-section {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ margin: 20px 0;
+}
+
+button {
+ background-color: #007bff;
+ color: white;
+ border: none;
+ padding: 10px 20px;
+ cursor: pointer;
+ border-radius: 5px;
+ margin: 10px;
+ font-size: 1rem;
+}
+
+button:disabled {
+ background-color: #b0b0b0;
+ cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+ background-color: #0056b3;
+}
+
+.points-info {
+ font-size: 1.25rem;
+ margin-top: 10px;
+}
+
+/* Estilos para el popup */
+.popup-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0, 0, 0, 0.5);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 1000; /* Asegura que el popup esté sobre el contenido */
+}
+
+.popup {
+ background-color: white;
+ border-radius: 5px;
+ padding: 20px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+ text-align: center;
+ width: 300px;
+}
+
+.popup h2 {
+ margin-top: 0;
+}
