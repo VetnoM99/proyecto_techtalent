@@ -1,5 +1,5 @@
 .footer-bar {
- padding: 1rem 0;
+ padding: 0.25rem 0; /* Reduce el padding superior e inferior para reducir la altura del footer */
  margin-top: auto;
  background-color: #3c3c3c;
  width: 100vw;
@@ -7,6 +7,9 @@
  display: flex;
  flex-direction: column;
  align-items: center;
+ max-height: 200px; /* Ajusta la altura máxima según sea necesario */
+ overflow: hidden; /* Asegura que el footer no se expanda más allá del tamaño máximo */
+ position: relative;
 }
 
 .footer-bar .container {
@@ -15,32 +18,33 @@
  align-items: center;
  max-width: 1200px; /* Ajusta según el ancho deseado */
  width: 100%;
+ padding: 0; /* Elimina padding adicional del contenedor */
 }
 
 .footer-bar .button-container {
  display: flex;
- flex-direction: row; /* Asegúrate de que los botones estén en fila */
- gap: 1rem; /* Espacio entre los botones */
- margin-bottom: 0.1rem; /* Reduce el espacio entre los botones y los íconos */
+ flex-direction: row;
+ gap: 0.5rem; /* Espacio reducido entre los botones */
+ margin-bottom: 0.5rem; /* Espacio reducido entre los botones y los íconos */
 }
 
 .footer-bar .icons-container {
  display: flex;
- gap: 2rem; /* Espacio entre los íconos */
- margin-top: 0.1rem; /* Reduce aún más el espacio entre los íconos y el botón */
- margin-bottom: 1rem; /* Espacio entre los íconos y el texto */
- justify-content: center; /* Centra los íconos horizontalmente */
- align-items: center; /* Alinea los íconos verticalmente */
+ gap: 1rem; /* Espacio reducido entre los íconos */
+ margin-top: 0.5rem; /* Espacio reducido entre los íconos y el botón */
+ margin-bottom: 0.5rem; /* Espacio reducido entre los íconos y el texto */
+ justify-content: center;
+ align-items: center;
 }
 
 .footer-bar .icon {
- width: 200px; /* Ajusta el tamaño del ícono */
+ width: 120px; /* Tamaño ligeramente mayor de los íconos */
  height: auto; /* Mantiene la proporción del ícono */
 }
 
 .footer-bar .button {
- padding: 0.5rem 1rem; /* Reduce el tamaño del botón */
- font-size: 1rem; /* Ajusta el tamaño del texto dentro del botón */
+ padding: 0.25rem 0.5rem; /* Tamaño reducido del botón */
+ font-size: 0.75rem; /* Tamaño reducido del texto del botón */
  background-color: #ffffff;
  color: #3c3c3c;
  text-transform: none;
@@ -51,7 +55,8 @@
 }
 
 .footer-bar .text {
- margin-bottom: 1rem; /* Espacio entre el texto y los íconos */
+ margin-bottom: 0.5rem; /* Reduce el espacio entre el texto y los íconos */
  text-align: center;
+ font-size: 0.75rem; /* Tamaño reducido del texto */
 }
 
