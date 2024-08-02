@@ -130,6 +130,19 @@ export const updateUserProfile = async (userId: number, updatedProfile: UserProf
   }
 };
 
+import axios from 'axios';
+
+export const updateUserSaldo = async (userId: number, points: number) => {
+  try {
+    const response = await axios.put(`/api/users/${userId}/saldo`, { newSaldo: points });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user saldo:', error);
+    throw error;
+  }
+};
+
+
 // Asegúrate de definir y exportar la interfaz UserProfileUpdate
 export interface UserProfileUpdate {
   email: string;

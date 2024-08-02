@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,20 +6,24 @@ import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import ProfileMenu from '../pages/ProfileMenu';
 import logo from '../assets/logo.png'; // Asegúrate de tener el path correcto
+import pointsIcon from '../assets/MONEDA_CANGREJO.jpeg'; // Asegúrate de tener el path correcto
 import { useUser } from '../context/UserProvider';
+import '../styles/Navbar.css'
 
 interface NavBarProps {
   setLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setRegisterDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onLogout: () => void;
+  isLoggedIn: boolean;
+  setOcrUploaderOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOpen, onLogout }) => {
+const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOpen, onLogout, isLoggedIn, setOcrUploaderOpen }) => {
   const { user } = useUser(); // Obtener el usuario del contexto
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'Tienda'];
+  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Participa', 'Tienda', 'Donar'];
 
   const getCurrentPage = () => {
     const path = location.pathname;
@@ -54,15 +58,26 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
               </Button>
             ))}
           </Box>
-          <Box sx={{ flex: '1', display: 'flex', justifyContent: 'flex-end' }}>
-            {user ? (
-              <ProfileMenu
-                anchorEl={anchorEl}
-                handleAvatarClick={handleAvatarClick}
-                handleMenuClose={handleMenuClose}
-                username={user.username}
-                onLogout={onLogout}
-              />
+          <Box sx={{ flex: '1', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            {isLoggedIn ? (
+              <>
+                <Button onClick={() => setOcrUploaderOpen(true)}>Subir Recibos</Button>
+                {user && (
+                  <>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+                      <img src={pointsIcon} alt="Puntos" style={{ maxHeight: '24px', marginRight: '8px' }} />
+                      <span style={{ color: 'black' }}>{user.saldo ?? 0}</span> {/* Mostrar saldo si está disponible */}
+                    </Box>
+                    <ProfileMenu
+                      anchorEl={anchorEl}
+                      handleAvatarClick={handleAvatarClick}
+                      handleMenuClose={handleMenuClose}
+                      username={user.username}
+                      onLogout={onLogout}
+                    />
+                  </>
+                )}
+              </>
             ) : (
               <>
                 <Button onClick={() => setLoginDialogOpen(true)}>Login</Button>

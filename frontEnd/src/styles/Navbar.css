@@ -9,6 +9,7 @@
     align-items: center;
     padding: 15px 20px; /* Ajusta el padding para aumentar el height */
     transition: background-color 0.3s ease;
+    z-index: 1000; /* Asegúrate de que el navbar esté siempre encima */
 }
 
 .navbar-content {
@@ -56,4 +57,32 @@
 
 .login-button:hover, .register-button:hover {
     background-color: #0056b3;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .navbar-links {
+        flex-direction: column;
+        align-items: center;
+        display: none; /* Ocultar el menú en pantallas pequeñas */
+    }
+
+    .navbar-links.active {
+        display: flex; /* Mostrar el menú cuando esté activo */
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-logo {
+        height: 40px; /* Ajusta el height del logo para pantallas pequeñas */
+    }
+
+    .navbar-links li {
+        margin: 0 10px;
+    }
 }
