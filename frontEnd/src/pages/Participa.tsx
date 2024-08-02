@@ -54,10 +54,9 @@ const ParticipateSection: React.FC = () => {
                 <div className="how-to-participate">
                     <SectionWithBackground title="Gana puntos" image={images.gainPoints}>
                         <div>
-                            <p>Compra productos sostenibles: Cada compra que realizas en nuestra tienda suma puntos a tu cuenta.</p>
                             <p>Participa en eventos: Únete a nuestros eventos y campañas, y gana puntos adicionales.</p>
                             <p>Recicla y reporta: Envía tus reciclables a nuestros centros de recolección y gana puntos al reportar tus actividades de limpieza.</p>
-                            <button className="common-button" onClick={() => handleButtonClick('/tienda')}>
+                            <button className="common-button" onClick={() => handleButtonClick('/register')}>
                                 Gana puntos
                             </button>
                         </div>
