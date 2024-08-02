@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Cambiar useHistory por useNavigate
+import { useNavigate } from 'react-router-dom'; // Usar useNavigate
 import '../styles/ContactForm.css';
 
 Modal.setAppElement('#root');
@@ -22,6 +22,7 @@ const Contacto: React.FC = () => {
         try {
             await axios.post('http://localhost:8080/sendEmail', formData);
             setStatusMessage('Correo enviado exitosamente.');
+            setTimeout(closeModal, 2000); // Esperar 2 segundos antes de redirigir
         } catch (error) {
             setStatusMessage('Error al enviar el correo.');
         }

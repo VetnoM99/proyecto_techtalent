@@ -17,21 +17,30 @@
  width: 100%;
 }
 
+.footer-bar .button-container {
+ display: flex;
+ flex-direction: row; /* Asegúrate de que los botones estén en fila */
+ gap: 1rem; /* Espacio entre los botones */
+ margin-bottom: 0.1rem; /* Reduce el espacio entre los botones y los íconos */
+}
+
 .footer-bar .icons-container {
  display: flex;
- gap: 1rem; /* Espacio entre los íconos */
- margin-top: 2rem; /* Aumenta el espacio entre los íconos y el botón */
+ gap: 2rem; /* Espacio entre los íconos */
+ margin-top: 0.1rem; /* Reduce aún más el espacio entre los íconos y el botón */
  margin-bottom: 1rem; /* Espacio entre los íconos y el texto */
+ justify-content: center; /* Centra los íconos horizontalmente */
+ align-items: center; /* Alinea los íconos verticalmente */
 }
 
 .footer-bar .icon {
  width: 200px; /* Ajusta el tamaño del ícono */
- height: 60px; /* Ajusta el tamaño del ícono */
+ height: auto; /* Mantiene la proporción del ícono */
 }
 
 .footer-bar .button {
- margin-top: 1rem; /* Espacio entre el texto y el botón */
- margin-bottom: 2rem; /* Espacio entre el botón y los íconos (opcional) */
+ padding: 0.5rem 1rem; /* Reduce el tamaño del botón */
+ font-size: 1rem; /* Ajusta el tamaño del texto dentro del botón */
  background-color: #ffffff;
  color: #3c3c3c;
  text-transform: none;
@@ -45,3 +54,4 @@
  margin-bottom: 1rem; /* Espacio entre el texto y los íconos */
  text-align: center;
 }
+

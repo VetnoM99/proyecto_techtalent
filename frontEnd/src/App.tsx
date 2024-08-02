@@ -135,17 +135,19 @@ const App: React.FC = () => {
             onLogout={handleLogout}
           />
           <Box sx={{ flex: 1 }}>
-            <Routes>
-              <Route path="/inicio" element={<Home />} />
-              <Route path="/quienes-somos" element={<QuienesSomos />} />
-              <Route path="/proyecto" element={<Proyecto />} />
-              <Route path="/contacto" element={<Contacto />} />
-              <Route path="/participa" element={<Participa />} />
-              <Route path="/faq" element={<Faq />} />
-              <Route path="/tienda" element={<Tienda />} />  {/* Añadir la ruta para Tienda */}
-              <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
-              <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
-            </Routes>
+          <Routes>
+ <Route path="/" element={<Navigate to="/inicio" />} />
+  <Route path="/inicio" element={<Home />} />
+  <Route path="/quienes-somos" element={<QuienesSomos />} />
+  <Route path="/proyecto" element={<Proyecto />} />
+  <Route path="/contacto" element={<Contacto />} />
+  <Route path="/participa" element={<Participa />} />
+  <Route path="/faq" element={<Faq />} />
+  <Route path="/tienda" element={<Tienda />} />
+  <Route path="/register" element={<RegisterForm open={registerDialogOpen} onClose={() => setRegisterDialogOpen(false)} onRegisterSuccess={handleRegisterSuccess} />} />
+  <Route path="/profile/:userId" element={isLoggedIn ? <UserProfile userId={userId ?? 0} onClose={() => { }} /> : <Navigate to="/" />} />
+</Routes>
+
           </Box>
           <FooterBar />
         </Router>
