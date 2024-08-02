@@ -44,3 +44,49 @@
     border: 2px dashed #000;
     display: inline-block;
 }
+/* Tienda.css */
+.tienda {
+    text-align: center;
+}
+
+.frases {
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap; /* Asegura que todos los elementos se mantengan en una fila */
+    gap: 10px; /* Añade un pequeño espacio entre las imágenes */
+}
+
+.producto {
+    flex: 1; /* Hace que todos los productos se distribuyan uniformemente */
+    max-width: 150px; /* Ajusta el tamaño máximo de las imágenes para que todas quepan en una fila */
+}
+
+.producto img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción de las imágenes */
+}
+
+.boton-sorteo {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.resultado-sorteo {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.codigo-descuento {
+    margin-top: 20px;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px dashed #000;
+    display: inline-block;
+}
