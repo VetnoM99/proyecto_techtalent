@@ -14,7 +14,7 @@ import '../styles/RegisterForm.css'; // Asegúrate de tener este archivo CSS
 interface RegisterFormProps {
   open: boolean;
   onClose: () => void;
-  onRegisterSuccess: (username: string, id: number, token: string, refreshToken: string) => Promise<void>;
+  onRegisterSuccess: (username: string, id: number, token: string, refreshToken: string, saldo: number) => Promise<void>;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSuccess }) => {
@@ -45,14 +45,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
     if (!email) {
       newErrors.email = 'El correo electrónico es obligatorio';
     } else {
-      // Verificar que el correo electrónico tenga un formato válido
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         newErrors.email = 'El correo electrónico no tiene un formato válido. Ejemplo: usuario@dominio.com';
       }
     }
 
-    // Verificar que la contraseña tenga al menos 8 caracteres, un número y un carácter especial
     if (!passwordRegex.test(password)) {
       newErrors.password = 'La contraseña debe tener al menos 8 caracteres, un número y un carácter especial (@, #, $, %, &, *, !, ?, +, -, _)';
     }
@@ -75,28 +73,23 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
 
       if (response.ok) {
         const data = await response.json();
-        const { id, token, refreshToken } = data;
+        console.log('Server response:', data); // Añade esto para ver la respuesta del servidor
+        const { id, token, refreshToken, saldo = 0 } = data; // Establece un valor predeterminado de 0 para saldo
 
-        console.log('Register response:', data);
-
-        // Actualiza el contexto aquí
-        setUser({ username, id });
-
-        // Guarda los tokens en el almacenamiento local
-        localStorage.setItem('authToken', token);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('username', username);
-        localStorage.setItem('userId', id.toString());
-
-        console.log('Auth Token:', localStorage.getItem('authToken'));
-        console.log('Refresh Token:', localStorage.getItem('refreshToken'));
-        console.log('Username:', localStorage.getItem('username'));
-        console.log('User ID:', localStorage.getItem('userId'));
-
-        // Notifica éxito
-        setMessage('Registro y inicio de sesión exitosos');
-        await onRegisterSuccess(username, id, token, refreshToken);
-        onClose();
+        if (id !== undefined && token && refreshToken) {
+          setUser({ username, id, saldo });
+          localStorage.setItem('authToken', token);
+          localStorage.setItem('refreshToken', refreshToken);
+          localStorage.setItem('username', username);
+          localStorage.setItem('userId', id.toString());
+          localStorage.setItem('userSaldo', saldo.toString());
+          setMessage('Registro y inicio de sesión exitosos');
+          await onRegisterSuccess(username, id, token, refreshToken, saldo);
+          onClose();
+        } else {
+          console.error('Datos incompletos:', { id, token, refreshToken, saldo });
+          throw new Error('Datos incompletos en la respuesta del servidor');
+        }
       } else {
         const errorData = await response.text();
         setMessage('Error: ' + errorData);
@@ -113,81 +106,22 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ open, onClose, onRegisterSu
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle>Registrar</DialogTitle>
       <DialogContent>
-        <TextField
-          margin="dense"
-          id="username"
-          label="Usuario"
-          type="text"
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          error={!!errors.username}
-          helperText={errors.username}
-        />
-        <TextField
-          margin="dense"
-          id="password"
-          label="Contraseña"
-          type={showPassword ? 'text' : 'password'}
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          error={!!errors.password}
-          helperText={errors.password}
-          InputProps={{
-            endAdornment: (
-              <IconButton
-                onClick={() => setShowPassword(!showPassword)}
-                edge="end"
-                size="small"
-                className="eye-button"
-              >
-                {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-              </IconButton>
-            ),
-          }}
-        />
-        <TextField
-          margin="dense"
-          id="confirmPassword"
-          label="Confirmar Contraseña"
-          type={showConfirmPassword ? 'text' : 'password'}
-          fullWidth
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          error={!!errors.confirmPassword}
-          helperText={errors.confirmPassword}
-          InputProps={{
-            endAdornment: (
-              <IconButton
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                edge="end"
-                size="small"
-                className="eye-button"
-              >
-                {showConfirmPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-              </IconButton>
-            ),
-          }}
-        />
-        <TextField
-          margin="dense"
-          id="email"
-          label="Correo Electrónico"
-          type="email"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={!!errors.email}
-          helperText={errors.email}
-        />
+        <TextField margin="dense" id="username" label="Usuario" type="text" fullWidth value={username} onChange={(e) => setUsername(e.target.value)} error={!!errors.username} helperText={errors.username} />
+        <TextField margin="dense" id="password" label="Contraseña" type={showPassword ? 'text' : 'password'} fullWidth value={password} onChange={(e) => setPassword(e.target.value)} error={!!errors.password} helperText={errors.password} InputProps={{ endAdornment: (
+          <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" size="small" className="eye-button">
+            {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+          </IconButton>
+        ), }} />
+        <TextField margin="dense" id="confirmPassword" label="Confirmar Contraseña" type={showConfirmPassword ? 'text' : 'password'} fullWidth value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={!!errors.confirmPassword} helperText={errors.confirmPassword} InputProps={{ endAdornment: (
+          <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)} edge="end" size="small" className="eye-button">
+            {showConfirmPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+          </IconButton>), }} />
+        <TextField margin="dense" id="email" label="Correo Electrónico" type="email" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} error={!!errors.email} helperText={errors.email} />
         {message && <p>{message}</p>}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={isLoading}>Cancelar</Button>
-        <Button onClick={handleRegister} disabled={isLoading}>
-          {isLoading ? 'Registrando...' : 'Registrar'}
-        </Button>
+        <Button onClick={handleRegister} disabled={isLoading}>{isLoading ? 'Registrando...' : 'Registrar'}</Button>
       </DialogActions>
     </Dialog>
   );

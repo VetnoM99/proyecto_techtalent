@@ -5,10 +5,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import ProfileMenu from '../pages/ProfileMenu';
-import logo from '../assets/MONEDA_CANGREJO.jpeg'; // Asegúrate de tener el path correcto
+import logo from '../assets/logo.png'; // Asegúrate de tener el path correcto
 import pointsIcon from '../assets/MONEDA_CANGREJO.jpeg'; // Asegúrate de tener el path correcto
 import { useUser } from '../context/UserProvider';
-import axios from 'axios';
 import '../styles/Navbar.css'
 
 interface NavBarProps {
@@ -23,9 +22,8 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const { user } = useUser(); // Obtener el usuario del contexto
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [points, setPoints] = useState<number>(0); // Estado para los puntos del usuario
 
-  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'Tienda'];
+  const pages = ['Inicio', 'Quienes somos', 'Proyecto', 'Contacto', 'Participa', 'FAQ']; // Añadir 'FAQ'
 
   const getCurrentPage = () => {
     const path = location.pathname;
@@ -40,21 +38,6 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
-  useEffect(() => {
-    const fetchPoints = async () => {
-      if (user) {
-        try {
-          const response = await axios.get(`http://localhost:8080/users/${user.id}/points`);
-          setPoints(response.data.points);
-        } catch (error) {
-          console.error('Error fetching user points:', error);
-        }
-      }
-    };
-
-    fetchPoints();
-  }, [user]);
 
   return (
     <AppBar position="static" sx={{ background: '#f3f4ef', height: '80px' }}> {/* Ajustar el height aquí */}
@@ -83,7 +66,7 @@ const NavBar: React.FC<NavBarProps> = ({ setLoginDialogOpen, setRegisterDialogOp
                   <>
                     <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
                       <img src={pointsIcon} alt="Puntos" style={{ maxHeight: '24px', marginRight: '8px' }} />
-                      <span style={{ color: 'black' }}>{points}</span> {/* Estilo para el color negro */}
+                      <span style={{ color: 'black' }}>{user.saldo ?? 0}</span> {/* Mostrar saldo si está disponible */}
                     </Box>
                     <ProfileMenu
                       anchorEl={anchorEl}

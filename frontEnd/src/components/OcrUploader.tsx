@@ -13,7 +13,9 @@ const OcrUploader: React.FC = () => {
   const [isCalculating, setIsCalculating] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { user } = useUser();
+  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+  const [showUploader, setShowUploader] = useState<boolean>(true);
+  const { user, setUser } = useUser();
 
   interface RestaurantIds {
     [key: string]: number;
@@ -81,9 +83,7 @@ const OcrUploader: React.FC = () => {
             },
           }
         );
-
         const extractedText = response.data;
-
         // Filtrar y sumar el total
         const totalAmount = extractAndSumTotal(extractedText);
         if (totalAmount === 0) {
@@ -107,35 +107,27 @@ const OcrUploader: React.FC = () => {
     // Calcular el 3% del total para puntos del cliente
     const clientPointsAmount = accumulatedTotal * 0.03;
     setClientPoints(clientPointsAmount);
-
     setIsCalculating(false);
   };
-
   const handleUpload = async () => {
     if (files.length === 0) {
       setErrorMessage("Primero tienes que subir un archivo");
       return;
     }
-
     if (!selectedRestaurant) {
       setErrorMessage("Primero tienes que seleccionar un restaurante");
       return;
     }
-
     setIsUploading(true);
     setErrorMessage(null);
-
     const restaurantId = restaurantIds[selectedRestaurant];
-
     if (!restaurantId) {
       setErrorMessage("Restaurante no válido seleccionado");
       setIsUploading(false);
       return;
     }
-
     if (user) {
       try {
-        // Verificar si los archivos ya existen
         for (const file of files) {
           const fileExists = await checkFileExists(file.name);
           if (fileExists) {
@@ -144,17 +136,11 @@ const OcrUploader: React.FC = () => {
             return;
           }
         }
-
-        // Obtener el saldo actual del socio
         const saldoResponse = await axios.get(
           `http://localhost:8080/socios/${restaurantId}/saldo`
         );
         const saldoActual = saldoResponse.data;
-
-        // Sumar el nuevo saldo al saldo existente
         const nuevoSaldo = saldoActual + donationToONG;
-
-        // Actualizar el saldo del restaurante seleccionado
         await axios.put(
           `http://localhost:8080/socios/${restaurantId}/saldo`,
           { nuevoSaldo },
@@ -164,17 +150,31 @@ const OcrUploader: React.FC = () => {
             },
           }
         );
-
         console.log("Saldo actualizado exitosamente");
-
-        // Subir los archivos solo si todo lo anterior fue exitoso
+        const userSaldoResponse = await axios.get(
+          `http://localhost:8080/users/${user.id}/saldo`
+        );
+        const userSaldoActual = userSaldoResponse.data;
+        const nuevoUserSaldo = userSaldoActual + clientPoints;
+        await axios.put(
+          `http://localhost:8080/users/${user.id}/saldo`,
+          { newSaldo: nuevoUserSaldo },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("Puntos del usuario actualizados exitosamente");
+        setUser((prevUser) =>
+          prevUser ? { ...prevUser, saldo: nuevoUserSaldo } : null
+        );
+        localStorage.setItem('userSaldo', nuevoUserSaldo.toString()); // Actualizar el saldo en el almacenamiento local
         const formData = new FormData();
         for (const file of files) {
           formData.append("files", file);
         }
-
         formData.append("userId", user.id.toString());
-
         const response = await axios.post(
           "http://localhost:8080/files/upload",
           formData,
@@ -184,8 +184,13 @@ const OcrUploader: React.FC = () => {
             },
           }
         );
-
         console.log("Files uploaded successfully", response.data);
+        setShowSuccessPopup(true);
+        setShowUploader(false);
+        setTimeout(() => {
+          setShowSuccessPopup(false);
+          window.location.replace("/inicio"); // Redirigir a la página inicial
+        }, 2000);
       } catch (error) {
         console.error("Error uploading files or updating saldo:", error);
         setErrorMessage("Error al subir archivos o actualizar el saldo");
@@ -193,65 +198,98 @@ const OcrUploader: React.FC = () => {
     } else {
       console.error("No user found");
     }
-
     setFiles([]);
     setPreviewUrls([]);
     setIsUploading(false);
   };
-
-  // Filtrar y sumar los totales del texto
+  
+  
   const extractAndSumTotal = (data: string) => {
     const lines = data.split("\n");
     let sum = 0;
-
     lines.forEach((line) => {
       const match = line.match(/TOTAL.*?(\d+[\.,]?\d*)/i);
       if (match) {
         sum += parseFloat(match[1].replace(",", "."));
       }
     });
-
     return sum;
   };
-
   return (
     <div className="ocr-uploader-container">
-      <h1 className="ocr-header">Subir Aportación</h1>
-      <div className="upload-box">
-        <input id="file-input"type="file"multiple onChange={handleFileChange}className="file-input"/>
-        <select value={selectedRestaurant}onChange={handleRestaurantChange}className="restaurant-select">
-          <option value="">Selecciona un restaurante</option>
-          <option value="RESTAURANT MONTSERRAT PEIX I MARISC">
-            RESTAURANT MONTSERRAT PEIX I MARISC
-          </option>
-          <option value="RESTAURANT & LOUNGE LINDRET">
-            RESTAURANT & LOUNGE LINDRET
-          </option>
-          <option value="RESTAURANT BRASAS & COCKTAIL KEMA">
-            RESTAURANT BRASAS & COCKTAIL KEMA
-          </option>
-          <option value="RESTAURANT EL PÒSIT">RESTAURANT EL PÒSIT</option>
-          <option value="ARROCERÍA ROCE">ARROCERÍA ROCE</option>
-        </select>
-        <div className="preview-container">
-          {previewUrls.map((url, index) => (
-            <motion.img key={index}src={url}alt={`Preview ${index + 1}`} className="preview-image"initial={{ opacity: 0 }}animate={{ opacity: 1 }}transition={{ duration: 0.5 }}/>
-          ))}
-        </div>
-      </div>
-      <div className="button-container">
-        <button onClick={handleCalculate}disabled={isCalculating}className="calculate-button">
-          {isCalculating ? "Calculando..." : "Calcular"}
-        </button>
-        <button onClick={handleUpload}disabled={isUploading || isCalculating}className="upload-button">
-          {isUploading ? "Subiendo..." : "Subir"}
-        </button>
-      </div>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <div className="info-container">
-        <p>Donación a la ONG: {donationToONG.toFixed(2)} €</p>
-        <p>Puntos para el Cliente: {clientPoints.toFixed(2)} €</p>
-        </div>
+      {showUploader ? (
+        <>
+          <h1 className="ocr-header">Subir Aportación</h1>
+          <div className="upload-box">
+            <input
+              id="file-input"
+              type="file"
+              multiple
+              onChange={handleFileChange}
+              className="file-input"
+            />
+            <select
+              value={selectedRestaurant}
+              onChange={handleRestaurantChange}
+              className="restaurant-select"
+            >
+              <option value="">Selecciona un restaurante</option>
+              <option value="RESTAURANT MONTSERRAT PEIX I MARISC">
+                RESTAURANT MONTSERRAT PEIX I MARISC
+              </option>
+              <option value="RESTAURANT & LOUNGE LINDRET">
+                RESTAURANT & LOUNGE LINDRET
+              </option>
+              <option value="RESTAURANT BRASAS & COCKTAIL KEMA">
+                RESTAURANT BRASAS & COCKTAIL KEMA
+              </option>
+              <option value="RESTAURANT EL PÒSIT">RESTAURANT EL PÒSIT</option>
+              <option value="ARROCERÍA ROCE">ARROCERÍA ROCE</option>
+            </select>
+            <div className="preview-container">
+              {" "}
+              {previewUrls.map((url, index) => (
+                <motion.img
+                  key={index}
+                  src={url}
+                  alt={`Preview ${index + 1}`}
+                  className="preview-image"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="button-container">
+            <button
+              onClick={handleCalculate}
+              disabled={isCalculating}
+              className="calculate-button"
+            >
+              {isCalculating ? "Calculando..." : "Calcular"}
+            </button>
+            <button
+              onClick={handleUpload}
+              disabled={isUploading || isCalculating}
+              className="upload-button"
+            >
+              {isUploading ? "Subiendo..." : "Subir"}
+            </button>
+          </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          <div className="info-container">
+            <p>Donación a la ONG: {donationToONG.toFixed(2)} €</p>
+            <p>Puntos para el Cliente: {clientPoints.toFixed(2)} €</p>
+          </div>
+        </>
+      ) : (
+        showSuccessPopup && (
+          <div className="success-popup">
+            <p>¡Recibo subido correctamente!</p>
+          </div>
+        )
+      )}
     </div>
   );
 };

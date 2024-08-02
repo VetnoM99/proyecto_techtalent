@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Box, Dialog } from '@mui/material';
 import NavBar from './components/NavBar';
@@ -26,6 +26,7 @@ const App: React.FC = () => {
   // @ts-ignore
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState<number | null>(null);
+  const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -43,9 +44,14 @@ const App: React.FC = () => {
         try {
           if (isValidJwt(storedToken)) {
             await validateToken(storedToken);
-            setIsLoggedIn(true);
-            setUserName(storedUserName);
-            setUserId(Number(storedUserId));
+            const userExists = await checkUserExists(Number(storedUserId));
+            if (userExists) {
+              setIsLoggedIn(true);
+              setUserName(storedUserName);
+              setUserId(Number(storedUserId));
+            } else {
+              handleLogout();
+            }
           } else {
             throw new Error('Invalid token');
           }
@@ -54,9 +60,14 @@ const App: React.FC = () => {
           try {
             const { token: newToken } = await refreshToken(storedRefreshToken);
             localStorage.setItem('authToken', newToken);
-            setIsLoggedIn(true);
-            setUserName(storedUserName);
-            setUserId(Number(storedUserId));
+            const userExists = await checkUserExists(Number(storedUserId));
+            if (userExists) {
+              setIsLoggedIn(true);
+              setUserName(storedUserName);
+              setUserId(Number(storedUserId));
+            } else {
+              handleLogout();
+            }
           } catch (refreshError) {
             console.error('Token refresh failed:', refreshError);
             handleLogout();
@@ -78,30 +89,69 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLoginSuccess = (username: string, id: number, token: string, refreshToken: string) => {
-    localStorage.setItem('username', username);
-    localStorage.setItem('userId', id.toString());
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('refreshToken', refreshToken);
-    setIsLoggedIn(true); // Asegúrate de que esto se actualice
-    setUserName(username);
-    setUserId(id);
-    setLoginDialogOpen(false); 
-    window.location.reload();
+  const checkUserExists = async (userId: number): Promise<boolean> => {
+    try {
+      const response = await fetch(`http://localhost:8080/users/${userId}`, {
+        method: 'GET',
+      });
+      return response.ok;
+    } catch (error) {
+      console.error('Error checking user existence:', error);
+      return false;
+    }
   };
 
-  const handleRegisterSuccess = async (username: string, id: number, token: string, refreshToken: string): Promise<void> => {
+  const handleLoginSuccess = async (username: string, id: number, token: string, refreshToken: string, saldo: number) => {
     try {
-      localStorage.setItem('username', username);
-      localStorage.setItem('userId', id.toString());
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('refreshToken', refreshToken);
+      const response = await fetch(`http://localhost:8080/users/${id}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-      setIsLoggedIn(true);
-      setUserName(username);
-      setUserId(id);
+      if (response.ok) {
+        const userData = await response.json();
+        if (userData) {
+          localStorage.setItem('username', username);
+          localStorage.setItem('userId', id.toString());
+          localStorage.setItem('authToken', token);
+          localStorage.setItem('refreshToken', refreshToken);
+          localStorage.setItem('userSaldo', saldo.toString()); // Almacenar el saldo
+          setIsLoggedIn(true);
+          setUserName(username);
+          setUserId(id);
+          setLoginDialogOpen(false); 
+          window.location.reload();
+        } else {
+          handleLogout();
+        }
+      } else {
+        handleLogout();
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      handleLogout();
+    }
+  };
 
-      setRegisterDialogOpen(false);
+  const handleRegisterSuccess = async (username: string, id: number, token: string, refreshToken: string, saldo: number): Promise<void> => {
+    try {
+      if (username && id !== undefined && token && refreshToken && saldo !== undefined) {
+        localStorage.setItem('username', username);
+        localStorage.setItem('userId', id.toString());
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('userSaldo', saldo.toString()); // Almacenar el saldo
+
+        setIsLoggedIn(true);
+        setUserName(username);
+        setUserId(id);
+
+        setRegisterDialogOpen(false);
+      } else {
+        throw new Error('Datos incompletos en la respuesta del servidor');
+      }
     } catch (error) {
       console.error('Error registrando:', error);
       alert('Error al registrar');
@@ -113,11 +163,31 @@ const App: React.FC = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('authToken');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userSaldo');
     setIsLoggedIn(false);
     setUserName('');
     setUserId(null);
     window.location.reload();
   };
+
+  const resetInactivityTimeout = () => {
+    if (inactivityTimeoutRef.current) {
+      clearTimeout(inactivityTimeoutRef.current);
+    }
+    inactivityTimeoutRef.current = setTimeout(() => {
+      handleLogout();
+    }, 2 * 60 * 1000); // 2 minutos
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', resetInactivityTimeout);
+    window.addEventListener('keydown', resetInactivityTimeout);
+
+    return () => {
+      window.removeEventListener('mousemove', resetInactivityTimeout);
+      window.removeEventListener('keydown', resetInactivityTimeout);
+    };
+  }, []);
 
   return (
     <UserProvider>
