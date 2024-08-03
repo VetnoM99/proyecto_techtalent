@@ -80,3 +80,17 @@ button:hover:not(:disabled) {
 .popup h2 {
  margin-top: 0;
 }
+
+.popup-close {
+ background-color: #007bff;
+ color: white;
+ border: none;
+ padding: 10px 20px;
+ cursor: pointer;
+ border-radius: 5px;
+ margin-top: 10px;
+}
+
+.popup-close:hover {
+ background-color: #0056b3;
+}
