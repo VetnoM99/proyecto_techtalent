@@ -4,6 +4,7 @@ import descuento2 from '../assets/TIENDA_DESCUENTO2.jpg';
 import descuento3 from '../assets/TIENDA_DESCUENTO3.jpg';
 import descuento4 from '../assets/TIENDA_DESCUENTO4.jpg';
 import descuento5 from '../assets/TIENDA_DESCUENTO5.jpg';
+import "../styles/Tienda.css"
 
 const Tienda: React.FC = () => {
     // Lista de productos con imágenes y descuentos
