@@ -37,6 +37,9 @@ const UploadAndDonate: React.FC = () => {
           <div className="popup">
             <h2>¡Atención!</h2>
             <p>Por favor, regístrate o inicia sesión para acceder a las funciones de donación.</p>
+            <button className="popup-close" onClick={closePopup}>
+              Cerrar
+            </button>
           </div>
         </div>
       )}
