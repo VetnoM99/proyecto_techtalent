@@ -133,14 +133,21 @@ body {
 
 .overlay {
     position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    left: 5%; /* Ajuste de la posición a la izquierda */
+    transform: translate(-5%, -50%); /* Ajuste de la transformación para compensar el cambio en 'left' */
     background: rgba(0, 0, 0, 0.5);
     color: white;
-    padding: 5px 10px;
+    padding: 3px 8px; /* Reducción del tamaño del box */
     border-radius: 5px;
     transition: background 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: calc(90% - 20px); /* Reducción del ancho del overlay */
+    box-sizing: border-box;
+    font-size: 0.75rem; /* Reducción del tamaño del texto */
 }
 
 .image-container:hover .overlay {

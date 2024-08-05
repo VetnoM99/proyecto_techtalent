@@ -4,9 +4,9 @@ import Poject1 from '../assets/CORAL RESTORATION FOUNDATION.png';
 import Poject2 from '../assets/MARINE CONSERVATION INSTITUTE .png';
 import Poject3 from '../assets/PROJECT AWARE.png';
 import Poject4 from '../assets/SEA SHEPSHERD CONSERVATION SOCIETY.png';
-import Image1 from '../assets/Image1.jpg';  // Añade estas líneas
-import Image2 from '../assets/Image2.jpg';  // Añade estas líneas
-import Image3 from '../assets/Image3.jpg';  // Añade estas líneas
+import Image1 from '../assets/Image1.jpg';
+import Image2 from '../assets/Image2.jpg';
+import Image3 from '../assets/Image3.jpg';
 import Corals from '../assets/corales.jpg';
 import Aware from '../assets/aware 1.jpg';
 import Shepherd from '../assets/shepherd.jpg';
@@ -17,29 +17,29 @@ import '../styles/Proyecto.css';
 const Proyecto: React.FC = () => {
     return (
         <Container>
-              <Box my={4}>
+            <Box my={4}>
                 <Typography variant="h2" component="h1" gutterBottom>
                     Proyecto R.A.C.L.I.
                 </Typography>
                 <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Restauración de arrecifes:</strong> Este esfuerzo implica la rehabilitación de los ecosistemas de coral dañados para asegurar que puedan seguir proporcionando hábitats cruciales para muchas especies marinas.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Ayuda al seguimiento y cuidado de especies protegidas:</strong> Trabajamos en colaboración con organizaciones dedicadas a monitorear y proteger especies marinas en peligro de extinción, asegurando su supervivencia y bienestar.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Control riguroso contra las pescas de arrastre:</strong> Implementamos medidas estrictas para evitar la pesca de arrastre destructiva que daña los fondos marinos y captura especies no deseadas.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Limpieza en Playas y recogida de plásticos en el mar:</strong> Organizamos campañas y colaboramos con voluntarios para limpiar playas y recoger plásticos en el mar, reduciendo la contaminación y protegiendo la vida marina.
-                    </Typography>
-                    <Typography variant="body1" paragraph className="capital-first-letter">
-                        <strong>Investigación sobre el cambio climático:</strong> Apoyamos y realizamos investigaciones para comprender mejor el impacto del cambio climático en los océanos y desarrollar estrategias para mitigarlo.
-                    </Typography>
-                </Box>
+                    <strong>Restauración de arrecifes:</strong> Este esfuerzo implica la rehabilitación de los ecosistemas de coral dañados para asegurar que puedan seguir proporcionando hábitats cruciales para muchas especies marinas.
+                </Typography>
+                <Typography variant="body1" paragraph className="capital-first-letter">
+                    <strong>Ayuda al seguimiento y cuidado de especies protegidas:</strong> Trabajamos en colaboración con organizaciones dedicadas a monitorear y proteger especies marinas en peligro de extinción, asegurando su supervivencia y bienestar.
+                </Typography>
+                <Typography variant="body1" paragraph className="capital-first-letter">
+                    <strong>Control riguroso contra las pescas de arrastre:</strong> Implementamos medidas estrictas para evitar la pesca de arrastre destructiva que daña los fondos marinos y captura especies no deseadas.
+                </Typography>
+                <Typography variant="body1" paragraph className="capital-first-letter">
+                    <strong>Limpieza en Playas y recogida de plásticos en el mar:</strong> Organizamos campañas y colaboramos con voluntarios para limpiar playas y recoger plásticos en el mar, reduciendo la contaminación y protegiendo la vida marina.
+                </Typography>
+                <Typography variant="body1" paragraph className="capital-first-letter">
+                    <strong>Investigación sobre el cambio climático:</strong> Apoyamos y realizamos investigaciones para comprender mejor el impacto del cambio climático en los océanos y desarrollar estrategias para mitigarlo.
+                </Typography>
+            </Box>
 
             <Box display="flex" justifyContent="center" flexWrap="wrap">
-                {/* Imágenes de Proyectos */}
+                {/* Project Images */}
                 {[Poject1, Poject2, Poject3, Poject4].map((src, index) => (
                     <Box key={index} className="image-container">
                         <img src={src} alt={`Proyecto ${index + 1}`} className="main-image"/>
