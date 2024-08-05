@@ -1,32 +1,38 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import descuento1 from '../assets/TIENDA_DESCUENTO1.jpg';
 import descuento2 from '../assets/TIENDA_DESCUENTO2.jpg';
 import descuento3 from '../assets/TIENDA_DESCUENTO3.jpg';
 import descuento4 from '../assets/TIENDA_DESCUENTO4.jpg';
 import descuento5 from '../assets/TIENDA_DESCUENTO5.jpg';
-import "../styles/Tienda.css"
+import "../styles/Tienda.css";
+import { useUser } from "../context/UserProvider";
 
 const Tienda: React.FC = () => {
-    // Lista de productos con imágenes y descuentos
-    const productos = [
-        { src: descuento5, descripcion: 'Doble de puntos canjeables en tu próximo ticket', probabilidad: 0.05 },
-        { src: descuento3, descripcion: 'Descuento del 15% en tu próximo ticket', probabilidad: 0.15 },
-        { src: descuento4, descripcion: 'Descuento del 20% en tu próximo ticket', probabilidad: 0.1 },
-        { src: descuento2, descripcion: 'Descuento del 10% en tu próximo ticket', probabilidad: 0.3 },
-        { src: descuento1, descripcion: 'Descuento del 5% en tu próximo ticket', probabilidad: 0.4 },
-    ];
-
+    const { user, setUser } = useUser();
     const [selectedProducto, setSelectedProducto] = useState<string | null>(null);
     const [codigoDescuento, setCodigoDescuento] = useState<string | null>(null);
 
-    // Función para seleccionar un producto basado en el índice
-    const seleccionarProducto = (indice: number) => {
+    const productos = [
+        { src: descuento5, descripcion: 'Doble de puntos canjeables en tu próximo ticket', probabilidad: 0.05, puntos: 40 },
+        { src: descuento3, descripcion: 'Descuento del 15% en tu próximo ticket', probabilidad: 0.15, puntos: 25 },
+        { src: descuento4, descripcion: 'Descuento del 20% en tu próximo ticket', probabilidad: 0.1, puntos: 30 },
+        { src: descuento2, descripcion: 'Descuento del 10% en tu próximo ticket', probabilidad: 0.3, puntos: 20 },
+        { src: descuento1, descripcion: 'Descuento del 5% en tu próximo ticket', probabilidad: 0.4, puntos: 15 },
+    ];
+
+    const seleccionarProducto = async (indice: number) => {
         const producto = productos[indice];
-        setSelectedProducto(producto.descripcion);
-        setCodigoDescuento(generarCodigoDescuento());
+        if (user && user.saldo !== undefined && user.saldo >= producto.puntos) {
+            setSelectedProducto(producto.descripcion);
+            setCodigoDescuento(generarCodigoDescuento());
+            const nuevoSaldo = user.saldo - producto.puntos;
+            await actualizarSaldoUsuario(nuevoSaldo);
+        } else {
+            alert("No tienes suficientes puntos para canjear este descuento.");
+        }
     };
 
-    // Función para generar un código de descuento aleatorio
     const generarCodigoDescuento = (): string => {
         const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let codigo = 'PORTNET';
@@ -35,6 +41,24 @@ const Tienda: React.FC = () => {
             codigo += caracteres[randomIndex];
         }
         return codigo;
+    };
+
+    const actualizarSaldoUsuario = async (nuevoSaldo: number) => {
+        try {
+            if (user) {
+                const response = await axios.put(`http://localhost:8080/users/${user.id}/saldo2`, { newSaldo: nuevoSaldo }, {
+                    headers: { "Content-Type": "application/json" },
+                });
+                if (response.status === 200) {
+                    setUser((prevUser) => prevUser ? { ...prevUser, saldo: nuevoSaldo } : null);
+                    localStorage.setItem('userSaldo', nuevoSaldo.toString());
+                } else {
+                    console.error("Error al actualizar el saldo del usuario:", response.statusText);
+                }
+            }
+        } catch (error) {
+            console.error("Error al actualizar el saldo del usuario:", error);
+        }
     };
 
     return (
@@ -46,7 +70,7 @@ const Tienda: React.FC = () => {
                 <p>Juega al azar y obtén fantásticos descuentos para tus próximos tickets. O canjea tus puntos por descuentos en restaurantes.</p>
             </div>
 
-            <div className="container">
+            <div className="container-porcentaje">
                 {productos.map((producto, index) => (
                     <div key={index} className="producto">
                         <img src={producto.src} alt={producto.descripcion} />
@@ -55,42 +79,15 @@ const Tienda: React.FC = () => {
             </div>
 
             <div className="botones-verticales">
-                <button
-                    className="boton-sorteo"
-                    onClick={() => seleccionarProducto(0)}
-                >
-                    Canjear 10 Puntos por Jugar
-                </button>
-                <button
-                    className="boton-sorteo"
-                    onClick={() => seleccionarProducto(4)}
-                >
-                    Canjear 15 Puntos por 5%
-                </button>
-                <button
-                    className="boton-sorteo"
-                    onClick={() => seleccionarProducto(3)}
-                >
-                    Canjear 20 Puntos por 10%
-                </button>
-                <button
-                    className="boton-sorteo"
-                    onClick={() => seleccionarProducto(2)}
-                >
-                    Canjear 25 Puntos por 15%
-                </button>
-                <button
-                    className="boton-sorteo"
-                    onClick={() => seleccionarProducto(1)}
-                >
-                    Canjear 30 Puntos por 20%
-                </button>
-                <button
-                    className="boton-sorteo"
-                    onClick={() => seleccionarProducto(0)}
-                >
-                    Canjear 40 Puntos por x2
-                </button>
+                {productos.map((producto, index) => (
+                    <button
+                        key={index}
+                        className="boton-sorteo"
+                        onClick={() => seleccionarProducto(index)}
+                    >
+                        Canjear {producto.puntos} Puntos por {producto.descripcion}
+                    </button>
+                ))}
             </div>
 
             {selectedProducto && <p className="resultado-sorteo">Has ganado: {selectedProducto}</p>}
