@@ -8,13 +8,25 @@ import "../styles/Home.css";
 
 const images = [bioagrad1, bioagrad2, bioagrad3, bioagrad4];
 const texts = [
-  "Fundados en el año 2024, nuestro objetivo es lograr un futuro limpio y sostenible en la Costa Dorada para 2030, donde nuestras especies se conserven en paz y de manera sana en un mar completamente limpio. Únete a nuestro programa de voluntariado y ayuda a limpiar nuestras playas y océanos. Cada pequeño esfuerzo cuenta para mantener nuestras costas libres de residuos y asegurar un hábitat seguro para la vida marina.",
-  "Participa en nuestros talleres educativos y aprende sobre la importancia de conservar nuestros océanos. Fomentamos la conciencia ambiental entre las nuevas generaciones para un futuro más sostenible.",
-  "Colabora con nosotros como empresa y demuéstrale al mundo tu compromiso con la sostenibilidad. Juntos podemos implementar prácticas responsables y reducir el impacto ambiental de nuestras actividades.",
-  "Apoya nuestras iniciativas de investigación científica para monitorear y analizar la salud de nuestros océanos. Con datos precisos y actualizados, podemos desarrollar estrategias efectivas para su protección y conservación.",
+  {
+    text: "Fundados en el año 2024, nuestro objetivo es lograr un futuro limpio y sostenible en la Costa Dorada para 2030, donde nuestras especies se conserven en paz y de manera sana en un mar completamente limpio. Únete a nuestro programa de voluntariado y ayuda a limpiar nuestras playas y océanos. Cada pequeño esfuerzo cuenta para mantener nuestras costas libres de residuos y asegurar un hábitat seguro para la vida marina.",
+    subtitle: "Conoce quiénes somos",
+  },
+  {
+    text: "Participa en nuestros talleres educativos y aprende sobre la importancia de conservar nuestros océanos. Fomentamos la conciencia ambiental entre las nuevas generaciones para un futuro más sostenible.",
+    subtitle: "Participa con nosotros",
+  },
+  {
+    text: "Colabora con nosotros como empresa y demuéstrale al mundo tu compromiso con la sostenibilidad. Juntos podemos implementar prácticas responsables y reducir el impacto ambiental de nuestras actividades.",
+    subtitle: "Contáctanos",
+  },
+  {
+    text: "Apoya nuestras iniciativas de investigación científica para monitorear y analizar la salud de nuestros océanos. Con datos precisos y actualizados, podemos desarrollar estrategias efectivas para su protección y conservación.",
+    subtitle: "Descubre nuestros proyectos",
+  },
 ];
 
-const buttonLinks = ["/contacto", "/participa", "/quienes-somos", "/proyecto"];
+const buttonLinks = ["/quienes-somos", "/participa", "/contacto", "/proyecto"];
 
 const Home: React.FC = () => {
   const refs = useRef<HTMLDivElement[]>([]);
@@ -98,8 +110,18 @@ const Home: React.FC = () => {
                   />
                 </Grid>
                 <Grid item xs={12} md={6} sx={{ textAlign: "left" }}>
-                  <Typography variant="h6" paragraph>
-                    {texts[index]}
+                  <Typography
+                    className="subtitle"
+                    style={{ fontSize: "1.5rem", color: "gray", marginBottom: "8px" }}
+                  >
+                    {texts[index].subtitle}
+                  </Typography>
+                  <Typography
+                    className="main-text"
+                    style={{ fontSize: "1.25rem" }}
+                    paragraph
+                  >
+                    {texts[index].text}
                   </Typography>
                   <Button
                     variant="contained"
@@ -113,8 +135,18 @@ const Home: React.FC = () => {
             ) : (
               <>
                 <Grid item xs={12} md={6} sx={{ textAlign: "right" }}>
-                  <Typography variant="h6" paragraph>
-                    {texts[index]}
+                  <Typography
+                    className="subtitle"
+                    style={{ fontSize: "1.5rem", color: "gray", marginBottom: "8px" }}
+                  >
+                    {texts[index].subtitle}
+                  </Typography>
+                  <Typography
+                    className="main-text"
+                    style={{ fontSize: "1.25rem" }}
+                    paragraph
+                  >
+                    {texts[index].text}
                   </Typography>
                   <Button
                     variant="contained"

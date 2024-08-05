@@ -3,29 +3,29 @@
     font-family: Arial, sans-serif;
     overflow-x: hidden;
     padding: 0 20px;
-}
-
-.main-section {
+  }
+  
+  .main-section {
     background-image: url('/assets/fondo.jpg');
     background-size: cover;
     color: white;
     padding: 100px 20px;
-}
-
-.logo-container {
+  }
+  
+  .logo-container {
     margin-bottom: 20px;
-}
-
-.logo {
+  }
+  
+  .logo {
     max-width: 300px;
-}
-
-.description h1 {
+  }
+  
+  .description h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
-}
-
-.join-button {
+  }
+  
+  .join-button {
     padding: 10px 20px;
     font-size: 1.2em;
     background-color: #28a745;
@@ -33,14 +33,25 @@
     border: none;
     cursor: pointer;
     transition: transform 0.3s ease;
-}
-
-.join-button:hover {
+  }
+  
+  .join-button:hover {
     background-color: #218838;
-}
-
-.image-grid {
+  }
+  
+  .image-grid {
     margin: 0;
     padding: 0;
     overflow: hidden;
-}
+  }
+  
+  .subtitle {
+    font-size: 1.8rem; /* Increase subtitle size */
+    color: gray;
+    margin-bottom: 8px;
+  }
+  
+  .main-text {
+    font-size: 1.5rem; /* Increase main text size */
+  }
+  
